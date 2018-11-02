@@ -8,6 +8,7 @@ from .models import *
 # from .models import Course, Takes, Teaches, Assists, Instance
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
+
 def course_list(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
@@ -20,7 +21,7 @@ def course_list(request):
 		if(str(group.name) == 'Instructor'):
 			instance_ids.extend(Teaches.objects.values_list('instance_id', flat = True).filter(instructor_id = user_id))
 		elif(group.name == 'Student'):
-			print("here")
+			# print("here")
 			instance_ids.extend(Takes.objects.values_list('instance_id', flat = True).filter(student_id = user_id))
 		elif(group.name == 'Assistant'):
 			instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
@@ -66,3 +67,6 @@ def question_list(request, ex_id):
 			return prof_qnlist(user_id, ex_id, instance_idd)
 		else:
 			return stud_qnlist(user_id, ex_id, instance_idd)
+def exams(request, course_id):
+	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
+	return render(request, 'course/exams.html', context)	
