@@ -77,7 +77,7 @@ class Attempt(models.Model):
 	pdf = models.CharField(max_length=256)
 	page_number = models.IntegerField()
 	attempt_graded = models.BooleanField(default=False)
-
+	
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)
 #     pub_date = models.DateTimeField('date published')
