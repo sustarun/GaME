@@ -19,4 +19,4 @@ Sushant Tarun(160050055)
   `\d`
     * If you don't see the tables, type: `grant all on schema public to public;`
     * Now check again.
-### Don't forget to change the database credentials in the settings.py file.
+### Don't forget to change the database credentials in the login_details.py file.
