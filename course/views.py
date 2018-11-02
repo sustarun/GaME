@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
-from .models import Course, Takes, Teaches, Assists, Instance
+from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 
@@ -25,11 +25,13 @@ def course_list(request):
 		elif(group.name == 'Assistant'):
 			instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
 	print(instance_ids)
+	# course_list = Instance.objects.select_related('course__course_title').filter(id__in = instance_ids)
 	course_list = Instance.objects.filter(id__in = instance_ids)
-	all_courses = Course.objects.all()
-	context = {'course_list': course_list, 'all_courses': all_courses}
+	print(course_list)
+	# all_courses = Course.objects.all()
+	context = {'course_list': course_list}
 	return render(request, 'course/course_list.html', context)
 
 def exams(request, course_id):
 	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
-	return render(request, 'course/exams.html', context)	
+	return render(request, 'course/exams.html', context)
