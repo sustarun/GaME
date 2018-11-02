@@ -11,13 +11,12 @@
 	{% if course_list %}
 	    <ul>
 	    {% for course in course_list %}
-	        <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
-	        <li>
-					<a href="/home/{{course.id}}/">{{course.course_id}}</a>
-				{{course.section_id}}
-
+			<li><a href="/game/{{ course.course_id }}/exams">{{ course.course_id }}</a>
+				{{course.semester}} {{course.year}} 
 			</li>
-
+	        <!-- <li>{{course.course_id}} -->
+	        	<!-- {{course.semester}} {{course.year}} -->
+	        <!-- </li> -->
 	    {% endfor %}
 	    </ul>
 	{% else %}
