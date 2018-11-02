@@ -6,8 +6,10 @@ from django.views import generic
 
 from .models import Course, Takes, Teaches, Assists, Instance
 from django.contrib.auth.models import User, Group
-
+from django.contrib.auth import authenticate
 def course_list(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
 	user_id = request.session['user_id']
 	user = User.objects.get(id = user_id)
 	groups = user.groups.all()
