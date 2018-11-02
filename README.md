@@ -2,10 +2,10 @@
 Database project (CS387)
 
 # Contributors
-## Sudhanshu Raj(160050041)
-## Ankit(160050044)
-## Aryan(160050053)
-## Sushant Tarun(160050055)
+##### Sudhanshu Raj(160050041)
+##### Ankit(160050044)
+##### Aryan(160050053)
+##### Sushant Tarun(160050055)
 
 ## Instructions to import database into your machine
 1. `cd` into the directory containing the file `game.sql`.
