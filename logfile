@@ -1,3 +1,35 @@
+2018-11-02 18:47:49.186 IST [10047] FATAL:  lock file "postmaster.pid" already exists
+2018-11-02 18:47:49.186 IST [10047] HINT:  Is another postmaster (PID 8356) running in data directory "/home/sudhanshu/postgresql/dbis"?
+2018-11-02 18:47:53.090 IST [10054] FATAL:  lock file "postmaster.pid" already exists
+2018-11-02 18:47:53.090 IST [10054] HINT:  Is another postmaster (PID 8356) running in data directory "/home/sudhanshu/postgresql/dbis"?
+2018-11-02 18:48:02.160 IST [10068] LOG:  listening on IPv4 address "127.0.0.1", port 5410
+2018-11-02 18:48:02.229 IST [10068] LOG:  listening on Unix socket "/home/sudhanshu/postgresql/.s.PGSQL.5410"
+2018-11-02 18:48:02.364 IST [10069] LOG:  database system was shut down at 2018-11-02 18:47:59 IST
+2018-11-02 18:48:02.466 IST [10068] LOG:  database system is ready to accept connections
+2018-11-02 18:48:07.173 IST [10115] FATAL:  database "postgres" does not exist
+2018-11-02 18:48:20.918 IST [10130] FATAL:  database "whatasap" does not exist
+2018-11-02 18:48:28.062 IST [10143] FATAL:  database "postgres" does not exist
+2018-11-02 18:49:25.805 IST [10687] FATAL:  database "postgres" does not exist
+2018-11-02 18:52:41.296 IST [11104] FATAL:  database "game" does not exist
+2018-11-02 18:55:25.820 IST [11321] FATAL:  database "postgres" does not exist
+2018-11-02 18:55:45.343 IST [11322] ERROR:  syntax error at or near ";" at character 21
+2018-11-02 18:55:45.343 IST [11322] STATEMENT:  grant all on schema
+	;
+2018-11-02 20:34:29.250 IST [16562] ERROR:  relation "instances" does not exist at character 15
+2018-11-02 20:34:29.250 IST [16562] STATEMENT:  select * from instances;
+2018-11-02 20:34:33.247 IST [16562] ERROR:  relation "instance" does not exist at character 15
+2018-11-02 20:34:33.247 IST [16562] STATEMENT:  select * from instance;
+2018-11-02 20:35:30.362 IST [16562] ERROR:  syntax error at or near "';
+	select * from course_instance;
+	;
+	'" at character 26
+2018-11-02 20:35:30.362 IST [16562] STATEMENT:  select * from course_user';
+	select * from course_instance;
+	;
+	'
+	;
+2018-11-02 20:35:36.135 IST [16562] ERROR:  relation "instance" does not exist at character 15
+2018-11-02 20:35:36.135 IST [16562] STATEMENT:  select * from instance;
 2018-11-02 18:06:10.623 IST [8912] LOG:  listening on IPv4 address "127.0.0.1", port 5550
 2018-11-02 18:06:10.712 IST [8912] LOG:  listening on Unix socket "/home/tarun/postgresql/.s.PGSQL.5550"
 2018-11-02 18:06:10.926 IST [8914] LOG:  database system was interrupted; last known up at 2018-11-01 21:32:54 IST

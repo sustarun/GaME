@@ -20,10 +20,35 @@ def course_list(request):
 		if(str(group.name) == 'Instructor'):
 			instance_ids.extend(Teaches.objects.values_list('instance_id', flat = True).filter(instructor_id = user_id))
 		elif(group.name == 'Student'):
-			# print("here")
+			print("here")
 			instance_ids.extend(Takes.objects.values_list('instance_id', flat = True).filter(student_id = user_id))
 		elif(group.name == 'Assistant'):
 			instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
+	# print(instance_ids)
+	# print(groups)
+	course_list = Instance.objects.filter(id__in = instance_ids)
+	print(course_list)
+	print("hola")
+	all_courses = Course.objects.all()
+	context = {'course_list': course_list, 'all_courses': all_courses}
+	return render(request, 'course/course_list.html', context)
+
+def exams(request,course_instance_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	user = User.objects.get(id = user_id)
+	stud_cid = []
+	inst_cid = []
+	ta_cid = []
+	exams = Exam.objects.filter(instance_id = course_instance_id)
+	inst_cid.extend(Teaches.objects.filter(instance_id = course_instance_id).filter(instructor_id = user_id))
+	stud_cid.extend(Takes.objects.filter(instance_id = course_instance_id).filter(student_id = user_id))
+	ta_cid.extend(Assists.objects.filter(instance_id = course_instance_id).filter(assistant_id = user_id))
+	
+	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid, 'exams' : exams}
+
+	return render(request, 'course/exam_list.html', context)
 	print(instance_ids)
 	# course_list = Instance.objects.select_related('course__course_title').filter(id__in = instance_ids)
 	course_list = Instance.objects.filter(id__in = instance_ids)
@@ -77,9 +102,7 @@ def question_list(request, ex_id):
 		if isProf:
 			return prof_qnlist(request, user_id, ex_id)
 		else:
-			return stud_qnlist(request, user_id, ex_id)
-
-
-def exams(request, course_id):
-	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
-	return render(request, 'course/exams.html', context)
+			return stud_qnlist(user_id, ex_id, instance_idd)
+# def exams(request, course_id):
+# 	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
+# 	return render(request, 'course/exams.html', context)
