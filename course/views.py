@@ -30,4 +30,6 @@ def course_list(request):
 	context = {'course_list': course_list, 'all_courses': all_courses}
 	return render(request, 'course/course_list.html', context)
 
-# def 
+def exams(request, course_id):
+	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
+	return render(request, 'course/exams.html', context)	
