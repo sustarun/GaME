@@ -25,7 +25,7 @@ class Instance(models.Model):
 	year = models.IntegerField(default = 2018)
 
 	def __str__(self):
-		return str(self.course_id) + " - " + str(self.section_id) + " - " + str(self.semester) + " - " + str(self.year)
+		return str(self.course) + " - " + str(self.section_id) + " - " + str(self.semester) + " - " + str(self.year)
 
 class Takes(models.Model):
 	GRADE = (
@@ -44,19 +44,19 @@ class Takes(models.Model):
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
 	grade = models.CharField(max_length = 20, choices = GRADE, default = 'NA')
 	def __str__(self):
-		return str(self.student_id) + " - " + str(self.instance_id)
+		return str(self.student) + " - " + str(self.instance)
 
 class Teaches(models.Model):
 	instructor = models.ForeignKey(User, on_delete=models.CASCADE)
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
 	def __str__(self):
-		return str(self.instructor_id) + " - " + str(self.instance_id)
+		return str(self.instructor) + " - " + str(self.instance)
 
 class Assists(models.Model):
 	assistant = models.ForeignKey(User, on_delete=models.CASCADE)
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
 	def __str__(self):
-		return str(self.assistant_id) + " - " + str(self.instance_id)
+		return str(self.assistant) + " - " + str(self.instance)
 
 class Exam(models.Model):
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
@@ -82,7 +82,7 @@ class Attempt(models.Model):
 	attempt_graded = models.BooleanField(default=False)
 	def __str__(self):
 		exaam = self.exam
-		return str(self.student.id)+'-'+str(exaam)+'-'+str(self.qn_id)
+		return str(self.student)+'-'+str(exaam)+'-Qn'+str(self.qn_id)
 	
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)

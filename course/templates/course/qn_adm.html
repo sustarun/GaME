@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GaME{% endblock %}</title>
+</head>
+<body>
+  <script>
+	  function set_do_grade(){
+		  document.getElementById("dg").value = "1"
+	  }
+	  function reset_do_grade(){
+		  document.getElementById("dg").value = "0"
+	  }
+  </script>
+  <main>
+    {% block content %}
+	Welcome, {{ user.username }}!
+	<!-- # wanna grade? html
+	# box to show how many graded
+	# button for distribute -->
+	<P>There are {{ num_attempts }} papers to check. Out of which, {{ num_graded }} were graded.</P>
+	<form method="POST" action="{% url 'qn_adm_view' ex_id qn_id %}">
+		{% csrf_token %}
+		{% if num_graded > 0 %}
+			<p>Some papers have been graded, you are advised not to distribute the papers amongst TAs</p>
+		{% endif %}
+		<input type="hidden" value="0" name="do_grade" id="dg">
+		<button type="submit" onclick="set_do_grade()">
+			Distribute among all
+		</button>
+		<button type="submit" onclick="reset_do_grade()">Distribute among TAs</button>
+	</form>
+	{% endblock %}
+	<a href="{% url 'logout' %}"> logout! </a>
+  </main>
+</body>
+</html>
