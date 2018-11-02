@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GaME{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% block content %}
+    Welcome, {{ user.username }}!
+	{% if qn_list %}
+		<p>This exam has the following questions:</p>
+	    <ul>
+	    {% for qn in qn_list %}
+	        <li><a href="/game/exams/{{ ex_id }}/qn/{{ qn }}">{{ qn }}</a></li>
+	        <!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
+	    {% endfor %}
+		</ul>
+		<br>
+	{% if attempt_list %}
+		<p>These are the attempts in this exam</p>
+		<ul>
+			{% for attempt in attempt_list %}
+			<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.qn_id }} ; Student id: {{ attempt.student.id }} ; Graded: {{ str(attempt.attempt_graded) }}</a></li>
+			<!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
+			{% endfor %}
+		</ul>
+	{% if not (qn_list and attempt_list) %}
+	    <p>Nothing interesting to show here.</p>
+	{% endif %}
+	{% endblock %}
+	<a href="{% url 'logout' %}"> logout! </a>
+  </main>
+</body>
+</html>
