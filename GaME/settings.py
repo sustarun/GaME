@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import login_details
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = '#)t6qqsnk@1k@y(veyp5ws(5kwe$zl-4prp(7m4@m^-_kh=ay+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -74,16 +75,7 @@ WSGI_APPLICATION = 'GaME.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'game',
-        'USER': 'tarun',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '5550',
-    }
-}
+DATABASES = login_details.dbdict
 
 
 # Password validation

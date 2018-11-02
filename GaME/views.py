@@ -15,6 +15,18 @@ def login(request):
 		return HttpResponseRedirect('/game/home');
 	else:
 		return render(request, 'not_logged.html')
+
+def default(request):
+	# if request.method != 'POST':
+	# 	raise Http404('Only POSTs are allowed')
+	User = request.user
+	if User.is_authenticated:
+		request.session['user_id'] = User.id
+		# return render(request, '/course')
+		return HttpResponseRedirect('/game/home');
+	else:
+		# return render(request, 'login.html')
+		return HttpResponseRedirect('/accounts/login')
 	# try:
 	# 	m = Member.objects.get(username=request.POST['username'])
 	# 	if m.password == request.POST['password']:
