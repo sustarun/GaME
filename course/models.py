@@ -46,6 +46,24 @@ class Assists(models.Model):
 	def __str__(self):
 		return str(self.assistant_id) + " - " + str(self.instance_id)
 
+class Exam(models.Model):
+	instance_id = models.ForeignKey(Instance, on_delete=models.CASCADE)
+	exam_id = models.CharField(max_length = 20)
+	weightage = models.DecimalField(decimal_places=2, max_digits=5)
+	class Meta:
+		unique_together = (("instance_id", "exam_id"),)
+	
+class Attempt(models.Model):
+	instance_id = models.ForeignKey(Instance, on_delete=models.CASCADE)
+	exam_instance_id = models.ForeignKey(Exam, on_delete=models.CASCADE)
+	qn_id = models.CharField(max_length = 20)
+	student_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stud_id')
+	ta_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ta_id')
+	Marks = models.DecimalField(max_digits=5, decimal_places=1)
+	full_marks = models.DecimalField(max_digits=5,decimal_places=1)
+	pdf = models.CharField(max_length=256)
+	page_number = models.IntegerField()
+
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)
 #     pub_date = models.DateTimeField('date published')
