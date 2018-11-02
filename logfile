@@ -1,0 +1,140 @@
+2018-11-02 18:06:10.623 IST [8912] LOG:  listening on IPv4 address "127.0.0.1", port 5550
+2018-11-02 18:06:10.712 IST [8912] LOG:  listening on Unix socket "/home/tarun/postgresql/.s.PGSQL.5550"
+2018-11-02 18:06:10.926 IST [8914] LOG:  database system was interrupted; last known up at 2018-11-01 21:32:54 IST
+2018-11-02 18:06:11.217 IST [8914] LOG:  database system was not properly shut down; automatic recovery in progress
+2018-11-02 18:06:11.253 IST [8914] LOG:  redo starts at 0/2ADCC20
+2018-11-02 18:06:11.253 IST [8914] LOG:  invalid record length at 0/2ADCD00: wanted 24, got 0
+2018-11-02 18:06:11.253 IST [8914] LOG:  redo done at 0/2ADCCC8
+2018-11-02 18:06:11.505 IST [8912] LOG:  database system is ready to accept connections
+2018-11-02 18:53:52.163 IST [11050] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:53:52.163 IST [11050] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:53:52.163 IST [11050] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC
+2018-11-02 18:53:52.295 IST [11050] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:53:52.295 IST [11050] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:53:52.295 IST [11050] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC  LIMIT 21
+2018-11-02 18:53:52.298 IST [11050] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:53:52.298 IST [11050] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:53:52.298 IST [11050] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC  LIMIT 21
+2018-11-02 18:53:52.300 IST [11050] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:53:52.300 IST [11050] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:53:52.300 IST [11050] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC  LIMIT 21
+2018-11-02 18:57:44.805 IST [11125] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:44.805 IST [11125] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:44.805 IST [11125] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC
+2018-11-02 18:57:44.822 IST [11125] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:44.822 IST [11125] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:44.822 IST [11125] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC  LIMIT 21
+2018-11-02 18:57:44.822 IST [11125] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:44.822 IST [11125] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:44.822 IST [11125] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC  LIMIT 21
+2018-11-02 18:57:44.823 IST [11125] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:44.823 IST [11125] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:44.823 IST [11125] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" ORDER BY "course_instance"."id" DESC  LIMIT 21
+2018-11-02 18:57:50.630 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.630 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.630 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.746 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.746 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.746 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.750 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.750 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.750 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.753 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.753 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.753 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.755 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.755 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.755 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.770 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.770 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.770 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.772 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.772 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.772 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.774 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.774 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.774 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.775 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.775 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.775 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.777 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.777 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.777 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.778 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.778 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.778 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.779 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.779 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.779 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance"  LIMIT 21
+2018-11-02 18:57:50.780 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.780 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.780 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:57:50.781 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.781 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.781 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:57:50.782 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.782 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.782 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance"  LIMIT 21
+2018-11-02 18:57:50.783 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.783 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.783 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:57:50.784 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.784 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.784 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:57:50.785 IST [11139] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:57:50.785 IST [11139] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:57:50.785 IST [11139] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:58:06.831 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.831 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.831 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.848 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.848 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.848 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.849 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.849 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.849 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.850 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.850 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.850 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.851 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.851 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.851 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.859 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.859 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.859 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.860 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.860 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.860 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.860 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.860 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.860 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.861 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.861 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.861 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.862 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.862 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.862 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.862 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.862 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.862 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.863 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.863 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.863 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance"  LIMIT 21
+2018-11-02 18:58:06.863 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.863 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.863 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4
+2018-11-02 18:58:06.864 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.864 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.864 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:58:06.864 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.864 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.864 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance"  LIMIT 21
+2018-11-02 18:58:06.865 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.865 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.865 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:58:06.866 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.866 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.866 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
+2018-11-02 18:58:06.866 IST [11165] ERROR:  column course_instance.course_id_id does not exist at character 32
+2018-11-02 18:58:06.866 IST [11165] HINT:  Perhaps you meant to reference the column "course_instance.course_id".
+2018-11-02 18:58:06.866 IST [11165] STATEMENT:  SELECT "course_instance"."id", "course_instance"."course_id_id", "course_instance"."section_id", "course_instance"."semester", "course_instance"."year" FROM "course_instance" WHERE "course_instance"."id" = 4  LIMIT 21
