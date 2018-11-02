@@ -17,6 +17,6 @@ Database project (CS387)
   `\i game.sql`
 1. Now check if the database import succeeded:
   `\d`
-    * If you don't see the tables, type: `grant all on schema public to public;`
+    * If you don't see the tables, connect to `postgres` database by typing `\c postgres` and then type : `grant all on schema public to public;`
     * Now check again.
 ### Don't forget to change the database credentials in the login_details.py file.
