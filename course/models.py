@@ -50,6 +50,7 @@ class Exam(models.Model):
 	instance_id = models.ForeignKey(Instance, on_delete=models.CASCADE)
 	exam_id = models.CharField(max_length = 20)
 	weightage = models.DecimalField(decimal_places=2, max_digits=5)
+	exam_graded = models.BooleanField(default=False)
 	class Meta:
 		unique_together = (("instance_id", "exam_id"),)
 	
@@ -63,6 +64,7 @@ class Attempt(models.Model):
 	full_marks = models.DecimalField(max_digits=5,decimal_places=1)
 	pdf = models.CharField(max_length=256)
 	page_number = models.IntegerField()
+	attempt_graded = models.BooleanField(default=False)
 
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)
