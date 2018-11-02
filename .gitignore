@@ -7,4 +7,3 @@ myMat.cpp
 matrix.cpp
 *.exe
 *.pyc
-*login_details.py
