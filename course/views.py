@@ -61,7 +61,9 @@ def ta_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
 	print(attempts)
-	context = {'attempt_list': attempts}
+	# context = {'attempt_list': attempts}
+	context = {'attempt_list': attempts,'role':'ta'}
+
 	return render(request, 'course/qn_list.html', context)
 
 def prof_qnlist(request, user_id, ex_id):
@@ -74,7 +76,9 @@ def stud_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, student_id=user_id)
 	print(attempts)
-	context = {'attempt_list': attempts}
+	# context = {'attempt_list': attempts}
+	context = {'attempt_list': attempts,'role':'student'}
+
 	return render(request, 'course/qn_list.html', context)
 
 def question_list(request, ex_id):
@@ -148,3 +152,31 @@ def qn_adm_view(request, ex_id, qn_num):
 		attempt.save()
 	return question_list(request, ex_id)
 
+def stud_attempt(request, attempt_id):
+	attempt = Attempt.objects.get(pk=attempt_id)
+	context = {'attempt': attempt}
+	return render(request, 'course/stud_attempt.html', context)
+
+def ta_attempt(request, attempt_id):
+	attempt = Attempt.objects.get(pk=attempt_id)
+	context = {'attempt': attempt}
+	return render(request, 'course/ta_attempt.html', context)
+
+# def attempt_desc(request, qn_id):
+# 	if not request.user.is_authenticated:
+# 		return HttpResponseRedirect('/accounts/login')
+# 	user_id = request.session['user_id']
+
+def ta_marks_update_view(request, attempt_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	# user_id = request.session['user_id']
+	attempt = Attempt.objects.get(pk=attempt_id)
+	grade_cond = (request.POST['grade_cond']=="1")
+	if (grade_cond):
+		attempt.attempt_graded = True
+	Marks = request.POST['marks']
+	attempt.Marks = Marks
+	attempt.save()
+
+	return ta_attempt(request, attempt_id)

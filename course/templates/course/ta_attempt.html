@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GaME{% endblock %}</title>
+</head>
+<body>
+    <script>
+    function set_graded(){
+        document.getElementByID("dg")= "1";
+    }
+    {% comment %} function set_ungraded(){
+        document.getElementByID("dg")= "0";
+    } {% endcomment %}
+    </script>
+  <main>
+    {% block content %}
+    Welcome, {{ user.username }}!
+	{% if attempt.attempt_graded %}
+	    <p>You already given {{ attempt.Marks }} marks in this question</p>
+	{% endif %}
+
+    {% comment %} {%  block body %} {% endcomment %}
+    <form method = 'post' action = "{% url 'ta_marks_update'  attempt.id %}">
+        {% csrf_token %}
+         <p> Marks <input type="text" name="marks" id ="mrks"> </p>
+        <input type="hidden" value="0" name="grade_cond" id="dg" >
+        <button  type='submit' onclick="set_graded">Graded</button>
+        {% comment %} <button  type='submit' onclick="set_ungraded">UnGraded</button> {% endcomment %}
+
+    </form>
+
+    {% comment %} {% endblock %} {% endcomment %}
+
+
+	{% endblock %}
+	<a href="{% url 'logout' %}"> logout! </a>
+  </main>
+</body>
+</html>
