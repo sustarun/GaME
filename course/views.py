@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
-from .models import Course, Takes, Teaches, Assists, Instance, Exam
+from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 
@@ -49,3 +49,50 @@ def exams(request,course_instance_id):
 	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid, 'exams' : exams}
 
 	return render(request, 'course/exam_list.html', context)
+	print(instance_ids)
+	# course_list = Instance.objects.select_related('course__course_title').filter(id__in = instance_ids)
+	course_list = Instance.objects.filter(id__in = instance_ids)
+	print(course_list)
+	# all_courses = Course.objects.all()
+	context = {'course_list': course_list}
+	return render(request, 'course/course_list.html', context)
+
+def ta_qnlist(user_id, ex_id, instance_idd):
+	return
+
+def prof_qnlist(user_id, ex_id, instance_idd):
+	return
+
+def stud_qnlist(user_id, ex_id, instance_idd):
+	return
+
+def question_list(request, ex_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	# Find the designation:
+		# get the exam object. use it to find the instance id #
+		# scan the assists relation where instance id and user_id match
+		# if exists, then TA
+		# scan the teaches relation where instance id and user_id match
+		# if exists, then prof
+		# else: student (can verify the takes relation)
+	# if prof/ta:
+		# filter attempt object using exam_instance_id and ta_id
+		# and show whatever you want
+	# else:
+		# filter attempt object using exam_instance_id and student_id
+		# and show whatever you want
+	instance_idd = Exam.objects.get(id=ex_id).values_list('instance_id', flat=True)
+	isTA = Assists.objects.filter(instance_id=instance_idd, assistant_id=user_id).exists()
+	if isTA:
+		return ta_qnlist(user_id, ex_id, instance_idd)
+	else:
+		isProf = Teaches.objects.filter(instance_id=instance_idd, instructor_id=user_id).exists()
+		if isProf:
+			return prof_qnlist(user_id, ex_id, instance_idd)
+		else:
+			return stud_qnlist(user_id, ex_id, instance_idd)
+# def exams(request, course_id):
+# 	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
+# 	return render(request, 'course/exams.html', context)
