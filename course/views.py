@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
-from .models import Course, Takes, Teaches, Assists, Instance
+from .models import Course, Takes, Teaches, Assists, Instance, Exam
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 
@@ -20,13 +20,15 @@ def course_list(request):
 		if(str(group.name) == 'Instructor'):
 			instance_ids.extend(Teaches.objects.values_list('instance_id', flat = True).filter(instructor_id = user_id))
 		elif(group.name == 'Student'):
-			# print("here")
+			print("here")
 			instance_ids.extend(Takes.objects.values_list('instance_id', flat = True).filter(student_id = user_id))
 		elif(group.name == 'Assistant'):
 			instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
-	print(instance_ids)
+	# print(instance_ids)
+	# print(groups)
 	course_list = Instance.objects.filter(id__in = instance_ids)
 	print(course_list)
+	print("hola")
 	all_courses = Course.objects.all()
 	context = {'course_list': course_list, 'all_courses': all_courses}
 	return render(request, 'course/course_list.html', context)
@@ -36,18 +38,14 @@ def exams(request,course_instance_id):
 		return HttpResponseRedirect('/accounts/login')
 	user_id = request.session['user_id']
 	user = User.objects.get(id = user_id)
-	groups = user.groups.all()
 	stud_cid = []
 	inst_cid = []
 	ta_cid = []
-	for group in groups:
-		print(group.name)
-		if(str(group.name) == 'Instructor'):
-			inst_cid.extend(Exam.objects.filter(instance_id = course_instance_id))
-		elif(group.name == 'Student'):
-			ta_cid.extend(Exam.objects.filter(instance_id = course_instance_id))
-		elif(group.name == 'Assistant'):
-			stud_cid.extend(Exam.objects.filter(instance_id = course_instance_id))
-	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid}
+	exams = Exam.objects.filter(instance_id = course_instance_id)
+	inst_cid.extend(Teaches.objects.filter(instance_id = course_instance_id).filter(instructor_id = user_id))
+	stud_cid.extend(Takes.objects.filter(instance_id = course_instance_id).filter(student_id = user_id))
+	ta_cid.extend(Assists.objects.filter(instance_id = course_instance_id).filter(assistant_id = user_id))
+	
+	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid, 'exams' : exams}
 
-	return render(request, 'course/exams.html', context)
+	return render(request, 'course/exam_list.html', context)

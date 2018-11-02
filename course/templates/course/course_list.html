@@ -11,7 +11,10 @@
 	{% if course_list %}
 	    <ul>
 	    {% for course in course_list %}
-			<li><a href="/game/{{ course.course_id }}/exams">{{ course.course_id }}</a>
+			<li>
+				<a href="/game/{{ course.id }}/exams">
+				{{ course.course_id }}
+			</a>
 				{{course.semester}} {{course.year}} 
 			</li>
 	        <!-- <li>{{course.course_id}} -->
