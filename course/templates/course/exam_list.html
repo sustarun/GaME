@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GaME{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% block content %}
+    Welcome, {{ user.username }}!
+    {% if instructor %}
+        You are instructor for this course.
+	    <ul>
+	    {% for exam in course_list %}
+	        <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+	        <li>{{exam.exam_id}}    
+                {{exam.weightage}}
+                {{exam.graded}}
+
+			</li>
+
+	    {% endfor %}
+        </ul>
+    {% endif%}
+    {% if assistant%}
+    You are Teaching Assistant for this course.
+    
+        <ul>
+            {% for exam in course_list %}
+                <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+                <li>{{exam.exam_id}}    
+                    {{exam.weightage}}
+                    {{exam.graded}}
+    
+                </li>
+    
+            {% endfor %}
+        </ul>   
+    {% endif %}
+    {% if student%}
+    You are Student for this course.
+    
+        <ul>
+            {% for exam in course_list %}
+                <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+                <li>{{exam.exam_id}}    
+                    {{exam.weightage}}
+                    {{exam.graded}}
+    
+                </li>
+    
+            {% endfor %}
+        </ul>   
+    {% endif %}
+    
+    {% if !instructor and !student and !assistant%}
+        <p>
+            No exams available!!
+        </p>
+    {%endif%}
+	{% endblock %}
+	<a href="{% url 'logout' %}"> logout! </a>
+  </main>
+</body>
+</html>

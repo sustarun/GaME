@@ -25,7 +25,30 @@ def course_list(request):
 			instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
 	print(instance_ids)
 	course_list = Instance.objects.filter(id__in = instance_ids)
+	print(course_list)
 	all_courses = Course.objects.all()
 	context = {'course_list': course_list, 'all_courses': all_courses}
 	return render(request, 'course/course_list.html', context)
+
+def exam_list(request,course_instance_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	user = User.objects.get(id = user_id)
+	groups = user.groups.all()
+	stud_cid = []
+	inst_cid = []
+	ta_cid = []
+	for group in groups:
+		print(group.name)
+		if(str(group.name) == 'Instructor'):
+			inst_cid.extend(Exam.objects.filter(instance_id = course_instance_id))
+		elif(group.name == 'Student'):
+			ta_cid.extend(Exam.objects.filter(instance_id = course_instance_id))
+		elif(group.name == 'Assistant'):
+			stud_cid.extend(Exam.objects.filter(instance_id = course_instance_id))
+	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid}
+
+	return render(request, 'course/exam_list.html', context)
+
 
