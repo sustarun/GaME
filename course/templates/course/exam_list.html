@@ -25,7 +25,7 @@
         <ul>
                 {% for exam in exams %}
                     <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
-                    <li>{{exam.exam_id}}    
+                    <li><a href="/game/qn/{{ exam.id }}/">{{exam.exam_name}}</a>
                         {{exam.weightage}}
                         {{exam.graded}}
         

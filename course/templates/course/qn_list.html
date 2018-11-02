@@ -17,16 +17,20 @@
 	    {% endfor %}
 		</ul>
 		<br>
+	{% endif %}
 	{% if attempt_list %}
 		<p>These are the attempts in this exam</p>
 		<ul>
 			{% for attempt in attempt_list %}
-			<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.qn_id }} ; Student id: {{ attempt.student.id }} ; Graded: {{ str(attempt.attempt_graded) }}</a></li>
+			<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.qn_id }} ; Student id: {{ attempt.student.id }} ; Graded: {{ attempt.attempt_graded }}</a></li>
 			<!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
 			{% endfor %}
 		</ul>
-	{% if not (qn_list and attempt_list) %}
-	    <p>Nothing interesting to show here.</p>
+	{% endif%}
+	{% if not qn_list %}
+		{% if not attempt_list %}
+		    <p>Nothing interesting to show here.</p>
+		{% endif %}
 	{% endif %}
 	{% endblock %}
 	<a href="{% url 'logout' %}"> logout! </a>

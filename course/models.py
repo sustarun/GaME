@@ -60,11 +60,14 @@ class Assists(models.Model):
 
 class Exam(models.Model):
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
-	exam_id = models.CharField(max_length = 20)
+	exam_name = models.CharField(max_length = 20)
 	weightage = models.DecimalField(decimal_places=2, max_digits=5)
 	exam_graded = models.BooleanField(default=False)
 	class Meta:
-		unique_together = (("instance", "exam_id"),)
+		unique_together = (("instance", "exam_name"),)
+	def __str__(self):
+		crs = self.instance.course
+		return str(crs.course_id)+'-'+str(self.exam_name)
 	
 class Attempt(models.Model):
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
@@ -77,6 +80,9 @@ class Attempt(models.Model):
 	pdf = models.CharField(max_length=256)
 	page_number = models.IntegerField()
 	attempt_graded = models.BooleanField(default=False)
+	def __str__(self):
+		exaam = self.exam
+		return str(self.student.id)+'-'+str(exaam)+'-'+str(self.qn_id)
 	
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)

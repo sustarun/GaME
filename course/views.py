@@ -57,26 +57,31 @@ def exams(request,course_instance_id):
 	context = {'course_list': course_list}
 	return render(request, 'course/course_list.html', context)
 
-def ta_qnlist(user_id, ex_id, instance_idd):
-	attempts = attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
+def ta_qnlist(request, user_id, ex_id):
+	print("ex_id = ", ex_id, "user_id = ", user_id)
+	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
+	print(attempts)
 	context = {'attempt_list': attempts}
 	return render(request, 'course/qn_list.html', context)
 
-def prof_qnlist(user_id, ex_id, instance_idd):
-	attempts = attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
-	qns = attempt.objects.filter(exam_id=ex_id).values_list('qn_id').distinct()
+def prof_qnlist(request, user_id, ex_id):
+	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
+	qns = Attempt.objects.values_list('qn_id').filter(exam_id=ex_id).distinct()
 	context = {'attempt_list':attempts, 'qn_list':qns, 'examid':ex_id}
 	return render(request, 'course/qn_list.html', context)
 
 def stud_qnlist(request, user_id, ex_id):
-	attempts = attempt.objects.filter(exam_id=ex_id, student_id=user_id)
-	context = {'qn_list':attempts}
+	print("ex_id = ", ex_id, "user_id = ", user_id)
+	attempts = Attempt.objects.filter(exam_id=ex_id, student_id=user_id)
+	print(attempts)
+	context = {'attempt_list': attempts}
 	return render(request, 'course/qn_list.html', context)
 
 def question_list(request, ex_id):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
 	user_id = request.session['user_id']
+	print("in ql: user_id = ", user_id)
 	# Find the designation:
 		# get the exam object. use it to find the instance id #
 		# scan the assists relation where instance id and user_id match
@@ -90,10 +95,11 @@ def question_list(request, ex_id):
 	# else:
 		# filter attempt object using exam_instance_id and student_id
 		# and show whatever you want
-	exam_graded = Exam.objects.get(id=ex_id).values_list('exam_graded', flat=True)
+	exam_graded = Exam.objects.values_list('exam_graded', flat=True).get(id=ex_id)
+	print('exam_graded = ', exam_graded)
 	if not exam_graded:
 		return render(request, 'course/qn_list.html', {})
-	instance_idd = Exam.objects.get(id=ex_id).values_list('instance_id', flat=True)
+	instance_idd = Exam.objects.values_list('instance_id', flat=True).get(id=ex_id)
 	isTA = Assists.objects.filter(instance_id=instance_idd, assistant_id=user_id).exists()
 	if isTA:
 		return ta_qnlist(request, user_id, ex_id)
@@ -102,7 +108,7 @@ def question_list(request, ex_id):
 		if isProf:
 			return prof_qnlist(request, user_id, ex_id)
 		else:
-			return stud_qnlist(user_id, ex_id, instance_idd)
+			return stud_qnlist(request, user_id, ex_id)
 # def exams(request, course_id):
 # 	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
 # 	return render(request, 'course/exams.html', context)
