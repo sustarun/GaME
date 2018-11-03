@@ -43,18 +43,24 @@ class Takes(models.Model):
 	student = models.ForeignKey(User, on_delete=models.CASCADE)
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
 	grade = models.CharField(max_length = 20, choices = GRADE, default = 'NA')
+	class Meta:
+		unique_together = (("instance", "student"),)
 	def __str__(self):
 		return str(self.student) + " - " + str(self.instance)
 
 class Teaches(models.Model):
 	instructor = models.ForeignKey(User, on_delete=models.CASCADE)
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
+	class Meta:
+		unique_together = (("instructor", "instance"),)
 	def __str__(self):
 		return str(self.instructor) + " - " + str(self.instance)
 
 class Assists(models.Model):
 	assistant = models.ForeignKey(User, on_delete=models.CASCADE)
 	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
+	class Meta:
+		unique_together = (("assistant", "instance"),)
 	def __str__(self):
 		return str(self.assistant) + " - " + str(self.instance)
 
