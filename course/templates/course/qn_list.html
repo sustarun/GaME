@@ -9,7 +9,7 @@
     {% block content %}
 	Welcome, {{ user.username }}!
 	<p>The weightage of this exam is {{ ex_wt }}.</p>
-	{% if qn_list %}
+	{% if is_prof %}
 		<p>Modify the weightage here</p>
 		<form method="POST" action="{% url 'weightage_update_view' ex_id %}">
 			{% csrf_token %}
@@ -49,7 +49,7 @@
 			{% endfor %}
 		</ul>
 	{% endif%}
-	{% if not qn_list %}
+	{% if not is_prof %}
 		{% if not attempt_list %}
 		    <p>Nothing interesting to show here.</p>
 		{% endif %}

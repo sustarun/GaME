@@ -74,8 +74,8 @@ def prof_qnlist(request, user_id, ex_id):
 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
 	qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
-	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight}
-	print("exam_weight", exam_weight)
+	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True}
+	print("exam_weight", exam_weight, "is_prof", context["is_prof"])
 	return render(request, 'course/qn_list.html', context)
 
 def add_qn_view(request, ex_id):
@@ -119,17 +119,19 @@ def question_list(request, ex_id):
 		# and show whatever you want
 	exam_graded = Exam.objects.values_list('exam_graded', flat=True).get(id=ex_id)
 	print('exam_graded = ', exam_graded)
-	if not exam_graded:
-		return render(request, 'course/qn_list.html', {})
 	instance_idd = Exam.objects.values_list('instance_id', flat=True).get(id=ex_id)
 	isTA = Assists.objects.filter(instance_id=instance_idd, assistant_id=user_id).exists()
 	if isTA:
+		if not exam_graded:
+			return render(request, 'course/qn_list.html', {})
 		return ta_qnlist(request, user_id, ex_id)
 	else:
 		isProf = Teaches.objects.filter(instance_id=instance_idd, instructor_id=user_id).exists()
 		if isProf:
 			return prof_qnlist(request, user_id, ex_id)
 		else:
+			if not exam_graded:
+				return render(request, 'course/qn_list.html', {})
 			return stud_qnlist(request, user_id, ex_id)
 # def exams(request, course_id):
 # 	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
