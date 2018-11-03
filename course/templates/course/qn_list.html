@@ -16,6 +16,13 @@
 			<input type="text" name="weightage" id="wtage">
 			<button type="submit">Update weightage</button>
 		</form>
+		<p>Insert a new question here</p>
+		<form method="POST" action="{% url 'add_qn_view' ex_id %}">
+			{% csrf_token %}
+			<input type="text" name="qn_id" id="qn_id_id" , placeholder="Question ID">
+			<input type="text" name="tot_marks" id="tot_marks_id" , placeholder="Maximum Marks">
+			<button type="submit">Create new exam</button>
+		</form>
 		<p>This exam has the following questions:</p>
 	    <ul>
 	    {% for qn in qn_list %}

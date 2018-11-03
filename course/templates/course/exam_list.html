@@ -11,7 +11,13 @@
     {%if exams%}
         {% if instructor %}
             You are instructor for this course.
-            
+            <p>You can add a new exam here:</p>
+            <form method="POST" action="{% url 'add_exam_view' ciid %}">
+                {% csrf_token %}
+                <input type="text" name="ex_name" id="ex_nameid", placeholder="Exam name">
+                <input type="text" name="ex_wt" id="ex_wtid", placeholder="Weightage">
+                <button type="submit">Create new exam</button>
+            </form>
         {% endif%}
         {% if assistant%}
             You are Teaching Assistant for this course.

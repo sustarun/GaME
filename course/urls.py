@@ -13,6 +13,8 @@ urlpatterns = [
     path('attempts_ta/<int:attempt_id>/', views.ta_attempt, name ='attempt_ta'),
     path('attempts_stud/<int:attempt_id>/', views.stud_attempt, name ='attempt_stud'),
     path('exam_wt_updt/<int:ex_id>/', views.weightage_update_view, name ='weightage_update_view'),
+    path('add_exam_view/<int:course_instance_id>/', views.add_exam_view, name ='add_exam_view'),
+    path('add_qn_view/<int:ex_id>/', views.add_qn_view, name='add_qn_view'),
     # ex: /polls/5/
     # path('<string:course_id>/', views.course_detail, name='course_detail'),
     # ex: /polls/5/results/

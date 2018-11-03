@@ -46,16 +46,20 @@ def exams(request,course_instance_id):
 	stud_cid.extend(Takes.objects.filter(instance_id = course_instance_id).filter(student_id = user_id))
 	ta_cid.extend(Assists.objects.filter(instance_id = course_instance_id).filter(assistant_id = user_id))
 	
-	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid, 'exams' : exams}
+	context = {'instructor':inst_cid, 'assistant':ta_cid, 'student':stud_cid, 'exams' : exams, 'ciid':course_instance_id}
 
 	return render(request, 'course/exam_list.html', context)
-	print(instance_ids)
-	# course_list = Instance.objects.select_related('course__course_title').filter(id__in = instance_ids)
-	course_list = Instance.objects.filter(id__in = instance_ids)
-	print(course_list)
-	# all_courses = Course.objects.all()
-	context = {'course_list': course_list}
-	return render(request, 'course/course_list.html', context)
+
+def add_exam_view(request, course_instance_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	course_inst = Instance.objects.get(pk=course_instance_id)
+	# coures_inst_id= course_inst.objects.values_list('id', flat=True)
+	# request has exam_name and weightage
+	newexam = Exam(instance=course_inst, exam_name=request.POST['ex_name'], weightage=request.POST['ex_wt'])
+	newexam.save()
+	return exams(request, course_inst.id)
 
 def ta_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
@@ -73,6 +77,18 @@ def prof_qnlist(request, user_id, ex_id):
 	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight}
 	print("exam_weight", exam_weight)
 	return render(request, 'course/qn_list.html', context)
+
+def add_qn_view(request, ex_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	course_instance = Exam.objects.values_list('instance', flat=True).get(pk=ex_id)
+	# for each row matching in takes, add the question
+	takes_stud = Takes.objects.values_list('student_id', flat=True).filter(instance=course_instance)
+	for stud in takes_stud:
+		attempt = Attempt(instance_id=course_instance, exam_id=ex_id, qn_id=request.POST['qn_id'], student_id=stud, assistant_id=user_id, Marks=0.0, full_marks=request.POST['tot_marks'], pdf='none_inserted.pdf', page_number=0)
+		attempt.save()
+	return prof_qnlist(request, user_id, ex_id)
 
 def stud_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
