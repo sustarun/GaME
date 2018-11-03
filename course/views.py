@@ -67,9 +67,11 @@ def ta_qnlist(request, user_id, ex_id):
 	return render(request, 'course/qn_list.html', context)
 
 def prof_qnlist(request, user_id, ex_id):
+	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
 	qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
-	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id}
+	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight}
+	print("exam_weight", exam_weight)
 	return render(request, 'course/qn_list.html', context)
 
 def stud_qnlist(request, user_id, ex_id):
@@ -180,3 +182,13 @@ def ta_marks_update_view(request, attempt_id):
 	attempt.save()
 
 	return ta_attempt(request, attempt_id)
+
+def weightage_update_view(request, ex_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	exam = Exam.objects.get(pk=ex_id)
+	new_weightage = request.POST['weightage']
+	exam.weightage = new_weightage
+	exam.save()
+	return prof_qnlist(request, user_id, ex_id)

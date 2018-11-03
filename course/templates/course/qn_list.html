@@ -7,8 +7,15 @@
 <body>
   <main>
     {% block content %}
-    Welcome, {{ user.username }}!
+	Welcome, {{ user.username }}!
+	<p>The weightage of this exam is {{ ex_wt }}.</p>
 	{% if qn_list %}
+		<p>Modify the weightage here</p>
+		<form method="POST" action="{% url 'weightage_update_view' ex_id %}">
+			{% csrf_token %}
+			<input type="text" name="weightage" id="wtage">
+			<button type="submit">Update weightage</button>
+		</form>
 		<p>This exam has the following questions:</p>
 	    <ul>
 	    {% for qn in qn_list %}
