@@ -210,3 +210,9 @@ def weightage_update_view(request, ex_id):
 	exam.weightage = new_weightage
 	exam.save()
 	return prof_qnlist(request, user_id, ex_id)
+
+def del_exam(request, ex_id):
+	exam = Exam.objects.get(pk=ex_id)
+	course_instance_id = exam.instance_id
+	exam.delete()
+	return exams(request, course_instance_id)

@@ -8,17 +8,17 @@
   <main>
     {% block content %}
     Welcome, {{ user.username }}!
+    {% if instructor %}
+        You are instructor for this course.
+        <p>You can add a new exam here:</p>
+        <form method="POST" action="{% url 'add_exam_view' ciid %}">
+            {% csrf_token %}
+            <input type="text" name="ex_name" id="ex_nameid", placeholder="Exam name">
+            <input type="text" name="ex_wt" id="ex_wtid", placeholder="Weightage">
+            <button type="submit">Create new exam</button>
+        </form>
+    {% endif%}
     {%if exams%}
-        {% if instructor %}
-            You are instructor for this course.
-            <p>You can add a new exam here:</p>
-            <form method="POST" action="{% url 'add_exam_view' ciid %}">
-                {% csrf_token %}
-                <input type="text" name="ex_name" id="ex_nameid", placeholder="Exam name">
-                <input type="text" name="ex_wt" id="ex_wtid", placeholder="Weightage">
-                <button type="submit">Create new exam</button>
-            </form>
-        {% endif%}
         {% if assistant%}
             You are Teaching Assistant for this course.
          
@@ -34,7 +34,12 @@
                     <li><a href="/game/qn/{{ exam.id }}/">{{exam.exam_name}}</a>
                         {{exam.weightage}}
                         {{exam.graded}}
-        
+                        {% if instructor %}
+                            <form method="POST" action="{% url 'del_exam' exam.id %}">
+                                {% csrf_token %}
+                                <button type="submit" align="right">Delete exam</button>
+                            </form>
+                        {% endif %}
                     </li>
         
                 {% endfor %}
