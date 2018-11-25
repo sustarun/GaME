@@ -7,10 +7,10 @@
 <body>
     <script>
     function set_graded(){
-        document.getElementByID("dg")= "1";
+        document.getElementById("dg").value = "1";
     }
     {% comment %} function set_ungraded(){
-        document.getElementByID("dg")= "0";
+        document.getElementById("dg").value = "0";
     } {% endcomment %}
     </script>
   <main>
@@ -25,7 +25,7 @@
         {% csrf_token %}
          <p> Marks <input type="text" name="marks" id ="mrks"> </p>
         <input type="hidden" value="0" name="grade_cond" id="dg" >
-        <button  type='submit' onclick="set_graded">Graded</button>
+        <button  type='submit' onclick="set_graded()">Graded</button>
         {% comment %} <button  type='submit' onclick="set_ungraded">UnGraded</button> {% endcomment %}
 
     </form>

@@ -16,14 +16,14 @@ def course_list(request):
 	groups = user.groups.all()
 	instance_ids =[]
 	for group in groups:
-		print(group.name)
-		if(str(group.name) == 'Instructor'):
-			instance_ids.extend(Teaches.objects.values_list('instance_id', flat = True).filter(instructor_id = user_id))
-		elif(group.name == 'Student'):
-			print("here")
-			instance_ids.extend(Takes.objects.values_list('instance_id', flat = True).filter(student_id = user_id))
-		elif(group.name == 'Assistant'):
-			instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
+		# print(group.name)
+		# if(str(group.name) == 'Instructor'):
+		instance_ids.extend(Teaches.objects.values_list('instance_id', flat = True).filter(instructor_id = user_id))
+		# elif(group.name == 'Student'):
+			# print("here")
+		instance_ids.extend(Takes.objects.values_list('instance_id', flat = True).filter(student_id = user_id))
+		# elif(group.name == 'Assistant'):
+		instance_ids.extend(Assists.objects.values_list('instance_id', flat = True).filter(assistant_id = user_id))
 	# print(instance_ids)
 	# print(groups)
 	course_list = Instance.objects.filter(id__in = instance_ids)
@@ -63,16 +63,18 @@ def add_exam_view(request, course_instance_id):
 
 def ta_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
+	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
 	print(attempts)
 	# context = {'attempt_list': attempts}
-	context = {'attempt_list': attempts,'role':'ta'}
+	context = {'attempt_list': attempts,'role':'ta', 'ex_wt':exam_weight}
 
 	return render(request, 'course/qn_list.html', context)
 
 def prof_qnlist(request, user_id, ex_id):
 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
+	# qns = Question.objects.values_list('qn_number', 'full_marks')
 	qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
 	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True}
 	print("exam_weight", exam_weight, "is_prof", context["is_prof"])
@@ -92,10 +94,11 @@ def add_qn_view(request, ex_id):
 
 def stud_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
+	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
 	attempts = Attempt.objects.filter(exam_id=ex_id, student_id=user_id)
-	print(attempts)
+	# print(attempts)
 	# context = {'attempt_list': attempts}
-	context = {'attempt_list': attempts,'role':'student'}
+	context = {'attempt_list': attempts,'role':'student', 'ex_wt':exam_weight}
 
 	return render(request, 'course/qn_list.html', context)
 
@@ -193,12 +196,14 @@ def ta_marks_update_view(request, attempt_id):
 	# user_id = request.session['user_id']
 	attempt = Attempt.objects.get(pk=attempt_id)
 	grade_cond = (request.POST['grade_cond']=="1")
+	print("grade_cond = ", grade_cond, "request.POST['grade_cond']", request.POST['grade_cond'])
 	if (grade_cond):
+		print("grade_cond = ", grade_cond)
 		attempt.attempt_graded = True
-	Marks = request.POST['marks']
+	Marks = float(request.POST['marks'])
+	print("marks: ", Marks)
 	attempt.Marks = Marks
 	attempt.save()
-
 	return ta_attempt(request, attempt_id)
 
 def weightage_update_view(request, ex_id):
