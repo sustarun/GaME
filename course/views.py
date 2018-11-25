@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from django.http import JsonResponse
 
 from .models import *
 from django.contrib.auth.models import User, Group
@@ -61,6 +62,14 @@ def add_exam_view(request, course_instance_id):
 	newexam.save()
 	return exams(request, course_inst.id)
 
+def toggle_exam_visibility(request, user_id, ex_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	exam = Exam.objects.get(pk=ex_id)
+	exam.exam_graded = not exam.exam_graded
+	exam.save()
+	return JsonResponse({'newstate':exam.exam_graded})
+
 def ta_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
@@ -68,6 +77,7 @@ def ta_qnlist(request, user_id, ex_id):
 	print(attempts)
 	# context = {'attempt_list': attempts}
 	context = {'attempt_list': attempts,'role':'ta', 'ex_wt':exam_weight}
+	# print("attempts:", attempts)
 
 	return render(request, 'course/qn_list.html', context)
 
@@ -77,6 +87,7 @@ def prof_qnlist(request, user_id, ex_id):
 	qns = Question.objects.values_list('qn_number', 'full_marks').filter(exam_id=ex_id)
 	# qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
 	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True}
+	print("attempts:", attempts)
 	print("exam_weight", exam_weight, "is_prof", context["is_prof"])
 	return render(request, 'course/qn_list.html', context)
 
@@ -127,9 +138,10 @@ def question_list(request, ex_id):
 	print('exam_graded = ', exam_graded)
 	instance_idd = Exam.objects.values_list('instance_id', flat=True).get(id=ex_id)
 	isTA = Assists.objects.filter(instance_id=instance_idd, assistant_id=user_id).exists()
+	print("isTA", isTA)
 	if isTA:
-		if not exam_graded:
-			return render(request, 'course/qn_list.html', {})
+		# if not exam_graded:
+			# return render(request, 'course/qn_list.html', {})
 		return ta_qnlist(request, user_id, ex_id)
 	else:
 		isProf = Teaches.objects.filter(instance_id=instance_idd, instructor_id=user_id).exists()
