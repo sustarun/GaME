@@ -19,13 +19,13 @@ SET row_security = off;
 
 --
 -- TOC entry 3056 (class 1262 OID 25203)
--- Name: game; Type: DATABASE; Schema: -; Owner: aryan
+-- Name: game; Type: DATABASE; Schema: -; Owner: tarun
 --
 
 CREATE DATABASE game WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'English_United States.1252' LC_CTYPE = 'English_United States.1252';
 
 
-ALTER DATABASE game OWNER TO aryan;
+ALTER DATABASE game OWNER TO tarun;
 
 \connect game
 
@@ -62,7 +62,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 196 (class 1259 OID 25217)
--- Name: auth_group; Type: TABLE; Schema: public; Owner: aryan
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.auth_group (
@@ -71,11 +71,11 @@ CREATE TABLE public.auth_group (
 );
 
 
-ALTER TABLE public.auth_group OWNER TO aryan;
+ALTER TABLE public.auth_group OWNER TO tarun;
 
 --
 -- TOC entry 197 (class 1259 OID 25220)
--- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.auth_group_id_seq
@@ -87,12 +87,12 @@ CREATE SEQUENCE public.auth_group_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_group_id_seq OWNER TO aryan;
+ALTER TABLE public.auth_group_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3059 (class 0 OID 0)
 -- Dependencies: 197
--- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
@@ -100,7 +100,7 @@ ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
 
 --
 -- TOC entry 198 (class 1259 OID 25222)
--- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: aryan
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.auth_group_permissions (
@@ -110,11 +110,11 @@ CREATE TABLE public.auth_group_permissions (
 );
 
 
-ALTER TABLE public.auth_group_permissions OWNER TO aryan;
+ALTER TABLE public.auth_group_permissions OWNER TO tarun;
 
 --
 -- TOC entry 199 (class 1259 OID 25225)
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.auth_group_permissions_id_seq
@@ -126,12 +126,12 @@ CREATE SEQUENCE public.auth_group_permissions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_group_permissions_id_seq OWNER TO aryan;
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3060 (class 0 OID 0)
 -- Dependencies: 199
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
@@ -139,7 +139,7 @@ ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_p
 
 --
 -- TOC entry 200 (class 1259 OID 25227)
--- Name: auth_permission; Type: TABLE; Schema: public; Owner: aryan
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.auth_permission (
@@ -150,11 +150,11 @@ CREATE TABLE public.auth_permission (
 );
 
 
-ALTER TABLE public.auth_permission OWNER TO aryan;
+ALTER TABLE public.auth_permission OWNER TO tarun;
 
 --
 -- TOC entry 201 (class 1259 OID 25230)
--- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.auth_permission_id_seq
@@ -166,12 +166,12 @@ CREATE SEQUENCE public.auth_permission_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_permission_id_seq OWNER TO aryan;
+ALTER TABLE public.auth_permission_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3061 (class 0 OID 0)
 -- Dependencies: 201
--- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
@@ -179,7 +179,7 @@ ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
 
 --
 -- TOC entry 202 (class 1259 OID 25232)
--- Name: auth_user; Type: TABLE; Schema: public; Owner: aryan
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.auth_user (
@@ -197,11 +197,11 @@ CREATE TABLE public.auth_user (
 );
 
 
-ALTER TABLE public.auth_user OWNER TO aryan;
+ALTER TABLE public.auth_user OWNER TO tarun;
 
 --
 -- TOC entry 203 (class 1259 OID 25238)
--- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: aryan
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.auth_user_groups (
@@ -211,11 +211,11 @@ CREATE TABLE public.auth_user_groups (
 );
 
 
-ALTER TABLE public.auth_user_groups OWNER TO aryan;
+ALTER TABLE public.auth_user_groups OWNER TO tarun;
 
 --
 -- TOC entry 204 (class 1259 OID 25241)
--- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.auth_user_groups_id_seq
@@ -227,12 +227,12 @@ CREATE SEQUENCE public.auth_user_groups_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_user_groups_id_seq OWNER TO aryan;
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3062 (class 0 OID 0)
 -- Dependencies: 204
--- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
@@ -240,7 +240,7 @@ ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.i
 
 --
 -- TOC entry 205 (class 1259 OID 25243)
--- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.auth_user_id_seq
@@ -252,12 +252,12 @@ CREATE SEQUENCE public.auth_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_user_id_seq OWNER TO aryan;
+ALTER TABLE public.auth_user_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3063 (class 0 OID 0)
 -- Dependencies: 205
--- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
@@ -265,7 +265,7 @@ ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
 
 --
 -- TOC entry 206 (class 1259 OID 25245)
--- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.auth_user_user_permissions (
@@ -275,11 +275,11 @@ CREATE TABLE public.auth_user_user_permissions (
 );
 
 
-ALTER TABLE public.auth_user_user_permissions OWNER TO aryan;
+ALTER TABLE public.auth_user_user_permissions OWNER TO tarun;
 
 --
 -- TOC entry 207 (class 1259 OID 25248)
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.auth_user_user_permissions_id_seq
@@ -291,12 +291,12 @@ CREATE SEQUENCE public.auth_user_user_permissions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO aryan;
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3064 (class 0 OID 0)
 -- Dependencies: 207
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
@@ -304,7 +304,7 @@ ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_use
 
 --
 -- TOC entry 208 (class 1259 OID 25250)
--- Name: course_assists; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_assists; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_assists (
@@ -314,11 +314,11 @@ CREATE TABLE public.course_assists (
 );
 
 
-ALTER TABLE public.course_assists OWNER TO aryan;
+ALTER TABLE public.course_assists OWNER TO tarun;
 
 --
 -- TOC entry 209 (class 1259 OID 25253)
--- Name: course_assists_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_assists_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_assists_id_seq
@@ -330,12 +330,12 @@ CREATE SEQUENCE public.course_assists_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_assists_id_seq OWNER TO aryan;
+ALTER TABLE public.course_assists_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3065 (class 0 OID 0)
 -- Dependencies: 209
--- Name: course_assists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_assists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_assists_id_seq OWNED BY public.course_assists.id;
@@ -343,7 +343,7 @@ ALTER SEQUENCE public.course_assists_id_seq OWNED BY public.course_assists.id;
 
 --
 -- TOC entry 225 (class 1259 OID 25443)
--- Name: course_attempt; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_attempt; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_attempt (
@@ -358,11 +358,11 @@ CREATE TABLE public.course_attempt (
 );
 
 
-ALTER TABLE public.course_attempt OWNER TO aryan;
+ALTER TABLE public.course_attempt OWNER TO tarun;
 
 --
 -- TOC entry 224 (class 1259 OID 25441)
--- Name: course_attempt_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_attempt_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_attempt_id_seq
@@ -374,12 +374,12 @@ CREATE SEQUENCE public.course_attempt_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_attempt_id_seq OWNER TO aryan;
+ALTER TABLE public.course_attempt_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3066 (class 0 OID 0)
 -- Dependencies: 224
--- Name: course_attempt_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_attempt_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_attempt_id_seq OWNED BY public.course_attempt.id;
@@ -387,7 +387,7 @@ ALTER SEQUENCE public.course_attempt_id_seq OWNED BY public.course_attempt.id;
 
 --
 -- TOC entry 210 (class 1259 OID 25255)
--- Name: course_course; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_course; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_course (
@@ -396,11 +396,11 @@ CREATE TABLE public.course_course (
 );
 
 
-ALTER TABLE public.course_course OWNER TO aryan;
+ALTER TABLE public.course_course OWNER TO tarun;
 
 --
 -- TOC entry 227 (class 1259 OID 25451)
--- Name: course_exam; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_exam; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_exam (
@@ -412,11 +412,11 @@ CREATE TABLE public.course_exam (
 );
 
 
-ALTER TABLE public.course_exam OWNER TO aryan;
+ALTER TABLE public.course_exam OWNER TO tarun;
 
 --
 -- TOC entry 226 (class 1259 OID 25449)
--- Name: course_exam_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_exam_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_exam_id_seq
@@ -428,12 +428,12 @@ CREATE SEQUENCE public.course_exam_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_exam_id_seq OWNER TO aryan;
+ALTER TABLE public.course_exam_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3067 (class 0 OID 0)
 -- Dependencies: 226
--- Name: course_exam_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_exam_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_exam_id_seq OWNED BY public.course_exam.id;
@@ -441,7 +441,7 @@ ALTER SEQUENCE public.course_exam_id_seq OWNED BY public.course_exam.id;
 
 --
 -- TOC entry 211 (class 1259 OID 25258)
--- Name: course_instance; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_instance; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_instance (
@@ -453,11 +453,11 @@ CREATE TABLE public.course_instance (
 );
 
 
-ALTER TABLE public.course_instance OWNER TO aryan;
+ALTER TABLE public.course_instance OWNER TO tarun;
 
 --
 -- TOC entry 212 (class 1259 OID 25261)
--- Name: course_instance_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_instance_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_instance_id_seq
@@ -469,12 +469,12 @@ CREATE SEQUENCE public.course_instance_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_instance_id_seq OWNER TO aryan;
+ALTER TABLE public.course_instance_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3068 (class 0 OID 0)
 -- Dependencies: 212
--- Name: course_instance_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_instance_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_instance_id_seq OWNED BY public.course_instance.id;
@@ -482,7 +482,7 @@ ALTER SEQUENCE public.course_instance_id_seq OWNED BY public.course_instance.id;
 
 --
 -- TOC entry 229 (class 1259 OID 25570)
--- Name: course_question; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_question; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_question (
@@ -493,11 +493,11 @@ CREATE TABLE public.course_question (
 );
 
 
-ALTER TABLE public.course_question OWNER TO aryan;
+ALTER TABLE public.course_question OWNER TO tarun;
 
 --
 -- TOC entry 228 (class 1259 OID 25568)
--- Name: course_question_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_question_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_question_id_seq
@@ -509,12 +509,12 @@ CREATE SEQUENCE public.course_question_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_question_id_seq OWNER TO aryan;
+ALTER TABLE public.course_question_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3069 (class 0 OID 0)
 -- Dependencies: 228
--- Name: course_question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_question_id_seq OWNED BY public.course_question.id;
@@ -522,7 +522,7 @@ ALTER SEQUENCE public.course_question_id_seq OWNED BY public.course_question.id;
 
 --
 -- TOC entry 213 (class 1259 OID 25263)
--- Name: course_takes; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_takes; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_takes (
@@ -533,11 +533,11 @@ CREATE TABLE public.course_takes (
 );
 
 
-ALTER TABLE public.course_takes OWNER TO aryan;
+ALTER TABLE public.course_takes OWNER TO tarun;
 
 --
 -- TOC entry 214 (class 1259 OID 25266)
--- Name: course_takes_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_takes_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_takes_id_seq
@@ -549,12 +549,12 @@ CREATE SEQUENCE public.course_takes_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_takes_id_seq OWNER TO aryan;
+ALTER TABLE public.course_takes_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3070 (class 0 OID 0)
 -- Dependencies: 214
--- Name: course_takes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_takes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_takes_id_seq OWNED BY public.course_takes.id;
@@ -562,7 +562,7 @@ ALTER SEQUENCE public.course_takes_id_seq OWNED BY public.course_takes.id;
 
 --
 -- TOC entry 215 (class 1259 OID 25268)
--- Name: course_teaches; Type: TABLE; Schema: public; Owner: aryan
+-- Name: course_teaches; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.course_teaches (
@@ -572,11 +572,11 @@ CREATE TABLE public.course_teaches (
 );
 
 
-ALTER TABLE public.course_teaches OWNER TO aryan;
+ALTER TABLE public.course_teaches OWNER TO tarun;
 
 --
 -- TOC entry 216 (class 1259 OID 25271)
--- Name: course_teaches_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: course_teaches_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.course_teaches_id_seq
@@ -588,12 +588,12 @@ CREATE SEQUENCE public.course_teaches_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.course_teaches_id_seq OWNER TO aryan;
+ALTER TABLE public.course_teaches_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3071 (class 0 OID 0)
 -- Dependencies: 216
--- Name: course_teaches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: course_teaches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.course_teaches_id_seq OWNED BY public.course_teaches.id;
@@ -601,7 +601,7 @@ ALTER SEQUENCE public.course_teaches_id_seq OWNED BY public.course_teaches.id;
 
 --
 -- TOC entry 217 (class 1259 OID 25273)
--- Name: django_admin_log; Type: TABLE; Schema: public; Owner: aryan
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.django_admin_log (
@@ -617,11 +617,11 @@ CREATE TABLE public.django_admin_log (
 );
 
 
-ALTER TABLE public.django_admin_log OWNER TO aryan;
+ALTER TABLE public.django_admin_log OWNER TO tarun;
 
 --
 -- TOC entry 218 (class 1259 OID 25280)
--- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.django_admin_log_id_seq
@@ -633,12 +633,12 @@ CREATE SEQUENCE public.django_admin_log_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_admin_log_id_seq OWNER TO aryan;
+ALTER TABLE public.django_admin_log_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3072 (class 0 OID 0)
 -- Dependencies: 218
--- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
@@ -646,7 +646,7 @@ ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.i
 
 --
 -- TOC entry 219 (class 1259 OID 25282)
--- Name: django_content_type; Type: TABLE; Schema: public; Owner: aryan
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.django_content_type (
@@ -656,11 +656,11 @@ CREATE TABLE public.django_content_type (
 );
 
 
-ALTER TABLE public.django_content_type OWNER TO aryan;
+ALTER TABLE public.django_content_type OWNER TO tarun;
 
 --
 -- TOC entry 220 (class 1259 OID 25285)
--- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.django_content_type_id_seq
@@ -672,12 +672,12 @@ CREATE SEQUENCE public.django_content_type_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_content_type_id_seq OWNER TO aryan;
+ALTER TABLE public.django_content_type_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3073 (class 0 OID 0)
 -- Dependencies: 220
--- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
@@ -685,7 +685,7 @@ ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_
 
 --
 -- TOC entry 221 (class 1259 OID 25287)
--- Name: django_migrations; Type: TABLE; Schema: public; Owner: aryan
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.django_migrations (
@@ -696,11 +696,11 @@ CREATE TABLE public.django_migrations (
 );
 
 
-ALTER TABLE public.django_migrations OWNER TO aryan;
+ALTER TABLE public.django_migrations OWNER TO tarun;
 
 --
 -- TOC entry 222 (class 1259 OID 25293)
--- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: aryan
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: tarun
 --
 
 CREATE SEQUENCE public.django_migrations_id_seq
@@ -712,12 +712,12 @@ CREATE SEQUENCE public.django_migrations_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_migrations_id_seq OWNER TO aryan;
+ALTER TABLE public.django_migrations_id_seq OWNER TO tarun;
 
 --
 -- TOC entry 3074 (class 0 OID 0)
 -- Dependencies: 222
--- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aryan
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tarun
 --
 
 ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
@@ -725,7 +725,7 @@ ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations
 
 --
 -- TOC entry 223 (class 1259 OID 25295)
--- Name: django_session; Type: TABLE; Schema: public; Owner: aryan
+-- Name: django_session; Type: TABLE; Schema: public; Owner: tarun
 --
 
 CREATE TABLE public.django_session (
@@ -735,11 +735,11 @@ CREATE TABLE public.django_session (
 );
 
 
-ALTER TABLE public.django_session OWNER TO aryan;
+ALTER TABLE public.django_session OWNER TO tarun;
 
 --
 -- TOC entry 2772 (class 2604 OID 25301)
--- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
@@ -747,7 +747,7 @@ ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.a
 
 --
 -- TOC entry 2773 (class 2604 OID 25302)
--- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
@@ -755,7 +755,7 @@ ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextv
 
 --
 -- TOC entry 2774 (class 2604 OID 25303)
--- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
@@ -763,7 +763,7 @@ ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('pub
 
 --
 -- TOC entry 2775 (class 2604 OID 25304)
--- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
@@ -771,7 +771,7 @@ ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.au
 
 --
 -- TOC entry 2776 (class 2604 OID 25305)
--- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
@@ -779,7 +779,7 @@ ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('pu
 
 --
 -- TOC entry 2777 (class 2604 OID 25306)
--- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
@@ -787,7 +787,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT n
 
 --
 -- TOC entry 2778 (class 2604 OID 25307)
--- Name: course_assists id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_assists id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_assists ALTER COLUMN id SET DEFAULT nextval('public.course_assists_id_seq'::regclass);
@@ -795,7 +795,7 @@ ALTER TABLE ONLY public.course_assists ALTER COLUMN id SET DEFAULT nextval('publ
 
 --
 -- TOC entry 2786 (class 2604 OID 25446)
--- Name: course_attempt id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_attempt id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_attempt ALTER COLUMN id SET DEFAULT nextval('public.course_attempt_id_seq'::regclass);
@@ -803,7 +803,7 @@ ALTER TABLE ONLY public.course_attempt ALTER COLUMN id SET DEFAULT nextval('publ
 
 --
 -- TOC entry 2787 (class 2604 OID 25454)
--- Name: course_exam id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_exam id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_exam ALTER COLUMN id SET DEFAULT nextval('public.course_exam_id_seq'::regclass);
@@ -811,7 +811,7 @@ ALTER TABLE ONLY public.course_exam ALTER COLUMN id SET DEFAULT nextval('public.
 
 --
 -- TOC entry 2779 (class 2604 OID 25308)
--- Name: course_instance id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_instance id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_instance ALTER COLUMN id SET DEFAULT nextval('public.course_instance_id_seq'::regclass);
@@ -819,7 +819,7 @@ ALTER TABLE ONLY public.course_instance ALTER COLUMN id SET DEFAULT nextval('pub
 
 --
 -- TOC entry 2788 (class 2604 OID 25573)
--- Name: course_question id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_question id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_question ALTER COLUMN id SET DEFAULT nextval('public.course_question_id_seq'::regclass);
@@ -827,7 +827,7 @@ ALTER TABLE ONLY public.course_question ALTER COLUMN id SET DEFAULT nextval('pub
 
 --
 -- TOC entry 2780 (class 2604 OID 25309)
--- Name: course_takes id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_takes id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_takes ALTER COLUMN id SET DEFAULT nextval('public.course_takes_id_seq'::regclass);
@@ -835,7 +835,7 @@ ALTER TABLE ONLY public.course_takes ALTER COLUMN id SET DEFAULT nextval('public
 
 --
 -- TOC entry 2781 (class 2604 OID 25310)
--- Name: course_teaches id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: course_teaches id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_teaches ALTER COLUMN id SET DEFAULT nextval('public.course_teaches_id_seq'::regclass);
@@ -843,7 +843,7 @@ ALTER TABLE ONLY public.course_teaches ALTER COLUMN id SET DEFAULT nextval('publ
 
 --
 -- TOC entry 2782 (class 2604 OID 25311)
--- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
@@ -851,7 +851,7 @@ ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('pu
 
 --
 -- TOC entry 2784 (class 2604 OID 25312)
--- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
@@ -859,7 +859,7 @@ ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval(
 
 --
 -- TOC entry 2785 (class 2604 OID 25313)
--- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: aryan
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
@@ -868,7 +868,7 @@ ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('p
 --
 -- TOC entry 3017 (class 0 OID 25217)
 -- Dependencies: 196
--- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.auth_group (id, name) FROM stdin;
@@ -881,7 +881,7 @@ COPY public.auth_group (id, name) FROM stdin;
 --
 -- TOC entry 3019 (class 0 OID 25222)
 -- Dependencies: 198
--- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
@@ -899,7 +899,7 @@ COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
 --
 -- TOC entry 3021 (class 0 OID 25227)
 -- Dependencies: 200
--- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
@@ -965,7 +965,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 -- TOC entry 3023 (class 0 OID 25232)
 -- Dependencies: 202
--- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
@@ -985,7 +985,7 @@ COPY public.auth_user (id, password, last_login, is_superuser, username, first_n
 --
 -- TOC entry 3024 (class 0 OID 25238)
 -- Dependencies: 203
--- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
@@ -1006,7 +1006,7 @@ COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
 --
 -- TOC entry 3027 (class 0 OID 25245)
 -- Dependencies: 206
--- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
@@ -1016,7 +1016,7 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 -- TOC entry 3029 (class 0 OID 25250)
 -- Dependencies: 208
--- Data for Name: course_assists; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_assists; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_assists (id, assistant_id, instance_id) FROM stdin;
@@ -1042,7 +1042,7 @@ COPY public.course_assists (id, assistant_id, instance_id) FROM stdin;
 --
 -- TOC entry 3046 (class 0 OID 25443)
 -- Dependencies: 225
--- Data for Name: course_attempt; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_attempt; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_attempt (id, "Marks", pdf, page_number, student_id, assistant_id, attempt_graded, question_id) FROM stdin;
@@ -1052,7 +1052,7 @@ COPY public.course_attempt (id, "Marks", pdf, page_number, student_id, assistant
 --
 -- TOC entry 3031 (class 0 OID 25255)
 -- Dependencies: 210
--- Data for Name: course_course; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_course; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_course (course_id, course_title) FROM stdin;
@@ -1073,7 +1073,7 @@ CS347	Operating System
 --
 -- TOC entry 3048 (class 0 OID 25451)
 -- Dependencies: 227
--- Data for Name: course_exam; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_exam; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_exam (id, exam_name, weightage, instance_id, exam_graded) FROM stdin;
@@ -1085,7 +1085,7 @@ COPY public.course_exam (id, exam_name, weightage, instance_id, exam_graded) FRO
 --
 -- TOC entry 3032 (class 0 OID 25258)
 -- Dependencies: 211
--- Data for Name: course_instance; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_instance; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_instance (course_id, section_id, semester, year, id) FROM stdin;
@@ -1108,7 +1108,7 @@ CS347	S1	Autumn	2016	13
 --
 -- TOC entry 3050 (class 0 OID 25570)
 -- Dependencies: 229
--- Data for Name: course_question; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_question; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_question (id, qn_number, full_marks, exam_id) FROM stdin;
@@ -1118,7 +1118,7 @@ COPY public.course_question (id, qn_number, full_marks, exam_id) FROM stdin;
 --
 -- TOC entry 3034 (class 0 OID 25263)
 -- Dependencies: 213
--- Data for Name: course_takes; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_takes; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_takes (id, grade, instance_id, student_id) FROM stdin;
@@ -1153,7 +1153,7 @@ COPY public.course_takes (id, grade, instance_id, student_id) FROM stdin;
 --
 -- TOC entry 3036 (class 0 OID 25268)
 -- Dependencies: 215
--- Data for Name: course_teaches; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: course_teaches; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.course_teaches (id, instance_id, instructor_id) FROM stdin;
@@ -1176,7 +1176,7 @@ COPY public.course_teaches (id, instance_id, instructor_id) FROM stdin;
 --
 -- TOC entry 3038 (class 0 OID 25273)
 -- Dependencies: 217
--- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
@@ -1325,7 +1325,7 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 --
 -- TOC entry 3040 (class 0 OID 25282)
 -- Dependencies: 219
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.django_content_type (id, app_label, model) FROM stdin;
@@ -1349,7 +1349,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 -- TOC entry 3042 (class 0 OID 25287)
 -- Dependencies: 221
--- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
@@ -1390,7 +1390,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 -- TOC entry 3044 (class 0 OID 25295)
 -- Dependencies: 223
--- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: aryan
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: tarun
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
@@ -1411,7 +1411,7 @@ shxldehh67et1jcm3mi75ye6gxay3pft	YzEwYTk4M2YzN2RlZGI2NzBhODc5ODJmOWYxNDVkMDk3Nzh
 --
 -- TOC entry 3075 (class 0 OID 0)
 -- Dependencies: 197
--- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.auth_group_id_seq', 3, true);
@@ -1420,7 +1420,7 @@ SELECT pg_catalog.setval('public.auth_group_id_seq', 3, true);
 --
 -- TOC entry 3076 (class 0 OID 0)
 -- Dependencies: 199
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 8, true);
@@ -1429,7 +1429,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 8, true);
 --
 -- TOC entry 3077 (class 0 OID 0)
 -- Dependencies: 201
--- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.auth_permission_id_seq', 56, true);
@@ -1438,7 +1438,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 56, true);
 --
 -- TOC entry 3078 (class 0 OID 0)
 -- Dependencies: 204
--- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 12, true);
@@ -1447,7 +1447,7 @@ SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 12, true);
 --
 -- TOC entry 3079 (class 0 OID 0)
 -- Dependencies: 205
--- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.auth_user_id_seq', 10, true);
@@ -1456,7 +1456,7 @@ SELECT pg_catalog.setval('public.auth_user_id_seq', 10, true);
 --
 -- TOC entry 3080 (class 0 OID 0)
 -- Dependencies: 207
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
@@ -1465,7 +1465,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 --
 -- TOC entry 3081 (class 0 OID 0)
 -- Dependencies: 209
--- Name: course_assists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_assists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_assists_id_seq', 16, true);
@@ -1474,7 +1474,7 @@ SELECT pg_catalog.setval('public.course_assists_id_seq', 16, true);
 --
 -- TOC entry 3082 (class 0 OID 0)
 -- Dependencies: 224
--- Name: course_attempt_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_attempt_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_attempt_id_seq', 13, true);
@@ -1483,7 +1483,7 @@ SELECT pg_catalog.setval('public.course_attempt_id_seq', 13, true);
 --
 -- TOC entry 3083 (class 0 OID 0)
 -- Dependencies: 226
--- Name: course_exam_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_exam_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_exam_id_seq', 21, true);
@@ -1492,7 +1492,7 @@ SELECT pg_catalog.setval('public.course_exam_id_seq', 21, true);
 --
 -- TOC entry 3084 (class 0 OID 0)
 -- Dependencies: 212
--- Name: course_instance_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_instance_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_instance_id_seq', 13, true);
@@ -1501,7 +1501,7 @@ SELECT pg_catalog.setval('public.course_instance_id_seq', 13, true);
 --
 -- TOC entry 3085 (class 0 OID 0)
 -- Dependencies: 228
--- Name: course_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_question_id_seq', 5, true);
@@ -1510,7 +1510,7 @@ SELECT pg_catalog.setval('public.course_question_id_seq', 5, true);
 --
 -- TOC entry 3086 (class 0 OID 0)
 -- Dependencies: 214
--- Name: course_takes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_takes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_takes_id_seq', 29, true);
@@ -1519,7 +1519,7 @@ SELECT pg_catalog.setval('public.course_takes_id_seq', 29, true);
 --
 -- TOC entry 3087 (class 0 OID 0)
 -- Dependencies: 216
--- Name: course_teaches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: course_teaches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.course_teaches_id_seq', 16, true);
@@ -1528,7 +1528,7 @@ SELECT pg_catalog.setval('public.course_teaches_id_seq', 16, true);
 --
 -- TOC entry 3088 (class 0 OID 0)
 -- Dependencies: 218
--- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.django_admin_log_id_seq', 139, true);
@@ -1537,7 +1537,7 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 139, true);
 --
 -- TOC entry 3089 (class 0 OID 0)
 -- Dependencies: 220
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.django_content_type_id_seq', 14, true);
@@ -1546,7 +1546,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 14, true);
 --
 -- TOC entry 3090 (class 0 OID 0)
 -- Dependencies: 222
--- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aryan
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tarun
 --
 
 SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
@@ -1554,7 +1554,7 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
 
 --
 -- TOC entry 2791 (class 2606 OID 25315)
--- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group
@@ -1563,7 +1563,7 @@ ALTER TABLE ONLY public.auth_group
 
 --
 -- TOC entry 2796 (class 2606 OID 25317)
--- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1572,7 +1572,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 --
 -- TOC entry 2799 (class 2606 OID 25319)
--- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1581,7 +1581,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 --
 -- TOC entry 2793 (class 2606 OID 25321)
--- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group
@@ -1590,7 +1590,7 @@ ALTER TABLE ONLY public.auth_group
 
 --
 -- TOC entry 2802 (class 2606 OID 25323)
--- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1599,7 +1599,7 @@ ALTER TABLE ONLY public.auth_permission
 
 --
 -- TOC entry 2804 (class 2606 OID 25325)
--- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1608,7 +1608,7 @@ ALTER TABLE ONLY public.auth_permission
 
 --
 -- TOC entry 2812 (class 2606 OID 25327)
--- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -1617,7 +1617,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 --
 -- TOC entry 2815 (class 2606 OID 25329)
--- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -1626,7 +1626,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 --
 -- TOC entry 2806 (class 2606 OID 25331)
--- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user
@@ -1635,7 +1635,7 @@ ALTER TABLE ONLY public.auth_user
 
 --
 -- TOC entry 2818 (class 2606 OID 25333)
--- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -1644,7 +1644,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 --
 -- TOC entry 2821 (class 2606 OID 25335)
--- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -1653,7 +1653,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 --
 -- TOC entry 2809 (class 2606 OID 25337)
--- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user
@@ -1662,7 +1662,7 @@ ALTER TABLE ONLY public.auth_user
 
 --
 -- TOC entry 2824 (class 2606 OID 25563)
--- Name: course_assists course_assists_assistant_id_instance_id_684128a0_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_assists course_assists_assistant_id_instance_id_684128a0_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_assists
@@ -1671,7 +1671,7 @@ ALTER TABLE ONLY public.course_assists
 
 --
 -- TOC entry 2827 (class 2606 OID 25339)
--- Name: course_assists course_assists_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_assists course_assists_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_assists
@@ -1680,7 +1680,7 @@ ALTER TABLE ONLY public.course_assists
 
 --
 -- TOC entry 2864 (class 2606 OID 25448)
--- Name: course_attempt course_attempt_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_attempt course_attempt_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_attempt
@@ -1689,7 +1689,7 @@ ALTER TABLE ONLY public.course_attempt
 
 --
 -- TOC entry 2830 (class 2606 OID 25341)
--- Name: course_course course_course_course_id_8675ce49_pk; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_course course_course_course_id_8675ce49_pk; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_course
@@ -1698,7 +1698,7 @@ ALTER TABLE ONLY public.course_course
 
 --
 -- TOC entry 2832 (class 2606 OID 25344)
--- Name: course_course course_course_course_id_8675ce49_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_course course_course_course_id_8675ce49_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_course
@@ -1707,7 +1707,7 @@ ALTER TABLE ONLY public.course_course
 
 --
 -- TOC entry 2870 (class 2606 OID 25458)
--- Name: course_exam course_exam_instance_id_id_exam_id_dbc8c06a_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_exam course_exam_instance_id_id_exam_id_dbc8c06a_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_exam
@@ -1716,7 +1716,7 @@ ALTER TABLE ONLY public.course_exam
 
 --
 -- TOC entry 2872 (class 2606 OID 25456)
--- Name: course_exam course_exam_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_exam course_exam_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_exam
@@ -1725,7 +1725,7 @@ ALTER TABLE ONLY public.course_exam
 
 --
 -- TOC entry 2836 (class 2606 OID 25346)
--- Name: course_instance course_instance_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_instance course_instance_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_instance
@@ -1734,7 +1734,7 @@ ALTER TABLE ONLY public.course_instance
 
 --
 -- TOC entry 2875 (class 2606 OID 25584)
--- Name: course_question course_question_exam_id_qn_number_8eb96596_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_question course_question_exam_id_qn_number_8eb96596_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_question
@@ -1743,7 +1743,7 @@ ALTER TABLE ONLY public.course_question
 
 --
 -- TOC entry 2877 (class 2606 OID 25575)
--- Name: course_question course_question_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_question course_question_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_question
@@ -1752,7 +1752,7 @@ ALTER TABLE ONLY public.course_question
 
 --
 -- TOC entry 2839 (class 2606 OID 25565)
--- Name: course_takes course_takes_instance_id_student_id_f86ebc81_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_takes course_takes_instance_id_student_id_f86ebc81_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_takes
@@ -1761,7 +1761,7 @@ ALTER TABLE ONLY public.course_takes
 
 --
 -- TOC entry 2841 (class 2606 OID 25348)
--- Name: course_takes course_takes_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_takes course_takes_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_takes
@@ -1770,7 +1770,7 @@ ALTER TABLE ONLY public.course_takes
 
 --
 -- TOC entry 2846 (class 2606 OID 25567)
--- Name: course_teaches course_teaches_instructor_id_instance_id_a7906607_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_teaches course_teaches_instructor_id_instance_id_a7906607_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_teaches
@@ -1779,7 +1779,7 @@ ALTER TABLE ONLY public.course_teaches
 
 --
 -- TOC entry 2848 (class 2606 OID 25350)
--- Name: course_teaches course_teaches_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_teaches course_teaches_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_teaches
@@ -1788,7 +1788,7 @@ ALTER TABLE ONLY public.course_teaches
 
 --
 -- TOC entry 2851 (class 2606 OID 25352)
--- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -1797,7 +1797,7 @@ ALTER TABLE ONLY public.django_admin_log
 
 --
 -- TOC entry 2854 (class 2606 OID 25354)
--- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_content_type
@@ -1806,7 +1806,7 @@ ALTER TABLE ONLY public.django_content_type
 
 --
 -- TOC entry 2856 (class 2606 OID 25356)
--- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_content_type
@@ -1815,7 +1815,7 @@ ALTER TABLE ONLY public.django_content_type
 
 --
 -- TOC entry 2858 (class 2606 OID 25358)
--- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_migrations
@@ -1824,7 +1824,7 @@ ALTER TABLE ONLY public.django_migrations
 
 --
 -- TOC entry 2861 (class 2606 OID 25360)
--- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_session
@@ -1833,7 +1833,7 @@ ALTER TABLE ONLY public.django_session
 
 --
 -- TOC entry 2789 (class 1259 OID 25361)
--- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
@@ -1841,7 +1841,7 @@ CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (nam
 
 --
 -- TOC entry 2794 (class 1259 OID 25362)
--- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
@@ -1849,7 +1849,7 @@ CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permi
 
 --
 -- TOC entry 2797 (class 1259 OID 25363)
--- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
@@ -1857,7 +1857,7 @@ CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_
 
 --
 -- TOC entry 2800 (class 1259 OID 25364)
--- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
@@ -1865,7 +1865,7 @@ CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission 
 
 --
 -- TOC entry 2810 (class 1259 OID 25365)
--- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
@@ -1873,7 +1873,7 @@ CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING
 
 --
 -- TOC entry 2813 (class 1259 OID 25366)
--- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
@@ -1881,7 +1881,7 @@ CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING 
 
 --
 -- TOC entry 2816 (class 1259 OID 25367)
--- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
@@ -1889,7 +1889,7 @@ CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_us
 
 --
 -- TOC entry 2819 (class 1259 OID 25368)
--- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
@@ -1897,7 +1897,7 @@ CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_use
 
 --
 -- TOC entry 2807 (class 1259 OID 25369)
--- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: aryan
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
@@ -1905,7 +1905,7 @@ CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (u
 
 --
 -- TOC entry 2822 (class 1259 OID 25370)
--- Name: course_assists_assistant_id_id_974e07b6; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_assists_assistant_id_id_974e07b6; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_assists_assistant_id_id_974e07b6 ON public.course_assists USING btree (assistant_id);
@@ -1913,7 +1913,7 @@ CREATE INDEX course_assists_assistant_id_id_974e07b6 ON public.course_assists US
 
 --
 -- TOC entry 2825 (class 1259 OID 25371)
--- Name: course_assists_instance_id_id_0bc61c3f; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_assists_instance_id_id_0bc61c3f; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_assists_instance_id_id_0bc61c3f ON public.course_assists USING btree (instance_id);
@@ -1921,7 +1921,7 @@ CREATE INDEX course_assists_instance_id_id_0bc61c3f ON public.course_assists USI
 
 --
 -- TOC entry 2865 (class 1259 OID 25591)
--- Name: course_attempt_question_id_686104e4; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_attempt_question_id_686104e4; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_attempt_question_id_686104e4 ON public.course_attempt USING btree (question_id);
@@ -1929,7 +1929,7 @@ CREATE INDEX course_attempt_question_id_686104e4 ON public.course_attempt USING 
 
 --
 -- TOC entry 2866 (class 1259 OID 25477)
--- Name: course_attempt_student_id_id_88f9f0a7; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_attempt_student_id_id_88f9f0a7; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_attempt_student_id_id_88f9f0a7 ON public.course_attempt USING btree (student_id);
@@ -1937,7 +1937,7 @@ CREATE INDEX course_attempt_student_id_id_88f9f0a7 ON public.course_attempt USIN
 
 --
 -- TOC entry 2867 (class 1259 OID 25488)
--- Name: course_attempt_ta_id_id_54653b1b; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_attempt_ta_id_id_54653b1b; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_attempt_ta_id_id_54653b1b ON public.course_attempt USING btree (assistant_id);
@@ -1945,7 +1945,7 @@ CREATE INDEX course_attempt_ta_id_id_54653b1b ON public.course_attempt USING btr
 
 --
 -- TOC entry 2828 (class 1259 OID 25372)
--- Name: course_course_course_id_8675ce49_like; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_course_course_id_8675ce49_like; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_course_course_id_8675ce49_like ON public.course_course USING btree (course_id varchar_pattern_ops);
@@ -1953,7 +1953,7 @@ CREATE INDEX course_course_course_id_8675ce49_like ON public.course_course USING
 
 --
 -- TOC entry 2868 (class 1259 OID 25464)
--- Name: course_exam_instance_id_id_1d9e7315; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_exam_instance_id_id_1d9e7315; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_exam_instance_id_id_1d9e7315 ON public.course_exam USING btree (instance_id);
@@ -1961,7 +1961,7 @@ CREATE INDEX course_exam_instance_id_id_1d9e7315 ON public.course_exam USING btr
 
 --
 -- TOC entry 2833 (class 1259 OID 25510)
--- Name: course_instance_course_id_id_36feb55b; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_instance_course_id_id_36feb55b; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_instance_course_id_id_36feb55b ON public.course_instance USING btree (course_id);
@@ -1969,7 +1969,7 @@ CREATE INDEX course_instance_course_id_id_36feb55b ON public.course_instance USI
 
 --
 -- TOC entry 2834 (class 1259 OID 25516)
--- Name: course_instance_course_id_id_36feb55b_like; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_instance_course_id_id_36feb55b_like; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_instance_course_id_id_36feb55b_like ON public.course_instance USING btree (course_id varchar_pattern_ops);
@@ -1977,7 +1977,7 @@ CREATE INDEX course_instance_course_id_id_36feb55b_like ON public.course_instanc
 
 --
 -- TOC entry 2873 (class 1259 OID 25590)
--- Name: course_question_exam_id_e2236174; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_question_exam_id_e2236174; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_question_exam_id_e2236174 ON public.course_question USING btree (exam_id);
@@ -1985,7 +1985,7 @@ CREATE INDEX course_question_exam_id_e2236174 ON public.course_question USING bt
 
 --
 -- TOC entry 2837 (class 1259 OID 25373)
--- Name: course_takes_instance_id_id_3fc08552; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_takes_instance_id_id_3fc08552; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_takes_instance_id_id_3fc08552 ON public.course_takes USING btree (instance_id);
@@ -1993,7 +1993,7 @@ CREATE INDEX course_takes_instance_id_id_3fc08552 ON public.course_takes USING b
 
 --
 -- TOC entry 2842 (class 1259 OID 25374)
--- Name: course_takes_student_id_id_486ee44b; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_takes_student_id_id_486ee44b; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_takes_student_id_id_486ee44b ON public.course_takes USING btree (student_id);
@@ -2001,7 +2001,7 @@ CREATE INDEX course_takes_student_id_id_486ee44b ON public.course_takes USING bt
 
 --
 -- TOC entry 2843 (class 1259 OID 25375)
--- Name: course_teaches_instance_id_id_6f109d2f; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_teaches_instance_id_id_6f109d2f; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_teaches_instance_id_id_6f109d2f ON public.course_teaches USING btree (instance_id);
@@ -2009,7 +2009,7 @@ CREATE INDEX course_teaches_instance_id_id_6f109d2f ON public.course_teaches USI
 
 --
 -- TOC entry 2844 (class 1259 OID 25376)
--- Name: course_teaches_instructor_id_id_e3f4e59a; Type: INDEX; Schema: public; Owner: aryan
+-- Name: course_teaches_instructor_id_id_e3f4e59a; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX course_teaches_instructor_id_id_e3f4e59a ON public.course_teaches USING btree (instructor_id);
@@ -2017,7 +2017,7 @@ CREATE INDEX course_teaches_instructor_id_id_e3f4e59a ON public.course_teaches U
 
 --
 -- TOC entry 2849 (class 1259 OID 25377)
--- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: aryan
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
@@ -2025,7 +2025,7 @@ CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_lo
 
 --
 -- TOC entry 2852 (class 1259 OID 25378)
--- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: aryan
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
@@ -2033,7 +2033,7 @@ CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING 
 
 --
 -- TOC entry 2859 (class 1259 OID 25379)
--- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: aryan
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
@@ -2041,7 +2041,7 @@ CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING 
 
 --
 -- TOC entry 2862 (class 1259 OID 25380)
--- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: aryan
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: tarun
 --
 
 CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
@@ -2049,7 +2049,7 @@ CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session U
 
 --
 -- TOC entry 2878 (class 2606 OID 25381)
--- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -2058,7 +2058,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 --
 -- TOC entry 2879 (class 2606 OID 25386)
--- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -2067,7 +2067,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 --
 -- TOC entry 2880 (class 2606 OID 25391)
--- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -2076,7 +2076,7 @@ ALTER TABLE ONLY public.auth_permission
 
 --
 -- TOC entry 2881 (class 2606 OID 25396)
--- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -2085,7 +2085,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 --
 -- TOC entry 2882 (class 2606 OID 25401)
--- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -2094,7 +2094,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 --
 -- TOC entry 2883 (class 2606 OID 25406)
--- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -2103,7 +2103,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 --
 -- TOC entry 2884 (class 2606 OID 25411)
--- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -2112,7 +2112,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 --
 -- TOC entry 2885 (class 2606 OID 25517)
--- Name: course_assists course_assists_assistant_id_2a00dd07_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_assists course_assists_assistant_id_2a00dd07_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_assists
@@ -2121,7 +2121,7 @@ ALTER TABLE ONLY public.course_assists
 
 --
 -- TOC entry 2891 (class 2606 OID 25522)
--- Name: course_attempt course_attempt_assistant_id_e5c81de2_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_attempt course_attempt_assistant_id_e5c81de2_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_attempt
@@ -2130,7 +2130,7 @@ ALTER TABLE ONLY public.course_attempt
 
 --
 -- TOC entry 2893 (class 2606 OID 25592)
--- Name: course_attempt course_attempt_question_id_686104e4_fk_course_question_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_attempt course_attempt_question_id_686104e4_fk_course_question_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_attempt
@@ -2139,7 +2139,7 @@ ALTER TABLE ONLY public.course_attempt
 
 --
 -- TOC entry 2892 (class 2606 OID 25537)
--- Name: course_attempt course_attempt_student_id_1df517f3_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_attempt course_attempt_student_id_1df517f3_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_attempt
@@ -2148,7 +2148,7 @@ ALTER TABLE ONLY public.course_attempt
 
 --
 -- TOC entry 2894 (class 2606 OID 25542)
--- Name: course_exam course_exam_instance_id_33146b56_fk_course_instance_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_exam course_exam_instance_id_33146b56_fk_course_instance_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_exam
@@ -2157,7 +2157,7 @@ ALTER TABLE ONLY public.course_exam
 
 --
 -- TOC entry 2886 (class 2606 OID 25547)
--- Name: course_instance course_instance_course_id_0a55f167_fk_course_course_course_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_instance course_instance_course_id_0a55f167_fk_course_course_course_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_instance
@@ -2166,7 +2166,7 @@ ALTER TABLE ONLY public.course_instance
 
 --
 -- TOC entry 2895 (class 2606 OID 25585)
--- Name: course_question course_question_exam_id_e2236174_fk_course_exam_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_question course_question_exam_id_e2236174_fk_course_exam_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_question
@@ -2175,7 +2175,7 @@ ALTER TABLE ONLY public.course_question
 
 --
 -- TOC entry 2887 (class 2606 OID 25552)
--- Name: course_takes course_takes_student_id_1ccddaeb_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_takes course_takes_student_id_1ccddaeb_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_takes
@@ -2184,7 +2184,7 @@ ALTER TABLE ONLY public.course_takes
 
 --
 -- TOC entry 2888 (class 2606 OID 25557)
--- Name: course_teaches course_teaches_instructor_id_4990f8fb_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: course_teaches course_teaches_instructor_id_4990f8fb_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.course_teaches
@@ -2193,7 +2193,7 @@ ALTER TABLE ONLY public.course_teaches
 
 --
 -- TOC entry 2889 (class 2606 OID 25431)
--- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -2202,7 +2202,7 @@ ALTER TABLE ONLY public.django_admin_log
 
 --
 -- TOC entry 2890 (class 2606 OID 25436)
--- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: aryan
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: tarun
 --
 
 ALTER TABLE ONLY public.django_admin_log
