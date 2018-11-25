@@ -19,14 +19,14 @@
 		<p>Insert a new question here</p>
 		<form method="POST" action="{% url 'add_qn_view' ex_id %}">
 			{% csrf_token %}
-			<input type="text" name="qn_id" id="qn_id_id" , placeholder="Question ID">
-			<input type="text" name="tot_marks" id="tot_marks_id" , placeholder="Maximum Marks">
+			<input type="text" name="qn_id" id="qn_id_id" , placeholder="Question Number">
+			<input type="text" name="tot_marks" id="tot_marks_id" , placeholder="Full Marks">
 			<button type="submit">Create new question</button>
 		</form>
 		<p>This exam has the following questions:</p>
 	    <ul>
-	    {% for qn in qn_list %}
-	        <li><a href="/game/exams/{{ ex_id }}/qn/{{ qn }}">{{ qn }}</a></li>
+		{% for qn in qn_list %}
+	        <li><a href="/game/exams/{{ ex_id }}/qn/{{ qn.0 }}">Question number:{{ qn.0 }}; Full marks: {{ qn.1 }}</a></li>
 	        <!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
 	    {% endfor %}
 		</ul>
@@ -38,11 +38,11 @@
 			{% for attempt in attempt_list %}
 
 				{% if role == 'ta'%}
-					<li><a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.qn_id }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}); Graded: {{ attempt.attempt_graded }}</a></li>
+					<li><a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}); Graded: {{ attempt.attempt_graded }}</a></li>
 				{% elif role == 'student'%}
-					<li><a href="/game/attempts_stud/{{ attempt.id }}">Question {{ attempt.qn_id }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
+					<li><a href="/game/attempts_stud/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
 				{% else %}
-					<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.qn_id }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
+					<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
 				{% endif %}
 				<!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
 			

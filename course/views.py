@@ -64,7 +64,7 @@ def add_exam_view(request, course_instance_id):
 def ta_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
-	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
+	attempts = Attempt.objects.filter(question__exam_id=ex_id, assistant_id=user_id)
 	print(attempts)
 	# context = {'attempt_list': attempts}
 	context = {'attempt_list': attempts,'role':'ta', 'ex_wt':exam_weight}
@@ -73,9 +73,9 @@ def ta_qnlist(request, user_id, ex_id):
 
 def prof_qnlist(request, user_id, ex_id):
 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
-	attempts = Attempt.objects.filter(exam_id=ex_id, assistant_id=user_id)
-	# qns = Question.objects.values_list('qn_number', 'full_marks')
-	qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
+	attempts = Attempt.objects.filter(question__exam_id=ex_id, assistant_id=user_id)
+	qns = Question.objects.values_list('qn_number', 'full_marks').filter(exam_id=ex_id)
+	# qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
 	context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True}
 	print("exam_weight", exam_weight, "is_prof", context["is_prof"])
 	return render(request, 'course/qn_list.html', context)
@@ -86,16 +86,19 @@ def add_qn_view(request, ex_id):
 	user_id = request.session['user_id']
 	course_instance = Exam.objects.values_list('instance', flat=True).get(pk=ex_id)
 	# for each row matching in takes, add the question
+	question = Question(exam_id=ex_id, qn_number=request.POST['qn_id'], full_marks=request.POST['tot_marks'])
+	question.save()
 	takes_stud = Takes.objects.values_list('student_id', flat=True).filter(instance=course_instance)
 	for stud in takes_stud:
-		attempt = Attempt(instance_id=course_instance, exam_id=ex_id, qn_id=request.POST['qn_id'], student_id=stud, assistant_id=user_id, Marks=0.0, full_marks=request.POST['tot_marks'], pdf='none_inserted.pdf', page_number=0)
+		attempt = Attempt(question_id=question.id, student_id=stud, assistant_id=user_id, Marks=0.0, pdf='none_inserted.pdf', page_number=0)
+		# attempt = Attempt(question__exam__instance__id=course_instance, question__exam_id=ex_id, question__qn_number=request.POST['qn_id'], student_id=stud, assistant_id=user_id, Marks=0.0, question__full_marks=request.POST['tot_marks'], pdf='none_inserted.pdf', page_number=0)
 		attempt.save()
 	return prof_qnlist(request, user_id, ex_id)
 
 def stud_qnlist(request, user_id, ex_id):
 	print("ex_id = ", ex_id, "user_id = ", user_id)
 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
-	attempts = Attempt.objects.filter(exam_id=ex_id, student_id=user_id)
+	attempts = Attempt.objects.filter(question__exam_id=ex_id, student_id=user_id)
 	# print(attempts)
 	# context = {'attempt_list': attempts}
 	context = {'attempt_list': attempts,'role':'student', 'ex_wt':exam_weight}
@@ -136,9 +139,6 @@ def question_list(request, ex_id):
 			if not exam_graded:
 				return render(request, 'course/qn_list.html', {})
 			return stud_qnlist(request, user_id, ex_id)
-# def exams(request, course_id):
-# 	context = {'exam_list': ['quiz1','quiz2'], 'course_id': course_id}
-# 	return render(request, 'course/exams.html', context)
 
 def prof_exam_admin(request, ex_id, qn_num):
 	# wanna grade? html
@@ -146,7 +146,7 @@ def prof_exam_admin(request, ex_id, qn_num):
 	# box to show how many graded
 	# button for distribute
 	print("prof_exam_admin:qn_num", qn_num, "ex_id", ex_id)
-	attempts = Attempt.objects.filter(exam_id=ex_id, qn_id=qn_num)
+	attempts = Attempt.objects.filter(question__exam_id=ex_id, question__qn_number=qn_num)
 	num_graded = attempts.filter(attempt_graded=True).count()
 	num_attempts = attempts.count()
 	context = {'attemps':attempts, 'num_graded':num_graded, 'num_attempts':num_attempts, 'ex_id':ex_id, 'qn_id':qn_num}
@@ -157,7 +157,7 @@ def qn_adm_view(request, ex_id, qn_num):
 		return HttpResponseRedirect('/accounts/login')
 	user_id = request.session['user_id']
 	do_grade = (request.POST['do_grade'] == '1')
-	attempts = Attempt.objects.filter(exam_id=ex_id, qn_id=qn_num)
+	attempts = Attempt.objects.filter(question__exam_id=ex_id, question__qn_number=qn_num)
 	course_inst = Exam.objects.get(id=ex_id).instance
 	ta_list_raw = Assists.objects.values_list('assistant_id', flat=True).filter(instance=course_inst)
 	num_tas = ta_list_raw.count()

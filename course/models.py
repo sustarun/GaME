@@ -74,21 +74,32 @@ class Exam(models.Model):
 	def __str__(self):
 		crs = self.instance.course
 		return str(crs.course_id)+'-'+str(self.exam_name)
-	
-class Attempt(models.Model):
-	instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
+
+class Question(models.Model):
 	exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-	qn_id = models.CharField(max_length = 20)
+	qn_number = models.CharField(max_length=20)
+	full_marks = models.DecimalField(max_digits=5, decimal_places=1)
+	class Meta:
+		unique_together = (("exam", "qn_number"),)
+	def __str__(self):
+		crs = self.exam.instance.course
+		return str(crs.course_id)+'-'+str(self.exam.exam_name)+'-'+str(self.qn_number)
+
+class Attempt(models.Model):
+	question = models.ForeignKey(Question, on_delete=models.CASCADE)
+	# instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
+	# exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+	# qn_id = models.CharField(max_length = 20)
 	student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stud_id')
 	assistant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ta_id')
 	Marks = models.DecimalField(max_digits=5, decimal_places=1)
-	full_marks = models.DecimalField(max_digits=5,decimal_places=1)
+	# full_marks = models.DecimalField(max_digits=5,decimal_places=1)
 	pdf = models.CharField(max_length=256)
 	page_number = models.IntegerField()
 	attempt_graded = models.BooleanField(default=False)
 	def __str__(self):
-		exaam = self.exam
-		return str(self.student)+'-'+str(exaam)+'-Qn'+str(self.qn_id)
+		qn = self.question
+		return str(self.student)+'-'+str(qn)
 	
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)
