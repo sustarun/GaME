@@ -1,25 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>GaME</title>
+	<meta charset="utf-8">
+	<title>{% block title %}GaME{% endblock %}</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+	<script>
+		var decode = function(str) {
+				return str.replace(/&#(\d+);/g, function (match, dec) {
+					return String.fromCharCode(dec);
+				});
+		}
+		function escaper(argg){
+			var res3 = decode(argg);
+			console.log(res3);
+			var ret =  res3.replace(/&(l|g|quo)t;/g, function (a, b) {
+				return {
+					l: '<',
+					g: '>',
+					quo: '"'
+				}[b];
+			}).replace(/'/g, '"');
+			return ret;
+		}
+		
+		var index = {{index}};
+		var num_attempts = {{num_attempts}};
+		var attempts_raw = JSON.parse(escaper("{{attempts}}"));
+		var attempts = {};
+		var qn_nos = JSON.parse(escaper("{{qn_nos_list}}"));
+		var qn_nos_index = {};
+		for (var x in qn_nos) {
+			qn_nos_index[qn_nos[x][0]] = qn_nos[x][1];
+		}
+		var cnt = 0;
+		for (var v in attempts_raw) {
+			attempts[cnt] = attempts_raw[v]['fields'];
+			attempts[cnt]['attempt_id'] = attempts_raw[v]['pk'];
+			cnt += 1;
+		}
+		console.log('attempts_raw' + attempts_raw)
+		console.log('attempts' + attempts)
+		function corefn(){
+			var pdff = attempts[index]['pdf'];
+			var pgno = attempts[index]['page_number'];
+			var stud_id = attempts[index]['student'];
+			var is_graded = attempts[index]['attempt_graded'];
+			if (num_attempts > 0){
+				$.ajax({
+					url: "{% url 'get_my_pdf' %}",
+					data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
+						"page_number":pgno, 
+						"pdf_path": pdff, 
+						"stud_id": stud_id
+					},
+					type: 'post',
+					dataType: 'json',
+					async: true,
+					success: function (data) {
+						console.log("datttaaa" + data);
+						var strr = "Question number: " + qn_nos_index[attempts[index]['question']];
+						if (is_graded){
+							strr = strr + "\n<p> Marks obtained = " + attempts[index]['Marks'] + "</p>";
+						}
+						else{
+							strr = strr + "\n<p>Not graded</p>";
+						}
+						document.getElementById('stud_marks').innerHTML =strr;
+						document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+						console.log("ajax returned. data = " + data);
+					}
+				});
+			}
+		}
+		function fwd(){
+			if (num_attempts <= 0){
+				return;
+			}
+			index = (index + 1) % num_attempts;
+			corefn();
+		}
+		function bak(){
+			if (num_attempts <= 0) {
+				return;
+			}
+			index = (((index - 1) % num_attempts) + num_attempts) % num_attempts;
+			corefn();
+		}
+		$(document).ready(function(){
+			$("form").submit(function (e) {
+				e.preventDefault();
+			});
+			corefn();
+		});
+	</script>
 </head>
 <body>
-  <main>
-    
-    <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
-	{% if attempt.attempt_graded %}
-	    <p>Your marks is {{ attempt.Marks }}
-        in {{attempt.pdf}}
-        </p>
-	{% else %}
-	    <p>
-        {{attempt.pdf}} 
-        Not graded yet</p>
-	{% endif %}
-	<div class = "logout">
-    <a name = "logout" href="{% url 'logout' %}"> logout! </a>
-  </div>
-  </main>
+	<main>
+	{% block content %}
+	{% endblock %}
+	<div id="btns">
+		<button id="bakbtn" onclick="bak()">Back</button>
+		<button id="fwdbtn" onclick="fwd()">Forward</button>
+	</div>
+	<div id="studinfo">
+		<div id="stud_id_name">Welcome, {{ user.username }}!</div>
+		<div id="stud_marks"></div>
+	</div>
+	<button id="logoutdiv">
+		<a href="{% url 'logout' %}"> logout! </a>
+	</button>
+	<div id="pdfdiv">
+	</div>
+	</main>
 </body>
 </html>

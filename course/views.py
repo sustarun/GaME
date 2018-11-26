@@ -228,14 +228,23 @@ def qn_adm_view(request, qn_num):
 	return question_list(request, ex_id)
 
 def stud_attempt(request, attempt_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
 	attempt = Attempt.objects.get(pk=attempt_id)
-	context = {'attempt': attempt}
+	user_id = request.session['user_id']
+	attempts = Attempt.objects.filter(question__exam=attempt.question.exam, student_id=user_id).order_by('question')
+	num_attempts = attempts.count()
+	question_nos = attempts.values('question_id', 'question__qn_number')
+	qn_nos_list = [[v["question_id"], v["question__qn_number"]] for v in question_nos]
+	print('attempts:', attempts)
+	index = attempts.filter(question__lt=attempt.question).count()
+	context = {'index': index, 'num_attempts':num_attempts, 'attempts':attempts, 'qn_nos_list':qn_nos_list}
+	no_json_list = ['index', 'num_attempts', 'qn_nos_list']#['attempt', 'num_ungrd', 'num_grd', 'index_g', 'index_ug', 'active', 'sname_list']
+	for key in context.keys():
+		if (key in no_json_list):
+			continue
+		context[key] = serializers.serialize('json', context[key])
 	return render(request, 'course/stud_attempt.html', context)
-
-def ta_attempt_old(request, attempt_id):
-	attempt = Attempt.objects.get(pk=attempt_id)
-	context = {'attempt': attempt}
-	return render(request, 'course/ta_attempt.html', context)
 
 def ta_attempt(request, attempt_id):
 	if not request.user.is_authenticated:
@@ -245,7 +254,6 @@ def ta_attempt(request, attempt_id):
 		send_json = True
 	else:
 		send_json = False
-	# send_json = request.POST['send_json']
 
 	user_id = request.session['user_id']
 	attempt = Attempt.objects.get(pk=attempt_id)
@@ -257,11 +265,6 @@ def ta_attempt(request, attempt_id):
 	ungraded_attempts = attempts.filter(attempt_graded=False)
 	snames = attempts.values('student_id', 'student__username')
 	sname_list = [(v["student_id"], v["student__username"]) for v in snames]
-	# print("sname_list", sname_list)
-	# print('ungstnm', snames)
-	# print('sname_dict:', json.dumps(sname_dict))
-	# print('sname_list:', json.dumps(sname_list))
-	# ungraded_attempts = attempts.values_list('id', 'student_id', 'student__username', 'attempt_graded', 'pdf', 'page_number').filter(attempt_graded=False)
 	num_graded = graded_attempts.count()
 	num_ungraded = ungraded_attempts.count()
 	index_g = graded_attempts.filter(student_id__lt=attempt.student_id).count()
@@ -272,27 +275,15 @@ def ta_attempt(request, attempt_id):
 	else:
 		index_g = 0
 		active=0
-	# graded_attempts = [list(attempt) for attempt in graded_attempts]
-	# ungraded_attempts = [list(attempt) for attempt in ungraded_attempts]
 	context = {"grd_att": graded_attempts, "ungrd_att": ungraded_attempts,
 	"num_grd":num_graded, "num_ungrd":num_ungraded, "index_g":index_g,
 	"index_ug":index_ug, 'active':active, 'sname_list':json.dumps(sname_list)}
-	# print('serializing data'+'.'*20)
-	# data = serializers.serialize("json", ungraded_attempts, fields=('id', 'student_id', 'student__username', 'attempt_graded', 'pdf', 'page_number'))
-	# print('printing data'+'.'*20)
-	# print('data', data)
-	# print("context", context)
 	no_json_list = ['attempt', 'num_ungrd', 'num_grd', 'index_g', 'index_ug', 'active', 'sname_list']
 	for key in context.keys():
 		if (key in no_json_list):
 			continue
-		# print('key = ', key)
-		# print("key = ", key, "dumping this: ", (context[key]))
 		context[key] = serializers.serialize('json', context[key])#, fields=('id', 'student_id', 'student__username', 'attempt_graded', 'pdf', 'page_number'))
-		# print('key = ', key, 'done')
-		# context[key] = json.dumps(context[key])
-		# print("context[key]", context[key])
-	# print('context:\n', context)
+
 	if not send_json:
 		return render(request, 'course/ta_attempt.html', context)
 	return JsonResponse(context)
