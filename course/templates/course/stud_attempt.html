@@ -5,21 +5,34 @@
 	<title>{% block title %}GaME{% endblock %}</title>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	<script>
-		var decode = function(str) {
-				return str.replace(/&#(\d+);/g, function (match, dec) {
-					return String.fromCharCode(dec);
-				});
+		document.onkeydown = checkKey;
+		function checkKey(e) {
+			e = e || window.event;
+			if (e.keyCode == '37') {
+				// left arrow
+				bak();
+			}
+			else if (e.keyCode == '39') {
+				// right arrow
+				fwd();
+			}
 		}
-		function escaper(argg){
+		var decode = function (str) {
+			return str.replace(/&#(\d+);/g, function (match, dec) {
+				return String.fromCharCode(dec);
+			});
+		}
+		function escaper(argg) {
+			// console.log("argg" + argg)
 			var res3 = decode(argg);
-			console.log(res3);
-			var ret =  res3.replace(/&(l|g|quo)t;/g, function (a, b) {
+			var ret = res3.replace(/&(l|g|quo)t;/g, function (a, b) {
 				return {
 					l: '<',
 					g: '>',
 					quo: '"'
 				}[b];
-			}).replace(/'/g, '"');
+			}).replace(/'/g, '"').replace(/\\/g, '\\\\');
+			// console.log("ret" + ret);
 			return ret;
 		}
 		
@@ -68,7 +81,7 @@
 							strr = strr + "\n<p>Not graded</p>";
 						}
 						document.getElementById('stud_marks').innerHTML =strr;
-						if (data['status'] != false) {
+						if (data['status'] == false) {
 							document.getElementById("pdfdiv").innerHTML = "<p>File hasn't been uploaded yet</p>"
 						}
 						else {

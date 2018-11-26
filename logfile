@@ -1,0 +1,17 @@
+2018-11-26 15:39:16.658 IST [5328] LOG:  listening on IPv4 address "127.0.0.1", port 5550
+2018-11-26 15:39:16.758 IST [5328] LOG:  listening on Unix socket "/home/tarun/postgresql/.s.PGSQL.5550"
+2018-11-26 15:39:16.973 IST [5329] LOG:  database system was interrupted; last known up at 2018-11-26 01:38:36 IST
+2018-11-26 15:39:17.294 IST [5329] LOG:  database system was not properly shut down; automatic recovery in progress
+2018-11-26 15:39:17.333 IST [5329] LOG:  redo starts at 0/2E848F0
+2018-11-26 15:39:17.334 IST [5329] LOG:  invalid record length at 0/2E849D0: wanted 24, got 0
+2018-11-26 15:39:17.334 IST [5329] LOG:  redo done at 0/2E84998
+2018-11-26 15:39:17.586 IST [5328] LOG:  database system is ready to accept connections
+2018-11-26 16:16:32.078 IST [2582] LOG:  listening on IPv4 address "127.0.0.1", port 5550
+2018-11-26 16:16:32.212 IST [2582] LOG:  listening on Unix socket "/home/tarun/postgresql/.s.PGSQL.5550"
+2018-11-26 16:16:32.458 IST [2583] LOG:  database system was interrupted; last known up at 2018-11-26 16:04:19 IST
+2018-11-26 16:16:32.754 IST [2583] LOG:  database system was not properly shut down; automatic recovery in progress
+2018-11-26 16:16:32.807 IST [2583] LOG:  redo starts at 0/2E963A0
+2018-11-26 16:16:32.824 IST [2583] LOG:  invalid record length at 0/2E9CEA8: wanted 24, got 0
+2018-11-26 16:16:32.824 IST [2583] LOG:  redo done at 0/2E9CE70
+2018-11-26 16:16:32.824 IST [2583] LOG:  last completed transaction was at log time 2018-11-26 16:07:57.980076+05:30
+2018-11-26 16:16:33.231 IST [2582] LOG:  database system is ready to accept connections

@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}GaME{% endblock %}</title>
+	<meta charset="utf-8">
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
+  	<title>GaME</title>
 </head>
 <body>
   <main>
-    {% block content %}
-    Welcome, {{ user.username }}!
+    
+    <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
 	{% if course_list %}
-	    <ul>
+	    <!-- <ul> -->
+    <center><table>
 	    {% for course in course_list %}
-			<li>
-				<a href="/game/{{ course.id }}/exams">
-				{{ course.course_id }}
-			</a>
-				{{course.semester}} {{course.year}} 
-			</li>
+			<!-- <li> -->
+			<tr>
+				<td class = "course_list">
+					<a name = "course_id" href="/game/{{ course.id }}/exams">
+						{{ course.course_id }}
+					</a>
+					<div class = "sem">{{course.semester}} {{course.year}}</div>
+				</td>
+				<td class = "course_list">
+					<div class = "title">{{ course.course.course_title }}</div>
+					<!-- &emsp;&emsp;&emsp;&emsp;&emsp; -->
+					<!-- &emsp;&emsp;&emsp;&emsp;&emsp; -->
+				</td>
+			</tr>
+			<!-- </li> -->
 	        <!-- <li>{{course.course_id}} -->
 	        	<!-- {{course.semester}} {{course.year}} -->
 	        <!-- </li> -->
 	    {% endfor %}
-	    </ul>
+	</table>
+	</center>
+	    <!-- </ul> -->
 	{% else %}
 	    <p>No courses are available.</p>
 	{% endif %}
-	{% endblock %}
-	<a href="{% url 'logout' %}"> logout! </a>
+	<div class = "logout">
+		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
+	</div>
   </main>
 </body>
 </html>

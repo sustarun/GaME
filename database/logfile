@@ -1,0 +1,4 @@
+2018-11-25 18:26:11.189 IST [19402] FATAL:  lock file "postmaster.pid" already exists
+2018-11-25 18:26:11.189 IST [19402] HINT:  Is another postmaster (PID 14261) running in data directory "/home/tarun/postgresql/dbis"?
+2018-11-25 18:26:13.860 IST [19412] FATAL:  lock file "postmaster.pid" already exists
+2018-11-25 18:26:13.860 IST [19412] HINT:  Is another postmaster (PID 14261) running in data directory "/home/tarun/postgresql/dbis"?

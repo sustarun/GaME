@@ -7,13 +7,14 @@
 <body>
   <main>
     {% block content %}
-	Welcome, {{ user.username }}!
+	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
 	{% if attempt_list %}
 		<p>These are the attempts in this question</p>
 		<ul>
 			{% for attempt in attempt_list %}
 				<li>
-					<a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a>
+					<a href="{% url 'attempt_ta' attempt.id %}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a>
+					<!-- <a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a> -->
 				</li>			
 			{% endfor %}
 		</ul>
@@ -24,7 +25,9 @@
 		{% endif %}
 	{% endif %}
 	{% endblock %}
-	<a href="{% url 'logout' %}"> logout! </a>
+	<div class = "logout">
+		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
+	</div>
   </main>
 </body>
 </html>
