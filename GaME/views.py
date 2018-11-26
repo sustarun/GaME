@@ -5,20 +5,21 @@ from django.views import generic
 
 # from .models import Course, Takes, Teaches, Assists
 
-def login(request):
-	# if request.method != 'POST':
-	# 	raise Http404('Only POSTs are allowed')
-	User = request.user
-	if User.is_authenticated:
-		request.session['user_id'] = User.id
-		# return render(request, '/course')
-		return HttpResponseRedirect('/game/home');
-	else:
-		return render(request, 'not_logged.html')
+# def login(request):
+# 	# if request.method != 'POST':
+# 	# 	raise Http404('Only POSTs are allowed')
+# 	User = request.user
+# 	if User.is_authenticated:
+# 		request.session['user_id'] = User.id
+# 		# return render(request, '/course')
+# 		return HttpResponseRedirect('/game/home');
+# 	else:
+# 		return render(request, 'not_logged.html')
 
 def default(request):
 	# if request.method != 'POST':
 	# 	raise Http404('Only POSTs are allowed')
+	# form = UserCreationForm()
 	User = request.user
 	if User.is_authenticated:
 		request.session['user_id'] = User.id

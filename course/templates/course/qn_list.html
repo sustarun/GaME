@@ -2,35 +2,93 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}GaME{% endblock %}</title>
+  <title>GaME</title>
+  {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
 </head>
 <body>
   <main>
-    {% block content %}
-	Welcome, {{ user.username }}!
-	<p>The weightage of this exam is {{ ex_wt }}.</p>
-	{% if is_prof %}
-		<p>Modify the weightage here</p>
-		<form method="POST" action="{% url 'weightage_update_view' ex_id %}">
+    
+	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
+    {% if role == 'prof' %}
+        <p name = "role" >Role: <font class = "role">Instructor</font></p>
+        
+    {% endif%}
+    {% if role == 'ta'%}
+        <p name = "role" >Role: <font class = "role">Teaching Assistant</font></p>
+     
+    {% endif %}
+    {% if role == 'student'%}
+        <p name = "role" >Role: <font class = "role">Student</font></p>
+    {% endif %}
+
+    {% if exam %}
+        <p name = "sem2">{{exam.instance.course_id}} {{exam.instance.semester}} {{exam.instance.year}}
+        </p>
+    {% endif %}
+
+    <p name = "quiz">{{exam.exam_name}} &emsp; Weightage: {{exam.weightage}} %</p>
+    <p name = "quiz">Total Questions: {{num_ques}} &emsp; Full Marks: 
+    	{%if tot_marks%}
+    		{{tot_marks}}
+    	{%else%}
+    		0
+    	{%endif%}
+	</p>
+	<!-- <p>The weightage of this exam is {{ exam.weightage }}.</p> -->
+	{% if role == 'prof' %}
+		<!-- <p>Modify the weightage here</p> -->
+		<center>
+		<form method="POST" action="{% url 'weightage_update_view' exam.id %}">
 			{% csrf_token %}
-			<input type="text" name="weightage" id="wtage">
-			<button type="submit">Update weightage</button>
+			<input class = "wtage" type="text" name="weightage" id="wtage" placeholder="Enter Exam Weightage"  required>
+			<button name = "wt_button" type="submit">Update weightage</button>
 		</form>
-		<p>Insert a new question here</p>
-		<form method="POST" action="{% url 'add_qn_view' ex_id %}">
-			{% csrf_token %}
-			<input type="text" name="qn_id" id="qn_id_id" , placeholder="Question Number">
-			<input type="text" name="tot_marks" id="tot_marks_id" , placeholder="Full Marks">
-			<button type="submit">Create new question</button>
-		</form>
-		<p>This exam has the following questions:</p>
-	    <ul>
+		<!-- </center> -->
+		<!-- <p>Insert a new question here</p> -->
+		<!-- <center> -->
+		<!-- <p>This exam has the following questions:</p> -->
+	    <!-- <ul> -->
+    	<table>
+            <tr>
+                <th name = "exam_list">
+                    Question Number
+                </th>
+                <th name = "exam_list">
+                    Full Marks
+                </th>
+                <th name = "exam_list">
+                    Delete Question
+                </th>    
+            </tr>
 		{% for qn in qn_list %}
-	        <li><a href="/game/exams/{{ ex_id }}/qn/{{ qn.0 }}">Question number:{{ qn.0 }}; Full marks: {{ qn.1 }}</a></li>
+			<tr>
+				<td name = "exam_list">
+					<a href="/game/exams/{{ exam.id }}/qn/{{ qn.0 }}">{{ qn.0 }}</a>
+				</td>
+
+				<td name = "exam_list">
+					{{ qn.1 }}
+				</td>
+
+				<td name = "exam_list">
+					Delete button
+				</td>
+			</tr>
+
+	        <!-- <li><a href="/game/exams/{{ exam.id }}/qn/{{ qn.0 }}">Question number:{{ qn.0 }}; Full marks: {{ qn.1 }}</a></li> -->
 	        <!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
 	    {% endfor %}
-		</ul>
+		</table>
+		<form method="POST" action="{% url 'add_qn_view' exam.id %}">
+			{% csrf_token %}
+			<input class = "wtage" type="text" name="qn_id" id="qn_id_id" placeholder="Question Number" required>
+			<input class = "wtage" type="text" name="tot_marks" id="tot_marks_id" placeholder="Full Marks" required>
+			<button name = "wt_button" type="submit">Create new question</button>
+		</form>
+		<!-- </ul> -->
 		<br>
+		</center>
 	{% endif %}
 	{% if attempt_list %}
 		<p>These are the attempts in this exam</p>
@@ -54,8 +112,10 @@
 		    <p>Nothing interesting to show here.</p>
 		{% endif %}
 	{% endif %}
-	{% endblock %}
-	<a href="{% url 'logout' %}"> logout! </a>
+	
+	<div class = "logout">
+		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
+	</div>
   </main>
 </body>
 </html>

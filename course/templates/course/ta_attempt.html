@@ -23,7 +23,7 @@
     {% comment %} {%  block body %} {% endcomment %}
     <form method = 'post' action = "{% url 'ta_marks_update'  attempt.id %}">
         {% csrf_token %}
-         <p> Marks <input type="text" name="marks" id ="mrks"> </p>
+         <p> Marks <input type="text" name="marks" id ="mrks" required> </p>
         <input type="hidden" value="0" name="grade_cond" id="dg" >
         <button  type='submit' onclick="set_graded()">Graded</button>
         {% comment %} <button  type='submit' onclick="set_ungraded">UnGraded</button> {% endcomment %}

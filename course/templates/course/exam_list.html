@@ -2,55 +2,104 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}GaME{% endblock %}</title>
+  <title>GaME</title>
+  {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
 </head>
 <body>
   <main>
-    {% block content %}
-    Welcome, {{ user.username }}!
+    
+    <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
     {% if instructor %}
-        You are instructor for this course.
-        <p>You can add a new exam here:</p>
-        <form method="POST" action="{% url 'add_exam_view' ciid %}">
-            {% csrf_token %}
-            <input type="text" name="ex_name" id="ex_nameid", placeholder="Exam name">
-            <input type="text" name="ex_wt" id="ex_wtid", placeholder="Weightage">
-            <button type="submit">Create new exam</button>
-        </form>
-    {% endif%}
-    {%if exams%}
-        {% if assistant%}
-            You are Teaching Assistant for this course.
-         
-        {% endif %}
-        {% if student%}
-            You are Student for this course.
-     
-        {% endif %}
-
-        <ul>
-                {% for exam in exams %}
-                    <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
-                    <li><a href="/game/qn/{{ exam.id }}/">{{exam.exam_name}}</a>
-                        {{exam.weightage}}
-                        {{exam.graded}}
-                        {% if instructor %}
-                            <form method="POST" action="{% url 'del_exam' exam.id %}">
-                                {% csrf_token %}
-                                <button type="submit" align="right">Delete exam</button>
-                            </form>
-                        {% endif %}
-                    </li>
+        <p name = "role" >Role: <font class = "role">Instructor</font></p>
         
-                {% endfor %}
-            </ul>  
+    {% endif%}
+    {% if assistant%}
+        <p name = "role" >Role: <font class = "role">Teaching Assistant</font></p>
+     
+    {% endif %}
+    {% if student%}
+        <p name = "role" >Role: <font class = "role">Student</font></p>
+    {% endif %}
+
+    {% if course %}
+        <p name = "course" >{{course.course_id}}
+            <font class = "sem2">{{course.semester}} {{course.year}}</font>
+        </p>
+    {% endif %}
+
+    {%if exams%}
+        <center><table>
+            <tr>
+                <th name = "exam_list">
+                    Exam_Name
+                </th>
+                <th name = "exam_list">
+                    Weightage
+                </th>
+                {% if instructor %}
+                    <th name = "exam_list">
+                        Visible to students
+                    </th>
+                    <th name = "exam_list">
+                    Delete Exam
+                    </th>
+                {%else%}
+                    <th name = "exam_list">
+                        Grading Status
+                    </th>
+                {% endif %}   
+            </tr>
+            {% for exam in exams %}
+                <tr>
+                    <td name = "exam_list">
+                        <a name = "course_id" href="/game/qn/{{ exam.id }}/">{{exam.exam_name}}</a>
+                    </td>
+                    <td name = "exam_list">
+                        {{exam.weightage}}
+                    </td>
+                    
+                    {% if instructor %}
+                        <td name = "exam_list">
+                            {{exam.exam_graded}}
+                        </td>
+                        <td name = "exam_list">
+                        <form method="POST" action="{% url 'del_exam' exam.id %}">
+                            {% csrf_token %}
+                            <button name = "del_button" type="submit" align= "right">Delete</button>
+                        </form>
+                        </td>
+                    {%else%}
+                        <td name = "exam_list">
+                            {%if exam.exam_graded%}
+                                Graded
+                            {%else%}
+                                Not Graded
+                            {%endif%}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        </center> 
 
     {%else%}
-            No exams!!
+            <p name="noexam">No exams to display!!</p>
     {%endif%}
-    
-	{% endblock %}
-	<a href="{% url 'logout' %}"> logout! </a>
+    {% if instructor %}
+    <!-- <p>You can add a new exam here:</p> -->
+    <center>
+        <form method="POST" action="{% url 'add_exam_view' ciid %}">
+            {% csrf_token %}
+            <input type="text" class = "exam" name="ex_name" id="ex_nameid" placeholder="Exam name" required>
+            <input type="text" class = "exam" name="ex_wt" id="ex_wtid" placeholder="Weightage" required>
+            <button name = "gen_button" type="submit">Create Exam</button>
+        </form>
+    </center>
+    {% endif%}
+	<div class = "logout">
+        <a name = "logout" href="{% url 'logout' %}"> logout! </a>
+    </div>
   </main>
 </body>
 </html>
