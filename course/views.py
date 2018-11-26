@@ -24,6 +24,9 @@ if sys.version_info >= (3, 6):
 else:
     import zipfile36 as zipfile
 
+import csv
+from django.http import HttpResponse
+
 def course_list(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
@@ -88,7 +91,8 @@ def attempt_list(request, qn_id):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
 	attempts = Attempt.objects.filter(question_id=qn_id, assistant_id=request.user.id)
-	ex_id = attempts.first().question.exam_id
+	ex_id = Attempt.objects.filter(question_id=qn_id).first().question.exam_id
+	# ex_id = attempts.first().question.exam_id
 	context = {'attempt_list': attempts, 'ex_id':ex_id}
 	# print("qn_id:", qn_id)
 	# print(attempts)
@@ -117,7 +121,34 @@ def ta_qnlist(request, user_id, ex_id):
 
 	return render(request, 'course/qn_list.html', context)
 
+def get_ta_from_course(instance_id):
+	return  Assists.objects.filter(instance_id=instance_id)
+
+# def prof_qnlist(request, user_id, ex_id):
+
+# 	exam=Exam.objects.get(id=ex_id)
+# 	ta_list = get_ta_from_course(exam.instance.id)
+# 	exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
+# 	attempts = Attempt.objects.filter(question__exam_id=ex_id, assistant_id=user_id)
+# 	qns = Question.objects.values_list('qn_number', 'full_marks').filter(exam_id=ex_id)
+# 	qn_list = Question.objects.filter(exam_id=ex_id).order_by('qn_number')
+# 	# qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
+# 	# context = {'attempt_list':attempts, 'qn_list':qns, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True}
+# 	num_graded = attempts.filter(attempt_graded=True).count()
+# 	# num_attempts = attempts.count()
+# 	context = {'question_list':qn_list, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True, 'num_graded':num_graded ,'ta_list':ta_list,'ta_list_py':ta_list}#, 'num_attempts':num_attempts}
+# 	print(ta_list)
+
+# 	no_json_list = ['question_list', 'ex_id','ex_wt', 'is_prof', 'num_graded', 'ta_list_py']
+# 	for key in context.keys():
+# 		if (key in no_json_list):
+# 			continue
+# 		context[key] = serializers.serialize('json', context[key])#, fields=('id', 'student_id', 'student__username', 'attempt_graded', 'pdf', 'page_number'))
+# 	return render(request, 'course/qn_list.html', context)
+
 def prof_qnlist(request, user_id, ex_id):
+	exam=Exam.objects.get(id=ex_id)
+	ta_list = get_ta_from_course(exam.instance.id)
 	ex_obj = Exam.objects.get(pk=ex_id)
 	ciid = ex_obj.instance_id
 	# course = ex_obj.instance
@@ -131,10 +162,19 @@ def prof_qnlist(request, user_id, ex_id):
 	print("num_ques = ", num_ques, " tot_marks = ", tot_marks)
 	num_graded = attempts.filter(attempt_graded=True).count()
 	# qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
-	context = {'question_list':qn_list,'num_graded':num_graded, 'role':'prof', 'exam':ex_obj, 'num_ques':num_ques, 'tot_marks':tot_marks, 'ciid':ciid}
+	# context = {'question_list':qn_list, 'ex_id':ex_id, 'ex_wt':exam_weight, 'is_prof':True, 'num_graded':num_graded ,'ta_list':ta_list,'ta_list_py':ta_list}#, 'num_attempts':num_attempts}
+	context = {'question_list':qn_list,'num_graded':num_graded, 'role':'prof', 'exam':ex_obj, 'num_ques':num_ques, 'tot_marks':tot_marks, 'ta_list':ta_list,'ta_list_py':ta_list, 'ciid':ciid}
 	print("attempts:", attempts)
 	# print("exam_weight", exam_weight, "is_prof", context["is_prof"])
+					# 'question_list','num_graded', 'role', 'exam', 'num_ques', 'tot_marks','ta_list_py'
+	# no_json_list = ['question_list', 'ex_id','ex_wt', 'is_prof', 'num_graded', 'ta_list_py']
+	no_json_list = ['question_list','num_graded', 'role', 'exam', 'num_ques', 'tot_marks','ta_list_py', 'ciid']
+	for key in context.keys():
+		if (key in no_json_list):
+			continue
+		context[key] = serializers.serialize('json', context[key])#, fields=('id',
 	return render(request, 'course/qn_list.html', context)
+
 
 def add_qn_view(request, ex_id):
 	if not request.user.is_authenticated:
@@ -208,30 +248,6 @@ def question_list(request, ex_id):
 			if not exam_graded:
 				return render(request, 'course/qn_list.html', {})
 			return stud_qnlist(request, user_id, ex_id)
-
-def qn_adm_view(request, qn_id):
-	print("in qn_adm_view")
-	if not request.user.is_authenticated:
-		return HttpResponseRedirect('/accounts/login')
-	user_id = request.session['user_id']
-	do_grade = (request.POST['do_grade'] == '1')
-	attempts = Attempt.objects.filter(question__exam_id=ex_id, question__qn_number=qn_num)
-	course_inst = Exam.objects.get(id=ex_id).instance
-	ta_list_raw = Assists.objects.values_list('assistant_id', flat=True).filter(instance=course_inst)
-	num_tas = ta_list_raw.count()
-	# num_tas = attempts.values_list('assistant_id').distinct().count()
-	attempts = attempts.filter(attempt_graded=False)
-	print("attempts", attempts)
-	ta_list = [ta for ta in ta_list_raw]
-	if (do_grade):
-		ta_list.append(user_id)
-		num_tas += 1
-	cnt = 0
-	for attempt in attempts:
-		attempt.assistant_id = ta_list[cnt]
-		cnt = (cnt + 1) % num_tas
-		attempt.save()
-	return question_list(request, ex_id)
 
 def stud_attempt(request, attempt_id):
 	if not request.user.is_authenticated:
@@ -440,3 +456,74 @@ def upload_file(request):
 #     else:
 #         form = UploadFileForm()
 #     return render(request, 'upload.html', {'form': form})
+
+def qn_adm_view(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	do_grade = (request.POST['do_grade'] == '2')
+	if (do_grade):
+		return qn_adm_view_helper(request)
+	do_grade = (request.POST['do_grade'] == '1')
+	qn_id = request.POST['qn_id']
+	ex_id = Question.objects.values_list('exam_id', flat=True).get(pk=qn_id)
+	attempts = Attempt.objects.filter(question_id=qn_id)
+	course_inst = Question.objects.get(id=qn_id).exam.instance
+	ta_list_raw = Assists.objects.values_list('assistant_id', flat=True).filter(instance=course_inst)
+	num_tas = ta_list_raw.count()
+	# num_tas = attempts.values_list('assistant_id').distinct().count()
+	attempts = attempts.filter(attempt_graded=False)
+	# print("attempts", attempts)
+	ta_list = [ta for ta in ta_list_raw]
+	if (do_grade):
+		ta_list.append(user_id)
+		num_tas += 1
+	cnt = 0
+	# print("ta_list:", ta_list)
+	for attempt in attempts:
+		attempt.assistant_id = ta_list[cnt]
+		cnt = (cnt + 1) % num_tas
+		attempt.save()
+	return question_list(request, ex_id)
+
+def qn_adm_view_helper(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	qn_id = request.POST['qn_id']
+	ex_id = Question.objects.values_list('exam_id', flat=True).get(pk=qn_id)
+	attempts = Attempt.objects.filter(question_id=qn_id)
+	course_inst = Question.objects.get(id=qn_id).exam.instance
+	ta_list_raw = request.POST['ta_lists']
+	# print(ta_list_raw)
+	ta_list=[]
+
+	if(ta_list_raw=="[]"):
+		ta_list=[]
+	else:
+		ta_list=list(map(int, ta_list_raw[1:-1].split(',')))
+	# print(ta_list_raw)
+	num_tas = len(ta_list)
+	# print(num_tas)
+	attempts = attempts.filter(attempt_graded=False)
+	if (request.POST['prof']=='1'):
+		# print("prof present")
+		ta_list.append(user_id)
+		num_tas += 1
+	cnt = 0
+	for attempt in attempts:
+		attempt.assistant_id = ta_list[cnt]
+		cnt = (cnt + 1) % num_tas
+		attempt.save()
+	return question_list(request, ex_id)
+def create_excel_sheet(request,ex_id):
+	attempts = Attempt.objects.filter(question__exam_id = ex_id).order_by('student')
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="'+ex_id+'.csv"'
+	writer = csv.writer(response)
+	for attempt in attempts:
+		row = attempt.student + ", "+ attempt.question + ", "+ attempt.Marks
+		writer.writerow(row)
+	return response
+
+

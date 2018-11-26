@@ -110,12 +110,15 @@
                     <th name = "exam_list">
                     Delete Exam
                     </th>
+                    <th name="exam_list">
+                        Upload Papers
+                    </th>
+                    <!-- <th name="exam_list">
+                        Create Excel Sheet
+                    </th> -->
                 {%else%}
                     <th name = "exam_list">
                         Grading Status
-                    </th>
-                    <th name="exam_list">
-                        Upload Papers
                     </th>
                 {% endif %}   
             </tr>
@@ -152,6 +155,13 @@
                             </form>
                             <button name="fubtn" onclick="upload_file({{ exam.id }})">Upload</button>
                         </td>
+                        <!-- <td>
+                            <form method="POST" id="form{{ exam.id }}" name="formnaam" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="file" name="myfile" id="file{{ exam.id }}">
+                            </form>
+                            <button name="fubtn" onclick="upload_file({{ exam.id }})">Upload</button>
+                        </td> -->
                     {%else%}
                         <td name = "exam_list">
                             {%if exam.exam_graded%}

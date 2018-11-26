@@ -5,13 +5,132 @@
   <title>GaME</title>
   {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
+  	<style>
+			.multiselect {
+			width: 20%;
+			{% comment %} width: 200px; {% endcomment %}
+		}
+
+		.selectBox {
+			position: relative;
+		}
+
+		.selectBox select {
+			width: 100%;
+			font-weight: bold;
+		}
+
+		.overSelect {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
+
+		#checkboxes_ {
+			display: none;
+			border: 1px #dadada solid;
+		}
+
+		div[id="checkboxes_"] label {
+			display: block;
+		}
+
+		#checkboxes label:hover {
+			background-color: #1e90ff;
+		}
+	</style>
+ <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
   <script>
+		var ta_lista = JSON.parse(escaper("{{ta_list}}"))
+		{% comment %} var ta_list =[] {% endcomment %}
 	  function set_do_grade(qn_id){
 		  document.getElementById("dg"+qn_id).value = "1"
 	  }
 	  function reset_do_grade(qn_id){
 		  document.getElementById("dg"+qn_id).value = "0"
 	  }
+		function escaper(argg){
+			// console.log("arggg" + argg)
+			var ret =  argg.replace(/&(l|g|quo)t;/g, function (a, b) {
+				return {
+					l: '<',
+					g: '>',
+					quo: '"'
+				}[b];
+			});
+			// console.log("rettt" + ret);
+			return ret;
+		}
+		function getSelectedOptions(qn_id)
+		{
+			var sdValues =[];
+		 for(var i = 0, size = ta_lista.length; i < size ; i++){
+					var item = ta_lista[i];
+					{% comment %} console.log(item['fields']['assistant']);								 {% endcomment %}
+					if (document.getElementById(qn_id+item['fields']['assistant']).checked)
+					{
+							sdValues.push(item['fields']['assistant']);
+							{% comment %} console.log('The checkbox is checked'); {% endcomment %}
+					}else
+					{
+							{% comment %} console.log('The checkbox is not checked'); {% endcomment %}
+					}
+				} 
+
+			return sdValues;
+		}
+		function last_submit(qn_id){
+					var ta_lists_= getSelectedOptions(qn_id);
+					var ta_lists = JSON.stringify(ta_lists_);
+					var prof= "0";
+					if (document.getElementById(qn_id+'prof').checked){
+						prof = "1";
+					}
+					console.log(ta_lists_);
+					console.log(ta_lists);
+					$.ajax({
+						url: "{% url 'qn_adm_view' %}",
+						data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
+							"ta_lists": ta_lists,
+							"do_grade": document.getElementById("dg"+qn_id).value,
+							"qn_id": qn_id,
+							"prof": prof
+						},
+						type: 'post',
+						dataType: 'json',
+						async: true,
+						success: function (data) {
+							console.log(data);
+						}
+					});
+		}
+			var expanded = false;
+		function showCheckboxes(qn_id) {
+				var checkboxes = document.getElementById("checkboxes"+qn_id);
+				if (!expanded) {
+					checkboxes.style.display = "block";
+					expanded = true;
+				} else {
+					checkboxes.style.display = "none";
+					expanded = false;
+				}
+		}
+		function set_do_grade(qn_id){
+		  document.getElementById("dg"+qn_id).value = "1";
+			last_submit(qn_id);
+	  }
+	  function reset_do_grade(qn_id){
+		  document.getElementById("dg"+qn_id).value = "0"
+				last_submit(qn_id);
+			last_submit(qn_id);
+	  }
+		function multiple_do_grade(qn_id){
+		  		document.getElementById("dg"+qn_id).value = "2";
+					last_submit(qn_id);
+	  }
+	  
   </script>
 </head>
 <body>
@@ -102,7 +221,7 @@
 					</form>
 				</td>
 				<td>
-					<form method="POST" action="{% url 'qn_adm_view' qn.id %}">
+					{% comment %} <form method="POST" action="{% url 'qn_adm_view' qn.id %}">
 						{% csrf_token %}
 						{% if num_graded > 0 %}
 						<p>Some papers have been graded, you are advised not to distribute the papers amongst TAs</p>
@@ -112,6 +231,41 @@
 							Distribute among all
 						</button>
 						<button type="submit" onclick="reset_do_grade('{{qn.id}}')">Distribute among TAs</button>
+					</form> {% endcomment %}
+					 					<form>
+						{% if num_graded > 0 %}
+						<p>Some papers have been graded, you are advised not to distribute the papers amongst TAs</p>
+						{% endif %}
+						<input type="hidden" value="0" name="do_grade" id="dg{{qn.id}}">
+						<input type="hidden"  name="ta_list" id="ta_list{{qn.id}}">
+						<button type="submit" onclick="set_do_grade('{{qn.id}}')">
+							Distribute among all
+						</button>
+						<button type="submit" onclick="reset_do_grade('{{qn.id}}')">Distribute among TAs</button>
+
+						<div class="multiselect">
+							<div class="selectBox" onclick="showCheckboxes('{{qn.id}}')">
+								<select>
+									<option>Select TAs</option>
+								</select>
+								<div class="overSelect"></div>
+							</div>
+
+							 
+							<div id="checkboxes{{qn.id}}">
+							<label for="profs">
+									<input type="checkbox" id="{{qn.id}}prof" />Me</label>
+									<br>
+							 {% for ta in ta_list_py %}
+								 <label for="one">							 			
+								 {% comment %} <label for={{ ta.assistant_id}}>							 			 {% endcomment %}
+										<input type="checkbox" id="{{qn.id}}{{ ta.assistant_id}}" />{{ ta.assistant}}</label>
+										{% comment %} <br> {% endcomment %}
+								{% endfor %} 
+
+							</div>
+						</div>
+						<button type="submit" onclick="multiple_do_grade('{{qn.id}}')">Distribute Papers Non-uniformly</button>
 					</form>
 				</td>
 				{%endif%}
