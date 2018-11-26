@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GaME{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% block content %}
+	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
+	{% if attempt_list %}
+		<p>These are the attempts in this question</p>
+		<ul>
+			{% for attempt in attempt_list %}
+				<li>
+					<a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a>
+				</li>			
+			{% endfor %}
+		</ul>
+	{% endif%}
+	{% if not is_prof %}
+		{% if not attempt_list %}
+		    <p>Nothing interesting to show here.</p>
+		{% endif %}
+	{% endif %}
+	{% endblock %}
+	<div class = "logout">
+		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
+	</div>
+  </main>
+</body>
+</html>

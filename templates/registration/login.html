@@ -13,6 +13,14 @@
     <div id="imgcontainer" class="imgcontainer">
 		    <img src="{% static 'course/images/base4.png' %}" alt="GaME image" class="game">
   	</div>
+
+  	<form method="POST">
+    	{% csrf_token %}
+    	{{ form.as_p }}
+    	<button name="gen_button" class="button" type="submit">Login</button>
+  	</form>
+
+  	{%comment%}
 	<form method="POST">
     	{% csrf_token %}
 	  	<b>Username:</b>&emsp;
@@ -22,6 +30,11 @@
 	    <input id="password" type="password" name="password" placeholder = "Enter password..." required>
 	    <br>
 	  	<button name="gen_button" class="button" type="submit">Login</button>
+	</form>
+	{%endcomment%}
+	<form method="POST" action="{% url 'signup' %}">
+		{% csrf_token %}
+		New User?? <button name="gen_button" class="button" type="submit">SignUp</button>
 	</form>
 	</center>
   <!-- </main> -->

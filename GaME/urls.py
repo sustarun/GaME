@@ -25,6 +25,8 @@ urlpatterns = [
     path('login/', views.default, name='loginview'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('accounts.urls')),
+    path('signup/', views.SignUp.as_view(), name='signup'),
     # path('', include('django.contrib.auth.urls')),
     path('game/', include('course.urls')),
     path('', views.default, name='defaultview'),

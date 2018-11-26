@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
+  <title>GaME</title>
+</head>
+<body>
+	<!-- hello -->
+  <main>
+    <center>
+    <div id="imgcontainer" class="imgcontainer">
+		    <img src="{% static 'course/images/base4.png' %}" alt="GaME image" class="game">
+  	</div>
+	<h2>Sign up</h2>
+	<form method="POST">
+    	{% csrf_token %}
+    	{% for field in form %}
+      <p>
+        {{ field.label_tag }}
+        {{ field }}
+        {% for error in field.errors %}
+          <p class = "error" style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    	<button name="gen_button" class="button" type="submit">SignUp</button>
+  	</form>
+  	
+	{%comment%}
+    <form method="POST">
+    	{% csrf_token %}
+	  	<b>Username:</b>&emsp;
+        <input id="username" type="text" name="username" placeholder = "Enter username..." required>
+	    <br>
+	    <b>Password: </b>&emsp;
+	    <input id="password1" type="password" name="password1" placeholder = "Enter password..." required>
+	    <br>
+	    <b>Re-enter Password: </b>&emsp;
+	    <input id="password2" type="password" name="password2" placeholder = "Re-Enter password..." required>
+	    &emsp;&emsp;&emsp;&emsp;
+	    <br>
+	  	<button name="gen_button" class="button" type="submit">SignUp</button>
+	</form>
+	{%endcomment%}
+	
+	</center>
+  </main>
+</body>
+</html>

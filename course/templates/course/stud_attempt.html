@@ -7,7 +7,7 @@
 <body>
   <main>
     
-    Welcome, {{ user.username }}!
+    <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
 	{% if attempt.attempt_graded %}
 	    <p>Your marks is {{ attempt.Marks }}
         in {{attempt.pdf}}
@@ -17,7 +17,9 @@
         {{attempt.pdf}} 
         Not graded yet</p>
 	{% endif %}
-	<a href="{% url 'logout' %}"> logout! </a>
+	<div class = "logout">
+    <a name = "logout" href="{% url 'logout' %}"> logout! </a>
+  </div>
   </main>
 </body>
 </html>

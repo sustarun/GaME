@@ -67,6 +67,12 @@ a[name = course_id]{
     color: darkgreen;
 }
 
+
+p{
+    font-size: 25px;
+    color:blue;
+}
+
 p[name = username]{
     margin: 0px 0px 0px 0px;
     text-align: right;
@@ -177,6 +183,22 @@ input[name=password]{
     border: 2px solid #ccc;
     box-sizing: border-box;
 }
+input[name=password1]{
+    width: 27%;
+    padding: 12px 10px;
+    margin: 8px 100px 10px 0px;
+    display: inline-block;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+}
+input[name=password2]{
+    width: 27%;
+    padding: 12px 10px;
+    margin: 8px 100px 10px 0px;
+    display: inline-block;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+}
 
 /*input[name=repassword]{
     width: 27%;
@@ -228,4 +250,5 @@ img.game{
 }*/
 .error{
     color:red;
+    font-size: 15px;
 }

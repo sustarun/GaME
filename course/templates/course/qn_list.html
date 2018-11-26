@@ -5,10 +5,18 @@
   <title>GaME</title>
   {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
+  <script>
+	  function set_do_grade(qn_id){
+		  document.getElementById("dg"+qn_id).value = "1"
+	  }
+	  function reset_do_grade(qn_id){
+		  document.getElementById("dg"+qn_id).value = "0"
+	  }
+  </script>
 </head>
 <body>
   <main>
-    
+    {% if role %}
 	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
     {% if role == 'prof' %}
         <p name = "role" >Role: <font class = "role">Instructor</font></p>
@@ -44,11 +52,88 @@
 			<input class = "wtage" type="text" name="weightage" id="wtage" placeholder="Enter Exam Weightage"  required>
 			<button name = "wt_button" type="submit">Update weightage</button>
 		</form>
+	</center>
+	{%endif%}
 		<!-- </center> -->
 		<!-- <p>Insert a new question here</p> -->
 		<!-- <center> -->
 		<!-- <p>This exam has the following questions:</p> -->
 	    <!-- <ul> -->
+		{% if role != 'student' %}
+		{% if question_list %}
+		<center>
+    	<table>
+            <tr>
+                <th name = "exam_list">
+                    Question Number
+                </th>
+                <th name = "exam_list">
+                    Full Marks
+                </th>
+                {%if role == 'prof'%}
+                <th name = "exam_list">
+                    Delete Question
+                </th>
+                <th name = "exam_list">
+                    Distribute
+                </th> 
+                {%endif%}
+            </tr>
+		{% for qn in question_list %}
+			<tr>
+				<td name = "exam_list">
+					<a href="/game/attempt_list/{{ qn.id }}">{{ qn.qn_number }}</a>
+				</td>
+
+				<td name = "exam_list">
+					{{ qn.full_marks }}
+				</td>
+				{%if role == 'prof'%}
+				<td name = "exam_list">
+					Delete button
+				</td>
+				<td>
+					<form method="POST" action="{% url 'qn_adm_view' qn.id %}">
+						{% csrf_token %}
+						{% if num_graded > 0 %}
+						<p>Some papers have been graded, you are advised not to distribute the papers amongst TAs</p>
+						{% endif %}
+						<input type="hidden" value="0" name="do_grade" id="dg{{qn.id}}">
+						<button type="submit" onclick="set_do_grade('{{qn.id}}')">
+							Distribute among all
+						</button>
+						<button type="submit" onclick="reset_do_grade('{{qn.id}}')">Distribute among TAs</button>
+					</form>
+				</td>
+				{%endif%}
+			</tr>
+
+	        <!-- <li><a href="/game/exams/{{ exam.id }}/qn/{{ qn.0 }}">Question number:{{ qn.0 }}; Full marks: {{ qn.1 }}</a></li> -->
+	        <!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
+	    {% endfor %}
+		</table>
+		</center>
+
+		{%else%}
+			<p>No questions have been added yet!</p>
+		{%endif%}
+
+		{%endif%}
+
+
+		{% if role == 'prof' %}
+		<center>
+		<form method="POST" action="{% url 'add_qn_view' exam.id %}">
+			{% csrf_token %}
+			<input class = "wtage" type="text" name="qn_id" id="qn_id_id" placeholder="Question Number" required>
+			<input class = "wtage" type="text" name="tot_marks" id="tot_marks_id" placeholder="Full Marks" required>
+			<button name = "wt_button" type="submit">Create new question</button>
+		</form>
+		</center>
+		{%endif%}
+	{% if role == 'student'%}
+	{% if attempt_list %}
+		<center>
     	<table>
             <tr>
                 <th name = "exam_list">
@@ -58,61 +143,39 @@
                     Full Marks
                 </th>
                 <th name = "exam_list">
-                    Delete Question
-                </th>    
+                    Grading Status
+                </th>
             </tr>
-		{% for qn in qn_list %}
+		{% for attempt in attempt_list %}
 			<tr>
 				<td name = "exam_list">
-					<a href="/game/exams/{{ exam.id }}/qn/{{ qn.0 }}">{{ qn.0 }}</a>
+					<a href="/game/attempts_stud/{{ attempt.id }}">{{ attempt.question.qn_number }}</a>
 				</td>
 
 				<td name = "exam_list">
-					{{ qn.1 }}
+					{{ attempt.question.full_marks }}
 				</td>
-
 				<td name = "exam_list">
-					Delete button
+					{% if attempt.attempt_graded %}
+						Graded
+					{% else %}
+						Not Graded
+					{%endif%}
 				</td>
 			</tr>
 
-	        <!-- <li><a href="/game/exams/{{ exam.id }}/qn/{{ qn.0 }}">Question number:{{ qn.0 }}; Full marks: {{ qn.1 }}</a></li> -->
-	        <!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
 	    {% endfor %}
 		</table>
-		<form method="POST" action="{% url 'add_qn_view' exam.id %}">
-			{% csrf_token %}
-			<input class = "wtage" type="text" name="qn_id" id="qn_id_id" placeholder="Question Number" required>
-			<input class = "wtage" type="text" name="tot_marks" id="tot_marks_id" placeholder="Full Marks" required>
-			<button name = "wt_button" type="submit">Create new question</button>
-		</form>
-		<!-- </ul> -->
-		<br>
 		</center>
+	{%else%}
+		<p>No attempts for this exam!</p>
 	{% endif %}
-	{% if attempt_list %}
-		<p>These are the attempts in this exam</p>
-		<ul>
-			{% for attempt in attempt_list %}
 
-				{% if role == 'ta'%}
-					<li><a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}); Graded: {{ attempt.attempt_graded }}</a></li>
-				{% elif role == 'student'%}
-					<li><a href="/game/attempts_stud/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
-				{% else %}
-					<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
-				{% endif %}
-				<!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
-			
-			{% endfor %}
-		</ul>
-	{% endif%}
-	{% if not is_prof %}
-		{% if not attempt_list %}
-		    <p>Nothing interesting to show here.</p>
-		{% endif %}
 	{% endif %}
-	
+
+	{%else%}
+		<p>Not graded yet! If you think this is an issue contact the professor.</p>
+	{%endif%}
 	<div class = "logout">
 		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
 	</div>

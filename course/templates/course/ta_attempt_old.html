@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GaME</title>
+  <title>{% block title %}GaME{% endblock %}</title>
 </head>
 <body>
     <script>
@@ -13,26 +13,31 @@
         document.getElementById("dg").value = "0";
     } {% endcomment %}
     </script>
-  <main>s
-    <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
+  <main>
+    {% block content %}
+    Welcome, {{ user.username }}!
 	{% if attempt.attempt_graded %}
-	    <p>You already given {{ attempt.Marks }} marks in this question</p>
-	{% endif %}
-
+    <p>You already given {{ attempt.Marks }} marks in this question</p>
+    {% endif %}
+    
     {% comment %} {%  block body %} {% endcomment %}
     <form method = 'post' action = "{% url 'ta_marks_update'  attempt.id %}">
         {% csrf_token %}
-         <p> Marks <input type="text" name="marks" id ="mrks"> </p>
+        <p> Marks <input type="text" name="marks" id ="mrks"> </p>
         <input type="hidden" value="0" name="grade_cond" id="dg" >
         <button  type='submit' onclick="set_graded()">Graded</button>
         {% comment %} <button  type='submit' onclick="set_ungraded">UnGraded</button> {% endcomment %}
-
+        
     </form>
+    {% comment %}
+    
+    {% endcomment %}
+    <p>
+        {{ attempt.pdf }}; Page: {{ attempt.page_number }}
+    </p>
 
-    {% comment %} {% endblock %} {% endcomment %}
-	<div class = "logout">
-    <a name = "logout" href="{% url 'logout' %}"> logout! </a>
-  </div>
+	{% endblock %}
+	<a href="{% url 'logout' %}"> logout! </a>
   </main>
 </body>
 </html>
