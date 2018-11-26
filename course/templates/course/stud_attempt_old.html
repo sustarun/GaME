@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GaME{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% block content %}
+    Welcome, {{ user.username }}!
+	{% if attempt.attempt_graded %}
+	    <p>Your marks is {{ attempt.Marks }}
+        in {{attempt.pdf}}
+        </p>
+	{% else %}
+	    <p>
+        {{attempt.pdf}} 
+        Not graded yet</p>
+	{% endif %}
+	{% endblock %}
+	<a href="{% url 'logout' %}"> logout! </a>
+  </main>
+</body>
+</html>
