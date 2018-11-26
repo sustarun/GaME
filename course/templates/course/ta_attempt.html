@@ -3,38 +3,299 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}GaME{% endblock %}</title>
+  {%load static%}
 </head>
 <body>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<!-- {{ungrd_att|json_script:'ungrd_att'}}
+	{{grd_att|json_script:'grd_att'}} -->
+
     <script>
-    function set_graded(){
-        document.getElementById("dg").value = "1";
-    }
-    {% comment %} function set_ungraded(){
-        document.getElementById("dg").value = "0";
-    } {% endcomment %}
+		function escaper(argg){
+			// console.log("arggg" + argg)
+			var ret =  argg.replace(/&(l|g|quo)t;/g, function (a, b) {
+				return {
+					l: '<',
+					g: '>',
+					quo: '"'
+				}[b];
+			});
+			// console.log("rettt" + ret);
+			return ret;
+		}
+		
+		var num_grd = {{ num_grd }};
+		var num_ungrd = {{ num_ungrd }};
+		var index_g = {{ index_g }};
+		var index_ug = {{ index_ug }};
+		var active_list = {{ active }}; // 1 is g
+		var ungrd_attraw = JSON.parse(escaper("{{ungrd_att}}"));
+		var grd_attraw = JSON.parse(escaper("{{grd_att}}"));
+		var stud_names = JSON.parse(escaper("{{sname_list}}"));
+		var ungrd_attv = {};
+		var grd_attv = {};
+		var stud_names_index = {};
+		function filler(context){
+			console.log("in filler $$$$$$$$$$$$$$$$$$$$$$$$")
+			num_grd = context['num_grd'];
+			num_ungrd = context['num_ungrd'];
+			index_g = context['index_g'];
+			index_ug = context['index_ug'];
+			active_list = context['active'];
+			ungrd_attraw = JSON.parse(escaper(context['ungrd_att']));
+			grd_attraw = JSON.parse(escaper(context['grd_att']));
+			stud_names = JSON.parse(escaper(context['sname_list']));
+			console.log('context'+context)
+			console.log("num_grd, num_ungrd, index_g, index_ug", num_grd + ", " + num_ungrd + ", " + index_g + ", " + index_ug)
+			console.log('active_list' + active_list)
+			if (active_list == 1) {
+				document.getElementById('chkbox').checked = true;
+			}
+			else {
+				document.getElementById('chkbox').checked = false;
+			}
+			after_filler();
+		}
+		function after_filler(){
+			var cnt = 0;
+			for (var v in ungrd_attraw) {
+				ungrd_attv[cnt] = ungrd_attraw[v]['fields'];
+				ungrd_attv[cnt]['attempt_id'] = ungrd_attraw[v]['pk'];
+				cnt += 1;
+			}
+			cnt = 0;
+			for (var v in grd_attraw) {
+				grd_attv[cnt] = grd_attraw[v]['fields'];
+				grd_attv[cnt]['attempt_id'] = grd_attraw[v]['pk'];
+				cnt += 1;
+			}
+			for (var x in stud_names) {
+				stud_names_index[stud_names[x][0]] = stud_names[x][1];
+			}
+		}
+		after_filler();
+		console.log('grd_attv:'+grd_attv);
+		console.log('ungrd_attv:'+ungrd_attv);
+		console.log('grd_attraw:' + grd_attraw);
+		console.log('ungrd_attraw:' + ungrd_attraw);
+		$(document).ready(function(){
+			// console.log("value", value)
+			if (active_list == 1){
+				document.getElementById('chkbox').checked = true;
+			}
+			else{
+				document.getElementById('chkbox').checked = false;
+			}
+			
+			$("form").submit(function (e) {
+				e.preventDefault();
+			});
+			corefn();
+		});
+		function grade_toggle(){
+			var chkbox_stat = document.getElementById('chkbox').checked;
+			if (chkbox_stat){
+				// active_list = 1;
+				// corefn();
+			}
+			else{
+				if (num_ungrd > 0){
+					active_list = 0;
+					corefn();
+				}
+				else{
+					document.getElementById('chkbox').checked = 1;
+					active_list = 1;
+				}
+			}
+		}
+		function corefn(){
+			var pdff;
+			var pgno;
+			var stud_id;
+			if (active_list == 1){
+				pdff = grd_attv[index_g]['pdf'];
+				pgno = grd_attv[index_g]['page_number'];
+				stud_id = grd_attv[index_g]['student']
+			}
+			else{
+				pdff = ungrd_attv[index_ug]['pdf'];
+				pgno = ungrd_attv[index_ug]['page_number'];
+				stud_id = ungrd_attv[index_ug]['student']
+			}
+			var chkbox_stat = document.getElementById('chkbox').checked;
+			// console.log('active_list = '+active_list)
+			// console.log('index_g:'+index_g+';\tindex_ug:'+index_ug)
+			// console.log('ungrd_attv[index_ug]'+ ungrd_attv[index_ug])
+			// console.log('grd_attv'+grd_attv)
+			// console.log('ungrd_attv'+ungrd_attv)
+			// console.log('page_no'+pgno)
+			// console.log('pdff'+pdff);
+			// console.log('chkbox_stat = ' + chkbox_stat);
+			// console.log('url = ' + "{% url 'get_my_pdf' %}")
+			$.ajax({
+				url: "{% url 'get_my_pdf' %}",
+				data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
+					"page_number":pgno, 
+					"pdf_path": pdff, 
+					"stud_id": stud_id
+				},
+				type: 'post',
+				dataType: 'json',
+				async: true,
+				success: function (data) {
+					console.log(data)
+					document.getElementById('stud_id_name').innerHTML = "<p>" + stud_names_index[stud_id] + "(" + stud_id + ")</p>";
+					if (active_list == 1){
+						document.getElementById('stud_marks').innerHTML = "<p> Marks obtained = " + grd_attv[index_g]['Marks'] + "</p>";
+					}
+					else{
+						document.getElementById('stud_marks').innerHTML = "<p> Not checked </p>";
+					}
+					document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+					console.log("ajax returned. data = " + data);
+				}
+			});
+		}
+		function fwd(){
+			var chkbox_stat = document.getElementById('chkbox').checked;
+			if (chkbox_stat == 0){
+				index_ug = (index_ug + 1) % num_ungrd;
+				corefn();
+			}
+			else{
+				if (active_list == 0){
+					if (index_ug <= num_ungrd - 1){
+						index_ug = 0;
+						index_g = 0;
+						active_list = 1;
+						if (num_grd == 0){
+							active_list = 0;
+						}
+					}
+					else{
+						index_ug += 1;
+						index_g = 0;
+					}
+				}
+				else{
+					if (index_g <= num_grd - 1){
+						index_ug = 0;
+						index_g = 0;
+						active_list = 0;
+						if (num_ungrd == 0){
+							active_list = 1;
+						}
+					}
+					else{
+						index_g += 1;
+						index_ug = 0;
+					}
+				}
+				corefn();
+			}
+		}
+		function bak(){
+			var chkbox_stat = document.getElementById('chkbox').checked;
+			if (chkbox_stat == 0){
+				index_ug = ((index_ug - 1) % num_ungrd + num_ungrd) % num_ungrd;
+				corefn();
+			}
+			else{
+				if (active_list == 0){
+					if (index_ug <= 0){
+						index_ug = num_ungrd - 1;
+						index_g = num_grd - 1;
+						active_list = 1;
+						if (num_grd == 0){
+							active_list = 0;
+						}
+					}
+					else{
+						index_ug = ((index_ug - 1) % num_ungrd + num_ungrd) % num_ungrd;
+						index_g = 0;
+					}
+				}
+				else{
+					if (index_g <= 0){
+						index_ug = num_ungrd-1;
+						index_g = num_grd - 1;
+						active_list = 0;
+						if (num_ungrd == 0){
+							active_list = 1;
+						}
+					}
+					else{
+						index_g = ((index_g - 1) % num_grd + num_grd) % num_grd;
+						index_ug = num_ungrd-1;
+					}
+				}
+				corefn();
+			}
+		}
+		function chkclk(exam_id){
+            var chkbox_stat = document.getElementById('chkbox').checked;
+		}
+		function submit_marks(){
+			var stud_id;
+			var attempt_idd;
+			if (active_list == 1) {
+				stud_id = grd_attv[index_g]['student'];
+				attempt_idd = grd_attv[index_g]['attempt_id'];
+			}
+			else {
+				stud_id = ungrd_attv[index_ug]['student'];
+				attempt_idd = ungrd_attv[index_ug]['attempt_id'];
+			}
+			$.ajax({
+				url: "{% url 'ta_marks_update' %}",
+				data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
+					"attempt_id": attempt_idd,
+					"send_json": true,
+					'grade_cond': true,
+					"marks": document.getElementById('marks').value
+				},
+				type: 'post',
+				dataType: 'json',
+				async: true,
+				success: function (data) {
+					console.log(data);
+					filler(data);
+					corefn();
+				}
+			});
+		}
+    // function set_graded(){
+    //     document.getElementById("dg").value = "1";
+	// }
     </script>
   <main>
     {% block content %}
-    Welcome, {{ user.username }}!
-	{% if attempt.attempt_graded %}
-	    <p>You already given {{ attempt.Marks }} marks in this question</p>
-	{% endif %}
-
-    {% comment %} {%  block body %} {% endcomment %}
-    <form method = 'post' action = "{% url 'ta_marks_update'  attempt.id %}">
+	Welcome, {{ user.username }}!
+    
+	{% comment %} {%  block body %} {% endcomment %}
+	{% comment %}
+	{% endcomment %}
+	
+    <form >
         {% csrf_token %}
-         <p> Marks <input type="text" name="marks" id ="mrks"> </p>
-        <input type="hidden" value="0" name="grade_cond" id="dg" >
-        <button  type='submit' onclick="set_graded()">Graded</button>
-        {% comment %} <button  type='submit' onclick="set_ungraded">UnGraded</button> {% endcomment %}
-
-    </form>
-
-    {% comment %} {% endblock %} {% endcomment %}
-
-
+		<p>Show Graded
+		<input type="checkbox" id="chkbox" onclick="grade_toggle()"></p>
+		<input type = "text" id="marks" placeholder="Enter marks here">
+		<button  onclick="submit_marks()">Grade</button>
+	</form>
+	<button id="bakbtn" onclick="bak()">Back</button>
+	<button id="fwdbtn" onclick="fwd()">Forward</button>
+	<div id="studinfo">
+		<div id="stud_id_name"></div>
+		<div id="stud_marks"></div>
+	</div>
+	<button id="logoutdiv">
+		<a href="{% url 'logout' %}"> logout! </a>
+	</button>
+	<div id="pdfdiv">
+	</div>
 	{% endblock %}
-	<a href="{% url 'logout' %}"> logout! </a>
   </main>
 </body>
 </html>

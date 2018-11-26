@@ -3,6 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}GaME{% endblock %}</title>
+  <script>
+	  function set_do_grade(qn_id){
+		  document.getElementById("dg"+qn_id).value = "1"
+	  }
+	  function reset_do_grade(qn_id){
+		  document.getElementById("dg"+qn_id).value = "0"
+	  }
+  </script>
 </head>
 <body>
   <main>
@@ -23,26 +31,42 @@
 			<input type="text" name="tot_marks" id="tot_marks_id" , placeholder="Full Marks">
 			<button type="submit">Create new question</button>
 		</form>
-		<p>This exam has the following questions:</p>
-	    <ul>
-		{% for qn in qn_list %}
-	        <li><a href="/game/exams/{{ ex_id }}/qn/{{ qn.0 }}">Question number:{{ qn.0 }}; Full marks: {{ qn.1 }}</a></li>
-	        <!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
-	    {% endfor %}
+	{% endif %}
+	{% if question_list %}
+		{% if role != 'student' %}
+		<p>Click below to grade questions:</p>
+		<ul>
+			{% for qn in question_list %}
+				<li><a href="/game/attempt_list/{{ qn.id }}"> Question number:{{ qn.qn_number }}; Full marks: {{ qn.full_marks }}</a>
+				</li>
+				{% if is_prof %}
+					<form method="POST" action="{% url 'qn_adm_view' qn.id %}">
+						{% csrf_token %}
+						{% if num_graded > 0 %}
+						<p>Some papers have been graded, you are advised not to distribute the papers amongst TAs</p>
+						{% endif %}
+						<input type="hidden" value="0" name="do_grade" id="dg{{qn.id}}">
+						<button type="submit" onclick="set_do_grade('{{qn.id}}')">
+							Distribute among all
+						</button>
+						<button type="submit" onclick="reset_do_grade('{{qn.id}}')">Distribute among TAs</button>
+					</form>
+				{% endif %}
+			{% endfor %}
 		</ul>
-		<br>
+		{% endif %}
 	{% endif %}
 	{% if attempt_list %}
-		<p>These are the attempts in this exam</p>
+		<p>These are your attempts in this exam</p>
 		<ul>
 			{% for attempt in attempt_list %}
 
 				{% if role == 'ta'%}
-					<li><a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}); Graded: {{ attempt.attempt_graded }}</a></li>
+					<li><a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}); Graded: {{ attempt.attempt_graded }}</a></li>
 				{% elif role == 'student'%}
-					<li><a href="/game/attempts_stud/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
+					<li><a href="/game/attempts_stud/{{ attempt.id }}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
 				{% else %}
-					<li><a href="/game/attempts/{{ attempt.id }}">Question {{ attempt.question_qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
+					<li><a href="/game/attempts_ta/{{ attempt.id }}">Question {{ attempt.question.qn_number }} ; Student: {{ attempt.student.id }}({{ attempt.student.username }}) ; Graded: {{ attempt.attempt_graded }}</a></li>
 				{% endif %}
 				<!-- <li><a href="/game/{{ qn.course_id }}/exams">{{ course.course_id }}</a></li> -->
 			

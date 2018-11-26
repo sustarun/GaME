@@ -3,6 +3,26 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}GaME{% endblock %}</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        function chkclk(exam_id){
+            var chkbox_stat = document.getElementById('chkboxx' + exam_id).checked;
+            console.log('chkbox_stat = ' + chkbox_stat);
+            $.ajax({
+                url: "{% url 'tog_ex_vis' %}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
+                    visible:chkbox_stat, 
+                    ex_id: exam_id, 
+                },
+                type: 'post',
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    console.log("ajax returned. data = " + data);
+                }
+            });
+        }
+  </script>
 </head>
 <body>
   <main>
@@ -33,12 +53,21 @@
                     <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
                     <li><a href="/game/qn/{{ exam.id }}/">{{exam.exam_name}}</a>
                         {{exam.weightage}}
-                        {{exam.graded}}
                         {% if instructor %}
                             <form method="POST" action="{% url 'del_exam' exam.id %}">
                                 {% csrf_token %}
                                 <button type="submit" align="right">Delete exam</button>
                             </form>
+                            <form id="chkbox{{ exam.id }}">
+                                {% csrf_token %}
+                                Visible to students
+                                {% if exam.exam_graded is True %}
+                                <input type="checkbox" id="chkboxx{{ exam.id }}" onclick="chkclk({{ exam.id }})" checked>
+                                {% else %}
+                                <input type="checkbox" id="chkboxx{{ exam.id }}" onclick="chkclk({{ exam.id }})">
+                                {% endif %}
+                            </form>
+                            <!-- <input type="hidden" value="{{ exam.id }}" id="examid{{ exam.id }}"> -->
                         {% endif %}
                     </li>
         
