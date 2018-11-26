@@ -11,19 +11,25 @@
 	{{grd_att|json_script:'grd_att'}} -->
 
     <script>
+		var decode = function(str) {
+				return str.replace(/&#(\d+);/g, function (match, dec) {
+					return String.fromCharCode(dec);
+				});
+		}
 		function escaper(argg){
-			// console.log("arggg" + argg)
-			var ret =  argg.replace(/&(l|g|quo)t;/g, function (a, b) {
+			console.log("argg"+argg)
+			var res3 = decode(argg);
+			var ret =  res3.replace(/&(l|g|quo)t;/g, function (a, b) {
 				return {
 					l: '<',
 					g: '>',
 					quo: '"'
 				}[b];
-			});
-			// console.log("rettt" + ret);
+			}).replace(/'/g, '"').replace(/\\/g, '\\\\');
+			console.log("ret" + ret);
 			return ret;
 		}
-		
+		var ajax_ret_val = null;
 		var num_grd = {{ num_grd }};
 		var num_ungrd = {{ num_ungrd }};
 		var index_g = {{ index_g }};
@@ -113,15 +119,18 @@
 			var pdff;
 			var pgno;
 			var stud_id;
+			var num_pg;
 			if (active_list == 1){
 				pdff = grd_attv[index_g]['pdf'];
 				pgno = grd_attv[index_g]['page_number'];
-				stud_id = grd_attv[index_g]['student']
+				stud_id = grd_attv[index_g]['student'];
+				num_pg = grd_attv[index_g]['num_pages'];
 			}
 			else{
 				pdff = ungrd_attv[index_ug]['pdf'];
 				pgno = ungrd_attv[index_ug]['page_number'];
 				stud_id = ungrd_attv[index_ug]['student']
+				num_pg = ungrd_attv[index_ug]['num_pages'];
 			}
 			var chkbox_stat = document.getElementById('chkbox').checked;
 			// console.log('active_list = '+active_list)
@@ -138,12 +147,14 @@
 				data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
 					"page_number":pgno, 
 					"pdf_path": pdff, 
-					"stud_id": stud_id
+					"stud_id": stud_id,
+					"num_pages": num_pg,
 				},
 				type: 'post',
 				dataType: 'json',
 				async: true,
 				success: function (data) {
+					ajax_ret_val = data;
 					console.log(data)
 					document.getElementById('stud_id_name').innerHTML = "<p>" + stud_names_index[stud_id] + "(" + stud_id + ")</p>";
 					if (active_list == 1){
@@ -152,7 +163,12 @@
 					else{
 						document.getElementById('stud_marks').innerHTML = "<p> Not checked </p>";
 					}
-					document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+					if (data['status'] == false) {
+						document.getElementById("pdfdiv").innerHTML = "<p>File hasn't been uploaded yet</p>"
+					}
+					else{
+						document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+					}
 					console.log("ajax returned. data = " + data);
 				}
 			});

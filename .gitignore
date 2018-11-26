@@ -8,3 +8,5 @@ matrix.cpp
 *.exe
 *.pyc
 *login_details.py
+*.zip
+tars

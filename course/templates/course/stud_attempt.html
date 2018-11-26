@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 	<title>{% block title %}GaME{% endblock %}</title>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-
 	<script>
 		var decode = function(str) {
 				return str.replace(/&#(\d+);/g, function (match, dec) {
@@ -44,6 +43,7 @@
 		function corefn(){
 			var pdff = attempts[index]['pdf'];
 			var pgno = attempts[index]['page_number'];
+			var num_pg = attempts[index]['num_pages'];
 			var stud_id = attempts[index]['student'];
 			var is_graded = attempts[index]['attempt_graded'];
 			if (num_attempts > 0){
@@ -52,7 +52,8 @@
 					data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
 						"page_number":pgno, 
 						"pdf_path": pdff, 
-						"stud_id": stud_id
+						"stud_id": stud_id,
+						"num_pages": num_pg,
 					},
 					type: 'post',
 					dataType: 'json',
@@ -67,7 +68,12 @@
 							strr = strr + "\n<p>Not graded</p>";
 						}
 						document.getElementById('stud_marks').innerHTML =strr;
-						document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+						if (data['status'] != false) {
+							document.getElementById("pdfdiv").innerHTML = "<p>File hasn't been uploaded yet</p>"
+						}
+						else {
+							document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url'] + "\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+						}
 						console.log("ajax returned. data = " + data);
 					}
 				});

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.http import JsonResponse
@@ -12,6 +12,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 import PyPDF2
 import os
+from django.conf import settings
+import sys
+from django.core.files.storage import FileSystemStorage
+if sys.version_info >= (3, 6):
+    import zipfile
+else:
+    import zipfile36 as zipfile
 
 def course_list(request):
 	if not request.user.is_authenticated:
@@ -57,7 +64,8 @@ def add_exam_view(request, course_instance_id):
 	# request has exam_name and weightage
 	newexam = Exam(instance=course_inst, exam_name=request.POST['ex_name'], weightage=request.POST['ex_wt'])
 	newexam.save()
-	return exams(request, course_inst.id)
+	return redirect('exam_list', course_instance_id=course_inst.id)
+	# return exams(request, course_inst.id)
 
 def toggle_exam_visibility(request):
 	# print("in toggle ")
@@ -160,18 +168,6 @@ def question_list(request, ex_id):
 				return render(request, 'course/qn_list.html', {'ex_wt':exam_weight})
 			return stud_qnlist(request, user_id, ex_id)
 
-def prof_exam_admin(request, ex_id, qn_num):
-	# wanna grade? html
-	# checkbox for graded 
-	# box to show how many graded
-	# button for distribute
-	print("prof_exam_admin:qn_num", qn_num, "ex_id", ex_id)
-	attempts = Attempt.objects.filter(question__exam_id=ex_id, question__qn_number=qn_num)
-	num_graded = attempts.filter(attempt_graded=True).count()
-	num_attempts = attempts.count()
-	context = {'attemps':attempts, 'num_graded':num_graded, 'num_attempts':num_attempts, 'ex_id':ex_id, 'qn_id':qn_num}
-	return render(request, 'course/qn_adm.html', context)
-
 def qn_adm_view(request, qn_id):
 	print("in qn_adm_view")
 	if not request.user.is_authenticated:
@@ -264,11 +260,16 @@ def get_my_pdf(request):#, page_number, pdf_path, num_of_page=1):
 		return HttpResponseRedirect('/accounts/login')
 	user_id = request.POST['stud_id']
 	# print('#'*40)
-	page_number = request.POST['page_number']
+	page_number = int(request.POST['page_number'])
 	pdf_path = request.POST['pdf_path']
+	pdf_path = os.path.join(settings.BASE_DIR, pdf_path)
+	print("pdf_path", pdf_path)
+	if not os.path.isfile(pdf_path):
+		print("not found")
+		return JsonResponse({'status':False})
 	# print("page_number:", page_number, "pdf_path", pdf_path)
-	num_of_page = 1
-	page_number, pdf_path = 0, 'pdfs/2.pdf'
+	num_of_page = int(request.POST['num_pages'])
+	# page_number, pdf_path = 0, 'pdfs/2.pdf'
 	# print("current wrkng dir", os.getcwd())
 	outfile_path = str(user_id) + "temp.pdf"
 	with open(pdf_path, 'rb') as pdf:
@@ -285,7 +286,7 @@ def get_my_pdf(request):#, page_number, pdf_path, num_of_page=1):
 			writer.write(outfile)
 	pdf.closed
 	# context = {'url':outfile_path}
-	return JsonResponse({'url': outfile_path})
+	return JsonResponse({'url': outfile_path, 'status':True})
 # def attempt_desc(request, qn_id):
 # 	if not request.user.is_authenticated:
 # 		return HttpResponseRedirect('/accounts/login')
@@ -329,7 +330,7 @@ def del_exam(request, ex_id):
 	exam = Exam.objects.get(pk=ex_id)
 	course_instance_id = exam.instance_id
 	exam.delete()
-	return exams(request, course_instance_id)
+	return redirect('exam_list', course_instance_id=course_instance_id)
 
 def del_question(request, qn_id):
 	# TODO: add it to url, reload at client side
@@ -338,3 +339,57 @@ def del_question(request, qn_id):
 	question = Question.objects.get(pk=qn_id)
 	question.delete()
 	return JsonResponse({'status':True})
+
+def upload_file(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	# print("upload_file"+'#'*20)
+	# print("request.POST:", request.POST)
+	# print("request.FILES:", request.FILES)
+	# print("request.POST['ex_id']", request.POST['ex_id'])
+	if not request.POST['ex_id']:
+		return JsonResponse({'status': False})
+	ex_id = request.POST['ex_id']
+	print("ex_id", ex_id)
+	if request.method == 'POST' and request.FILES['myfile']:
+		myfile = request.FILES['myfile']
+		newtardir = os.path.join('tars', str(ex_id))
+		newpdfdir = os.path.join('pdfs', str(ex_id))
+		os.makedirs(newtardir, exist_ok=True)
+		os.makedirs(newpdfdir, exist_ok=True)
+		fs = FileSystemStorage(location=newtardir)
+		# print("here$$$$$$$$$")
+		# print("filename = ", myfile.name)
+		fn = os.path.join(newtardir, myfile.name)
+		print("fn", fn)
+		filename = fs.save(myfile.name, myfile)
+		with zipfile.ZipFile(fn, 'r') as z:
+			z.extractall(newpdfdir)
+		os.remove(fn)
+		filenames = sorted(os.listdir(newpdfdir))
+    	# filenames = [os.path.join(newpdfdir, filename) for filename in filenames]
+
+		for file in filenames:
+			name = file[:-4]
+			attempts = Attempt.objects.filter(student_id = name, question__exam_id = ex_id).order_by('question_id')
+			count = 1
+			for attempt in attempts:
+				attempt.pdf = os.path.join(newpdfdir, file)
+				# print("path: " attempt.pdf_path)
+				attempt.page_number = count
+				attempt.save()
+				count += 1
+			
+		# uploaded_file_url = fs.url(filename)
+		return JsonResponse({'status':True})
+	return JsonResponse({'status': False})
+
+# def upload_file(request):
+# 	if request.method == 'POST':
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             handle_uploaded_file(request.FILES['file'])
+#             return JsonResponse({'status': True})
+#     else:
+#         form = UploadFileForm()
+#     return render(request, 'upload.html', {'form': form})

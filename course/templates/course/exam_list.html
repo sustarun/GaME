@@ -5,14 +5,56 @@
   <title>{% block title %}GaME{% endblock %}</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
+        var ajax_data = null;
+        var globfd = 1;
+        var globfo = 0;
         function chkclk(exam_id){
             var chkbox_stat = document.getElementById('chkboxx' + exam_id).checked;
             console.log('chkbox_stat = ' + chkbox_stat);
             $.ajax({
                 url: "{% url 'tog_ex_vis' %}",
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
-                    visible:chkbox_stat, 
-                    ex_id: exam_id, 
+                    'visible':chkbox_stat, 
+                    'ex_id': exam_id, 
+                },
+                type: 'post',
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    ajax_data = data;
+                    console.log("ajax returned. data = " + data);
+                }
+            });
+        }
+        function upload_file(ex_id) {
+            // var fd = $(this);
+            var fo = document.getElementById("form" + ex_id);
+            var fd = new FormData(fo);
+            globfo = fo;
+            globfd = fd;
+            // fd.append(csrfmiddlewaretoken: "{{ csrf_token }}");
+            // fd = JSON.stringify(fd);
+            fd.append('ex_id', ex_id);
+            $.ajax({
+                url: "{% url 'upload_file' %}",
+                type: 'POST',
+                data: fd,
+                success: function (data) {
+                    console.log("ajax returned. data = " + data);
+                },
+                error: function(data){
+                    console.log("in error:")
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+            {%comment%}
+            $.ajax({
+                url: "{% url 'upload_file' %}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}',
+                    'myfile': document.getElementById("file"+ex_id),
+                    'ex_id': ex_id, 
                 },
                 type: 'post',
                 dataType: 'json',
@@ -21,6 +63,7 @@
                     console.log("ajax returned. data = " + data);
                 }
             });
+            {%endcomment%}
         }
   </script>
 </head>
@@ -51,8 +94,12 @@
         <ul>
                 {% for exam in exams %}
                     <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+                    {% if not student or exam.exam_graded %}
                     <li><a href="/game/qn/{{ exam.id }}/">{{exam.exam_name}}</a>
                         {{exam.weightage}}
+                    {% endif %}
+
+                        
                         {% if instructor %}
                             <form method="POST" action="{% url 'del_exam' exam.id %}">
                                 {% csrf_token %}
@@ -68,6 +115,17 @@
                                 {% endif %}
                             </form>
                             <!-- <input type="hidden" value="{{ exam.id }}" id="examid{{ exam.id }}"> -->
+                        {% endif %}
+                        {% if not student %}
+                            
+                            {% comment %}
+                            {% endcomment %}
+                                
+                            <form method="POST" id="form{{ exam.id }}" name="formnaam" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="file" name="myfile" id="file{{ exam.id }}">
+                            </form>
+                            <button name="fubtn" onclick="upload_file({{ exam.id }})">Upload</button>
                         {% endif %}
                     </li>
         

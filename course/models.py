@@ -96,6 +96,7 @@ class Attempt(models.Model):
 	# full_marks = models.DecimalField(max_digits=5,decimal_places=1)
 	pdf = models.CharField(max_length=256)
 	page_number = models.IntegerField()
+	num_pages = models.IntegerField(default=1)
 	attempt_graded = models.BooleanField(default=False)
 	def __str__(self):
 		qn = self.question
