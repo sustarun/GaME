@@ -4,28 +4,27 @@
   <meta charset="utf-8">
   <title>{% block title %}GaME{% endblock %}</title>
   {%load static%}
-</head>
-<body>
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-    <script>
-		document.onkeydown = checkKey;
-		function checkKey(e) {
-			e = e || window.event;
-			if (e.keyCode == '37') {
-				// left arrow
-				bak();
-			}
-			else if (e.keyCode == '39') {
-				// right arrow
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
+<script>
+	document.onkeydown = checkKey;
+	function checkKey(e) {
+		e = e || window.event;
+		if (e.keyCode == '37') {
+			// left arrow
+			bak();
+		}
+		else if (e.keyCode == '39') {
+			// right arrow
 				fwd();
 			}
 		}
 		var decode = function(str) {
-				return str.replace(/&#(\d+);/g, function (match, dec) {
+			return str.replace(/&#(\d+);/g, function (match, dec) {
 					return String.fromCharCode(dec);
 				});
-		}
-		function escaper(argg){
+			}
+			function escaper(argg){
 			// console.log("argg"+argg)
 			var res3 = decode(argg);
 			var ret =  res3.replace(/&(l|g|quo)t;/g, function (a, b) {
@@ -154,31 +153,31 @@
 			$.ajax({
 				url: "{% url 'get_my_pdf' %}",
 				data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
-					"page_number":pgno, 
-					"pdf_path": pdff, 
-					"stud_id": stud_id,
-					"num_pages": num_pg,
-				},
-				type: 'post',
-				dataType: 'json',
-				async: true,
-				success: function (data) {
-					ajax_ret_val = data;
-					console.log(data)
-					document.getElementById('stud_id_name').innerHTML = "<p>" + stud_names_index[stud_id] + "(" + stud_id + ")</p>";
-					if (active_list == 1){
-						document.getElementById('stud_marks').innerHTML = "<p> Marks obtained = " + grd_attv[index_g]['Marks'] + "</p>";
-					}
-					else{
-						document.getElementById('stud_marks').innerHTML = "<p> Not checked </p>";
-					}
-					if (data['status'] == false) {
-						document.getElementById("pdfdiv").innerHTML = "<p>File hasn't been uploaded yet</p>"
-					}
-					else{
-						document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
-					}
-					console.log("ajax returned. data = " + data);
+				"page_number":pgno, 
+				"pdf_path": pdff, 
+				"stud_id": stud_id,
+				"num_pages": num_pg,
+			},
+			type: 'post',
+			dataType: 'json',
+			async: true,
+			success: function (data) {
+				ajax_ret_val = data;
+				console.log(data)
+				document.getElementById('stud_id_name').innerHTML = "<p>" + stud_names_index[stud_id] + "(" + stud_id + ")</p>";
+				if (active_list == 1){
+					document.getElementById('stud_marks').innerHTML = "<p> Marks obtained = " + grd_attv[index_g]['Marks'] + "</p>";
+				}
+				else{
+					document.getElementById('stud_marks').innerHTML = "<p> Not checked </p>";
+				}
+				if (data['status'] == false) {
+					document.getElementById("pdfdiv").innerHTML = "<p>File hasn't been uploaded yet</p>"
+				}
+				else{
+					document.getElementById("pdfdiv").innerHTML = "<embed style=\"align-self: middle; margin-left:5%;margin-right:5 \" src=\"/static/" + data['url']+"\" type=\"application/pdf\" height=\"500px\" width=\"90%\" />";
+				}
+				console.log("ajax returned. data = " + data);
 				}
 			});
 		}
@@ -259,7 +258,7 @@
 			}
 		}
 		function chkclk(exam_id){
-            var chkbox_stat = document.getElementById('chkbox').checked;
+			var chkbox_stat = document.getElementById('chkbox').checked;
 		}
 		function submit_marks(){
 			var stud_id;
@@ -275,49 +274,54 @@
 			$.ajax({
 				url: "{% url 'ta_marks_update' %}",
 				data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
-					"attempt_id": attempt_idd,
-					"send_json": true,
-					'grade_cond': true,
-					"marks": document.getElementById('marks').value
-				},
-				type: 'post',
-				dataType: 'json',
-				async: true,
-				success: function (data) {
-					console.log(data);
-					filler(data);
-					corefn();
-				}
-			});
-		}
+				"attempt_id": attempt_idd,
+				"send_json": true,
+				'grade_cond': true,
+				"marks": document.getElementById('marks').value
+			},
+			type: 'post',
+			dataType: 'json',
+			async: true,
+			success: function (data) {
+				console.log(data);
+				filler(data);
+				corefn();
+			}
+		});
+	}
     // function set_graded(){
-    //     document.getElementById("dg").value = "1";
-	// }
-    </script>
-<main>
+		//     document.getElementById("dg").value = "1";
+		// }
+		</script>
+</head>
+
+<body>
+	<ul class="navbr">
+		<li class="navli"><a href="{% url 'course_list' %}">Home</a></li>
+		<li class="navli"><a href="{% url 'attempt_list' qn_id %}">Back</a></li>
+		<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
+	</ul>
+	<main>
 	{% block content %}
 	Welcome, {{ user.username }}!
-
+	
 	{% comment %} {% block body %} {% endcomment %}
 	{% comment %}
 	{% endcomment %}
-
+	
 	<form>
 		{% csrf_token %}
 		<p>Show Graded
 			<input type="checkbox" id="chkbox" onclick="grade_toggle()"></p>
-		<input type="text" id="marks" placeholder="Enter marks here">
-		<button onclick="submit_marks()">Grade</button>
-	</form>
-	<button id="bakbtn" onclick="bak()">Back</button>
-	<button id="fwdbtn" onclick="fwd()">Forward</button>
-	<div id="studinfo">
-		<div id="stud_id_name"></div>
+			<input type="text" id="marks" placeholder="Enter marks here">
+			<button onclick="submit_marks()">Grade</button>
+		</form>
+		<button id="bakbtn" onclick="bak()">Back</button>
+		<button id="fwdbtn" onclick="fwd()">Forward</button>
+		<div id="studinfo">
+			<div id="stud_id_name"></div>
 		<div id="stud_marks"></div>
 	</div>
-	<button id="logoutdiv" class="logout">
-		<a href="{% url 'logout' %}"> logout! </a>
-	</button>
 	<div id="pdfdiv">
 	</div>
 	{% endblock %}

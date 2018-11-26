@@ -8,7 +8,9 @@
 </head>
 <body>
   <main>
-    
+	<ul class="navbr">
+		<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
+	</ul>
     <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
 	{% if course_list %}
 	    <!-- <ul> -->
@@ -39,9 +41,6 @@
 	{% else %}
 	    <p>No courses are available.</p>
 	{% endif %}
-	<div class = "logout">
-		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
-	</div>
   </main>
 </body>
 </html>

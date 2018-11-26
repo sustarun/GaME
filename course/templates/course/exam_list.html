@@ -68,6 +68,11 @@
 </head>
 <body>
   <main>
+        <ul class="navbr">
+            <li class="navli"><a href="{% url 'course_list' %}">Home</a></li>
+            <li class="navli"><a href="{% url 'course_list' %}">Back</a></li>
+            <li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
       <div id="alertmsg"></div>
     
     <p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
@@ -175,9 +180,6 @@
         </form>
     </center>
     {% endif%}
-	<div class = "logout">
-        <a name = "logout" href="{% url 'logout' %}"> logout! </a>
-    </div>
   </main>
 </body>
 </html>

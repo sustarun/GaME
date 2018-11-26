@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %}GaME{% endblock %}</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	<script>
 		document.onkeydown = checkKey;
@@ -115,6 +117,11 @@
 	</script>
 </head>
 <body>
+	<ul class="navbr">
+		<li class="navli"><a href="{% url 'course_list' %}">Home</a></li>
+		<li class="navli"><a href="{% url 'qn_list' ex_id %}">Back</a></li>
+		<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
+	</ul>
 	<main>
 	{% block content %}
 	{% endblock %}
@@ -126,9 +133,6 @@
 		<div id="stud_id_name">Welcome, {{ user.username }}!</div>
 		<div id="stud_marks"></div>
 	</div>
-	<button id="logoutdiv">
-		<a href="{% url 'logout' %}"> logout! </a>
-	</button>
 	<div id="pdfdiv">
 	</div>
 	</main>

@@ -88,12 +88,15 @@ def attempt_list(request, qn_id):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
 	attempts = Attempt.objects.filter(question_id=qn_id, assistant_id=request.user.id)
-	context = {'attempt_list': attempts}
+	ex_id = attempts.first().question.exam_id
+	context = {'attempt_list': attempts, 'ex_id':ex_id}
+	# print("qn_id:", qn_id)
 	# print(attempts)
 	return render(request, 'course/attempt_list.html', context)
 
 def ta_qnlist(request, user_id, ex_id):
 	ex_obj = Exam.objects.get(pk=ex_id)
+	ciid = ex_obj.instance_id
 	# course = ex_obj.instance
 	# exam_name = 
 	print("ex_id = ", ex_id, "user_id = ", user_id)
@@ -109,13 +112,14 @@ def ta_qnlist(request, user_id, ex_id):
 	# print("num_ques" = num_ques)
 	print(attempts)
 	# context = {'attempt_list': attempts}
-	context = {'question_list':qn_list,'role':'ta', 'exam':ex_obj,'num_ques':num_ques, 'tot_marks':tot_marks}
+	context = {'question_list':qn_list,'role':'ta', 'exam':ex_obj,'num_ques':num_ques, 'tot_marks':tot_marks, 'ciid':ciid}
 	# print("attempts:", attempts)
 
 	return render(request, 'course/qn_list.html', context)
 
 def prof_qnlist(request, user_id, ex_id):
 	ex_obj = Exam.objects.get(pk=ex_id)
+	ciid = ex_obj.instance_id
 	# course = ex_obj.instance
 	# exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
 	attempts = Attempt.objects.filter(question__exam_id=ex_id, assistant_id=user_id)
@@ -127,7 +131,7 @@ def prof_qnlist(request, user_id, ex_id):
 	print("num_ques = ", num_ques, " tot_marks = ", tot_marks)
 	num_graded = attempts.filter(attempt_graded=True).count()
 	# qns = Attempt.objects.values_list('qn_id', flat=True).filter(exam_id=ex_id).distinct()
-	context = {'question_list':qn_list,'num_graded':num_graded, 'role':'prof', 'exam':ex_obj, 'num_ques':num_ques, 'tot_marks':tot_marks}
+	context = {'question_list':qn_list,'num_graded':num_graded, 'role':'prof', 'exam':ex_obj, 'num_ques':num_ques, 'tot_marks':tot_marks, 'ciid':ciid}
 	print("attempts:", attempts)
 	# print("exam_weight", exam_weight, "is_prof", context["is_prof"])
 	return render(request, 'course/qn_list.html', context)
@@ -152,6 +156,7 @@ def add_qn_view(request, ex_id):
 
 def stud_qnlist(request, user_id, ex_id):
 	ex_obj = Exam.objects.get(pk=ex_id)
+	ciid = ex_obj.instance_id
 	# course = ex_obj.instance
 	print("ex_id = ", ex_id, "user_id = ", user_id)
 	# exam_weight = Exam.objects.values_list('weightage', flat=True).get(pk=ex_id)
@@ -164,7 +169,7 @@ def stud_qnlist(request, user_id, ex_id):
 	print("num_ques = ", num_ques, " tot_marks = ", tot_marks)
 	# print(attempts)
 	# context = {'attempt_list': attempts}
-	context = {'attempt_list': attempts,'role':'student', 'exam':ex_obj, 'num_ques':num_ques, 'tot_marks':tot_marks}
+	context = {'attempt_list': attempts,'role':'student', 'exam':ex_obj, 'num_ques':num_ques, 'tot_marks':tot_marks, 'ciid':ciid}
 
 	return render(request, 'course/qn_list.html', context)
 
@@ -232,6 +237,7 @@ def stud_attempt(request, attempt_id):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
 	attempt = Attempt.objects.get(pk=attempt_id)
+	ex_id = attempt.question.exam_id
 	user_id = request.session['user_id']
 	attempts = Attempt.objects.filter(question__exam=attempt.question.exam, student_id=user_id).order_by('question')
 	num_attempts = attempts.count()
@@ -239,8 +245,8 @@ def stud_attempt(request, attempt_id):
 	qn_nos_list = [[v["question_id"], v["question__qn_number"]] for v in question_nos]
 	print('attempts:', attempts)
 	index = attempts.filter(question__lt=attempt.question).count()
-	context = {'index': index, 'num_attempts':num_attempts, 'attempts':attempts, 'qn_nos_list':qn_nos_list}
-	no_json_list = ['index', 'num_attempts', 'qn_nos_list']#['attempt', 'num_ungrd', 'num_grd', 'index_g', 'index_ug', 'active', 'sname_list']
+	context = {'index': index, 'num_attempts':num_attempts, 'attempts':attempts, 'qn_nos_list':qn_nos_list, 'ex_id':ex_id}
+	no_json_list = ['index', 'num_attempts', 'qn_nos_list', 'ex_id']#['attempt', 'num_ungrd', 'num_grd', 'index_g', 'index_ug', 'active', 'sname_list']
 	for key in context.keys():
 		if (key in no_json_list):
 			continue
@@ -278,8 +284,8 @@ def ta_attempt(request, attempt_id):
 		active=0
 	context = {"grd_att": graded_attempts, "ungrd_att": ungraded_attempts,
 	"num_grd":num_graded, "num_ungrd":num_ungraded, "index_g":index_g,
-	"index_ug":index_ug, 'active':active, 'sname_list':json.dumps(sname_list)}
-	no_json_list = ['attempt', 'num_ungrd', 'num_grd', 'index_g', 'index_ug', 'active', 'sname_list']
+	"index_ug":index_ug, 'active':active, 'sname_list':json.dumps(sname_list), 'qn_id':question.id}
+	no_json_list = ['attempt', 'num_ungrd', 'num_grd', 'index_g', 'index_ug', 'active', 'sname_list', 'qn_id']
 	for key in context.keys():
 		if (key in no_json_list):
 			continue

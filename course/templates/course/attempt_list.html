@@ -2,10 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}GaME{% endblock %}</title>
+	<title>{% block title %}GaME{% endblock %}</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'course/style.css' %}">
 </head>
 <body>
   <main>
+		<ul class="navbr">
+			<li class="navli"><a href="{% url 'course_list' %}">Home</a></li>
+			<li class="navli"><a href="{% url 'qn_list' ex_id %}">Back</a></li>
+			<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
+		</ul>
     {% block content %}
 	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
 	{% if attempt_list %}
@@ -25,9 +32,6 @@
 		{% endif %}
 	{% endif %}
 	{% endblock %}
-	<div class = "logout">
-		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
-	</div>
   </main>
 </body>
 </html>

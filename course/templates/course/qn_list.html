@@ -15,6 +15,11 @@
   </script>
 </head>
 <body>
+	<ul class="navbr">
+		<li class="navli"><a href="{% url 'course_list' %}">Home</a></li>
+		<li class="navli"><a href="{% url 'exam_list' ciid %}">Back</a></li>
+		<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
+	</ul>
   <main>
     {% if role %}
 	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
@@ -180,9 +185,6 @@
 	{%else%}
 		<p>Not graded yet! If you think this is an issue contact the professor.</p>
 	{%endif%}
-	<div class = "logout">
-		<a name = "logout" href="{% url 'logout' %}"> logout! </a>
-	</div>
   </main>
 </body>
 </html>
