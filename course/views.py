@@ -246,7 +246,8 @@ def question_list(request, ex_id):
 			return prof_qnlist(request, user_id, ex_id)
 		else:
 			if not exam_graded:
-				return render(request, 'course/qn_list.html', {})
+				context = {'ciid':instance_idd}
+				return render(request, 'course/qn_list.html', context)
 			return stud_qnlist(request, user_id, ex_id)
 
 def stud_attempt(request, attempt_id):

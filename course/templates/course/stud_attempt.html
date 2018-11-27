@@ -143,7 +143,11 @@
 		function send_msg(){
 	      // var stud_id;
 	      // var attempt_idd;
-          var attempt_idd = attempts[index]['attempt_id'];
+		  var attempt_idd = attempts[index]['attempt_id'];
+		  var msg = document.getElementById('msg').value.trim();
+		  if (msg == ""){
+			  return false;
+		  }
 	      // if (active_list == 1) {
 	      //   // stud_id = grd_attv[index_g]['student'];
 	      // }
@@ -197,6 +201,7 @@
 		<li class="navli"><a href="{% url 'qn_list' ex_id %}">Back</a></li>
 		<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
 	</ul>
+		<br><br>
 	<main>
 	{% block content %}
 	{% endblock %}
@@ -213,7 +218,7 @@
 	<div id="comments">
 	</div>
 		<textarea id="msg" name="msg" rows="4" cols="40"></textarea>
-  	<button name="gen_button" onclick="send_msg()">Add Comment/Reply</button>
+  	<button name="gen_button" onclick="send_msg()">Add Reply</button>
 	</main>
 </body>
 </html>

@@ -13,6 +13,7 @@
 			<li class="navli"><a href="{% url 'qn_list' ex_id %}">Back</a></li>
 			<li class="navli"><a href="{% url 'logout' %}">Logout</a></li>
 		</ul>
+		<br><br>
     {% block content %}
 	<p name = "username" >Welcome, <font class = "username">{{ user.username }}</font></p>
 	{% if attempt_list %}
