@@ -53,8 +53,53 @@
 			attempts[cnt]['attempt_id'] = attempts_raw[v]['pk'];
 			cnt += 1;
 		}
+		var fetch_msgs = function(){
+			var attempt_id = attempts[index]['attempt_id'];
+			// var assistant_id = grd_attv[index_g]['assistant'];
+			// var student_id = grd_attv[index_g]['student'];
+			$.ajax({
+                url: "{% url 'get_msgs' %}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}',
+                    'attempt_id': attempt_id, 
+                },
+                type: 'post',
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    ajax_data = data;
+                    msgs_raw = JSON.parse(escaper(data['msgs']));
+                    // stud_raw = JSON.parse(escaper(data['student']));
+                    var cnt = 0;
+                    msgs_val = {};
+                    for (var v in msgs_raw) {
+                    	msgs_val[cnt] = msgs_raw[v]['fields'];
+                    	cnt += 1;
+                    }
+                    num_msgs = cnt;
+                    console.log('num_msgs = '+num_msgs)
+                    // stud_val = {};
+                    // cnt = 0;
+                    	// stud_val = stud_raw['fields'];
+                    // for (var v in stud_raw) {
+                    // 	cnt += 1;
+                    // }
+                    document.getElementById('comments').innerHTML = "";
+					for(v in msgs_val){
+						if(msgs_val[v]['sender'] == {{user.id}}){
+							document.getElementById('comments').innerHTML += "<p>" + msgs_val[v]['message']+":You</p>";
+						}
+						else{
+							document.getElementById('comments').innerHTML += "<p>TA"+":" + msgs_val[v]['message']+"</p>";
+						}
+						
+					}
+                    console.log("ajax returned. data = " + data);
+                }
+            });
+		}
 		console.log('attempts_raw' + attempts_raw)
 		console.log('attempts' + attempts)
+		var intervalID = setInterval(fetch_msgs, 1000);
 		function corefn(){
 			var pdff = attempts[index]['pdf'];
 			var pgno = attempts[index]['page_number'];
@@ -76,6 +121,7 @@
 					success: function (data) {
 						console.log("datttaaa" + data);
 						var strr = "Question number: " + qn_nos_index[attempts[index]['question']];
+						fetch_msgs();
 						if (is_graded){
 							strr = strr + "\n<p> Marks obtained = " + attempts[index]['Marks'] + "</p>";
 						}
@@ -94,6 +140,35 @@
 				});
 			}
 		}
+		function send_msg(){
+	      // var stud_id;
+	      // var attempt_idd;
+          var attempt_idd = attempts[index]['attempt_id'];
+	      // if (active_list == 1) {
+	      //   // stud_id = grd_attv[index_g]['student'];
+	      // }
+	      // else {
+	      //   stud_id = ungrd_attv[index_ug]['student'];
+	      //   attempt_idd = ungrd_attv[index_ug]['attempt_id'];
+	      // }
+	      $.ajax({
+	        url: "{% url 'send_msg2' %}",
+	        data: { csrfmiddlewaretoken: '{{ csrf_token }}', 
+	          "attempt_id": attempt_idd,
+	          "send_json": true,
+	          'grade_cond': true,
+	          "msg": document.getElementById('msg').value
+	        },
+	        type: 'post',
+	        dataType: 'json',
+	        async: true,
+	        success: function (data) {
+	          console.log(data);
+	          // filler(data);
+	          corefn();
+	        }
+	      });
+    	}
 		function fwd(){
 			if (num_attempts <= 0){
 				return;
@@ -135,6 +210,10 @@
 	</div>
 	<div id="pdfdiv">
 	</div>
+	<div id="comments">
+	</div>
+		<textarea id="msg" name="msg" rows="4" cols="40"></textarea>
+  	<button name="gen_button" onclick="send_msg()">Add Comment/Reply</button>
 	</main>
 </body>
 </html>

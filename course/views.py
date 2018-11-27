@@ -311,6 +311,26 @@ def ta_attempt(request, attempt_id):
 		return render(request, 'course/ta_attempt.html', context)
 	return JsonResponse(context)
 
+def get_msgs(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	attempt_id = request.POST['attempt_id']
+	attempt = Attempt.objects.get(pk = attempt_id)
+	msgs = Post.objects.filter(thread_id = attempt_id).order_by('timestamp')
+	# sender_ids = msgs.values('sender_id')
+	# senders = User.objects.values_list('pk', 'username').filter(id__in= sender_ids)
+	# senders = User.objects.filter(id__in= sender_ids)
+	print(msgs)
+	# print(senders)
+	context = {'msgs':msgs}
+	no_json_list = []
+	for key in context.keys():
+		if (key in no_json_list):
+			continue
+		context[key] = serializers.serialize('json', context[key])#, fields=('id', 'student_id', 'student__username', 'attempt_graded', 'pdf', 'page_number'))
+		print('context[',key,']=', context[key])
+	return JsonResponse(context)
+
 def get_my_pdf(request):#, page_number, pdf_path, num_of_page=1):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect('/accounts/login')
@@ -516,6 +536,7 @@ def qn_adm_view_helper(request):
 		cnt = (cnt + 1) % num_tas
 		attempt.save()
 	return question_list(request, ex_id)
+
 def create_excel_sheet(request,ex_id):
 	attempts = Attempt.objects.filter(question__exam_id = ex_id).order_by('student')
 	response = HttpResponse(content_type='text/csv')
@@ -525,5 +546,29 @@ def create_excel_sheet(request,ex_id):
 		row = attempt.student + ", "+ attempt.question + ", "+ attempt.Marks
 		writer.writerow(row)
 	return response
+
+def send_msg(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	msg = request.POST['msg']
+	attempt_id = request.POST['attempt_id']
+	attempt = Attempt.objects.get(pk=attempt_id)
+	newPost = Post(thread=attempt, sender_id = user_id, message = msg)
+	newPost.save()
+	return ta_attempt(request, attempt_id)
+	return JsonResponse({'status':True})
+
+def send_msg2(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login')
+	user_id = request.session['user_id']
+	msg = request.POST['msg']
+	attempt_id = request.POST['attempt_id']
+	attempt = Attempt.objects.get(pk=attempt_id)
+	newPost = Post(thread=attempt, sender_id = user_id, message = msg)
+	newPost.save()
+	return stud_attempt(request, attempt_id)
+	return JsonResponse({'status':True})
 
 

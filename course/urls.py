@@ -21,11 +21,8 @@ urlpatterns = [
     path('del_exam/<int:ex_id>/', views.del_exam, name='del_exam'),
     path('toggle_exam_visibility', views.toggle_exam_visibility, name='tog_ex_vis'),
     path('get_my_pdf', views.get_my_pdf, name='get_my_pdf'),
-    path('upload_file', views.upload_file, name="upload_file")
-    # ex: /polls/5/
-    # path('<string:course_id>/', views.course_detail, name='course_detail'),
-    # ex: /polls/5/results/
-    # path('<int:question_id>/results/', views.results, name='results'),
-    # # ex: /polls/5/vote/
-    # path('<int:question_id>/vote/', views.vote, name='vote'),
+    path('upload_file', views.upload_file, name="upload_file"),
+    path('get_msgs', views.get_msgs, name='get_msgs'),
+    path('send_msg', views.send_msg, name='send_msg'),
+    path('send_msg2', views.send_msg2, name='send_msg2'),
 ]
